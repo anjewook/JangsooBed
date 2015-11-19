@@ -1,0 +1,8 @@
+D:\99_MyProject\BootStrapTest\ArchFx\bin\Debug\ArchFx.dll
+D:\99_MyProject\BootStrapTest\ArchFx\bin\Debug\ArchFx.pdb
+D:\99_MyProject\BootStrapTest\ArchFx\bin\Debug\ClosedXML.dll
+D:\99_MyProject\BootStrapTest\ArchFx\bin\Debug\DocumentFormat.OpenXml.dll
+D:\99_MyProject\BootStrapTest\ArchFx\bin\Debug\ClosedXML.xml
+D:\99_MyProject\BootStrapTest\ArchFx\obj\Debug\ArchFx.csprojResolveAssemblyReference.cache
+D:\99_MyProject\BootStrapTest\ArchFx\obj\Debug\ArchFx.dll
+D:\99_MyProject\BootStrapTest\ArchFx\obj\Debug\ArchFx.pdb

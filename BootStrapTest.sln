@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootStrapTest", "BootStrapTest\BootStrapTest.csproj", "{3F2C61CD-F971-44A2-BE4C-70CABC9C3685}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F514FE7C-7221-4BB9-9684-7C75DE46982A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchFx", "ArchFx\ArchFx.csproj", "{93EFF17F-DBDE-423B-9483-9AC23A080005}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLLs", "DLLs", "{072FC880-372B-493E-AC6C-33BC01746824}"
+	ProjectSection(SolutionItems) = preProject
+		DLLs\ClosedXML.dll = DLLs\ClosedXML.dll
+		DLLs\ClosedXML.XML = DLLs\ClosedXML.XML
+		DLLs\Cryptor.dll = DLLs\Cryptor.dll
+		DLLs\DocumentFormat.OpenXml.dll = DLLs\DocumentFormat.OpenXml.dll
+		DLLs\IBatisNet.Common.dll = DLLs\IBatisNet.Common.dll
+		DLLs\IBatisNet.Common.Logging.Log4Net.dll = DLLs\IBatisNet.Common.Logging.Log4Net.dll
+		DLLs\IBatisNet.DataMapper.dll = DLLs\IBatisNet.DataMapper.dll
+		DLLs\InnorixNET.dll = DLLs\InnorixNET.dll
+		DLLs\Interop.IPINCLIENTLib.dll = DLLs\Interop.IPINCLIENTLib.dll
+		DLLs\Interop.IPININTEROPLib.dll = DLLs\Interop.IPININTEROPLib.dll
+		DLLs\Ionic.Zip.dll = DLLs\Ionic.Zip.dll
+		DLLs\IPINClient.dll = DLLs\IPINClient.dll
+		DLLs\IPINInterop.dll = DLLs\IPINInterop.dll
+		DLLs\log4net.dll = DLLs\log4net.dll
+		DLLs\RexToolkit-2.0.0.24-RexSOPToolkit.dll = DLLs\RexToolkit-2.0.0.24-RexSOPToolkit.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JS.Boots", "JS.Boots\JS.Boots.csproj", "{920AEE56-E4FF-429F-8E65-69A6273995E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JS.Boots.BizDac", "JS.BizDac\JS.Boots.BizDac.csproj", "{9D2AFA9C-D2A8-4AF8-A3FE-1057F1E04FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JS.Boots.Data", "JS.Boots.Data\JS.Boots.Data.csproj", "{89365FB5-A6D3-492A-851A-768285047F22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSMall", "JSMall\JSMall.csproj", "{76180E4A-88E9-4BDF-95EA-2BF7E6758D4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F2C61CD-F971-44A2-BE4C-70CABC9C3685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F2C61CD-F971-44A2-BE4C-70CABC9C3685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F2C61CD-F971-44A2-BE4C-70CABC9C3685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F2C61CD-F971-44A2-BE4C-70CABC9C3685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EFF17F-DBDE-423B-9483-9AC23A080005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EFF17F-DBDE-423B-9483-9AC23A080005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EFF17F-DBDE-423B-9483-9AC23A080005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EFF17F-DBDE-423B-9483-9AC23A080005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{920AEE56-E4FF-429F-8E65-69A6273995E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{920AEE56-E4FF-429F-8E65-69A6273995E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{920AEE56-E4FF-429F-8E65-69A6273995E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{920AEE56-E4FF-429F-8E65-69A6273995E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D2AFA9C-D2A8-4AF8-A3FE-1057F1E04FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D2AFA9C-D2A8-4AF8-A3FE-1057F1E04FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D2AFA9C-D2A8-4AF8-A3FE-1057F1E04FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D2AFA9C-D2A8-4AF8-A3FE-1057F1E04FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89365FB5-A6D3-492A-851A-768285047F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89365FB5-A6D3-492A-851A-768285047F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89365FB5-A6D3-492A-851A-768285047F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89365FB5-A6D3-492A-851A-768285047F22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76180E4A-88E9-4BDF-95EA-2BF7E6758D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76180E4A-88E9-4BDF-95EA-2BF7E6758D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76180E4A-88E9-4BDF-95EA-2BF7E6758D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76180E4A-88E9-4BDF-95EA-2BF7E6758D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
