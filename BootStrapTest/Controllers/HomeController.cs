@@ -30,5 +30,12 @@ namespace BootStrapTest.Controllers
 
 			return View();
 		}
+
+        public ActionResult bootstrap_mvc()
+        {
+            ViewBag.Message = "Boot Strap Start.";
+
+            return View();
+        }
 	}
 }

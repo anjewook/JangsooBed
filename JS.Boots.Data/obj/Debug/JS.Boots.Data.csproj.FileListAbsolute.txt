@@ -3,3 +3,10 @@ D:\99_MyProject\BootStrapTest\JS.Boots.Data\bin\Debug\JS.Boots.Data.pdb
 D:\99_MyProject\BootStrapTest\JS.Boots.Data\obj\Debug\JS.Boots.Data.csprojResolveAssemblyReference.cache
 D:\99_MyProject\BootStrapTest\JS.Boots.Data\obj\Debug\JS.Boots.Data.dll
 D:\99_MyProject\BootStrapTest\JS.Boots.Data\obj\Debug\JS.Boots.Data.pdb
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\bin\Debug\JS.Boots.Data.dll
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\bin\Debug\JS.Boots.Data.pdb
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\bin\Debug\Ninject.dll
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\bin\Debug\Ninject.xml
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\obj\Debug\JS.Boots.Data.csprojResolveAssemblyReference.cache
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\obj\Debug\JS.Boots.Data.dll
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.Data\obj\Debug\JS.Boots.Data.pdb

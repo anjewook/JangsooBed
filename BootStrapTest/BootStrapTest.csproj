@@ -222,6 +222,10 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Test1.cshtml" />
+    <Content Include="Views\Home\bootstrap_mvc.cshtml" />
+    <Content Include="Views\TEST_Boot.cshtml" />
+    <Content Include="Views\Shared\_AdminFooter.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -233,6 +237,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JS.Boots\JS.Boots.csproj">
+      <Project>{920aee56-e4ff-429f-8e65-69a6273995e7}</Project>
+      <Name>JS.Boots</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
