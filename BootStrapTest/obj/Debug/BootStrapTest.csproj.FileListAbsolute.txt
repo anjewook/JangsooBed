@@ -227,3 +227,4 @@ D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\obj\Debug\BootStrapTest.pdb
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.dll
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\RexToolkit-2.0.0.24-RexSOPToolkit.dll
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.pdb
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\Cryptor.dll

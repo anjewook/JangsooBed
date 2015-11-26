@@ -46,11 +46,116 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMain\AdminMainCountT.cs" />
+    <Compile Include="AdminMain\AdminMainPageT.cs" />
+    <Compile Include="Atchmnfl\AtchmnflArgsT.cs" />
+    <Compile Include="Atchmnfl\AtchmnflT.cs" />
+    <Compile Include="AuthT.cs" />
+    <Compile Include="BaseModelT.cs" />
+    <Compile Include="BasePaging.cs" />
+    <Compile Include="BaseSearchT.cs" />
+    <Compile Include="Bbs\BbscttAbseManageT.cs" />
+    <Compile Include="Bbs\BbscttAtchmnflT.cs" />
+    <Compile Include="Bbs\BbscttCommentT.cs" />
+    <Compile Include="Bbs\BbscttSearchT.cs" />
+    <Compile Include="Bbs\BbscttT.cs" />
+    <Compile Include="Bbs\BbsT.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ContentsMng\TchnlgyStdrAtchmnflT.cs" />
+    <Compile Include="ContentsMng\TchnlgyStdrSearchT.cs" />
+    <Compile Include="ContentsMng\TchnlgyStdrT.cs" />
+    <Compile Include="Dashboard\DashboardT.cs" />
+    <Compile Include="GridModelT.cs" />
+    <Compile Include="JsonResultT.cs" />
+    <Compile Include="Member\JoinMembPageT.cs" />
+    <Compile Include="MessageT.cs" />
+    <Compile Include="OptionWorkMng\DeptT.cs" />
+    <Compile Include="OptionWorkMng\FeeManageSearchT.cs" />
+    <Compile Include="OptionWorkMng\FeeManageT.cs" />
+    <Compile Include="OptionWorkMng\JobContactSearchT.cs" />
+    <Compile Include="OptionWorkMng\JobContactT.cs" />
+    <Compile Include="OptionWorkMng\JobContacttnAtchmnflT.cs" />
+    <Compile Include="PortalMain\PortalMainPageT.cs" />
+    <Compile Include="Product\ProductListT.cs" />
+    <Compile Include="Product\ProductSearchT.cs" />
+    <Compile Include="Product\ProductT.cs" />
+    <Compile Include="Product\ProductViewT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchTotal\SearchTotalSearchT.cs" />
+    <Compile Include="SearchTotal\SearchTotalT.cs" />
+    <Compile Include="SendSms\SendSmsT.cs" />
+    <Compile Include="Stats\EntrprsStatsPageT.cs" />
+    <Compile Include="Stats\EntrprsStatsSearchT.cs" />
+    <Compile Include="Stats\EntrprsStatsT.cs" />
+    <Compile Include="Stats\StatsMenuT.cs" />
+    <Compile Include="Stats\StatsSearchT.cs" />
+    <Compile Include="Stats\StatsT.cs" />
+    <Compile Include="SystemMng\AuthorGroupEmplyrHistPageT.cs" />
+    <Compile Include="SystemMng\AuthorGroupEmplyrHistSearchT.cs" />
+    <Compile Include="SystemMng\AuthorGroupEmplyrHistT.cs" />
+    <Compile Include="SystemMng\AuthorGroupEmplyrT.cs" />
+    <Compile Include="SystemMng\AuthorGroupMenuSearchT.cs" />
+    <Compile Include="SystemMng\AuthorGroupMenuT.cs" />
+    <Compile Include="SystemMng\AuthorGroupPageT.cs" />
+    <Compile Include="SystemMng\AuthorGroupSearchT.cs" />
+    <Compile Include="SystemMng\AuthorGroupT.cs" />
+    <Compile Include="SystemMng\BannerPageT.cs" />
+    <Compile Include="SystemMng\BannerSearchT.cs" />
+    <Compile Include="SystemMng\BannerT.cs" />
+    <Compile Include="SystemMng\CmmnCodeSearchT.cs" />
+    <Compile Include="SystemMng\CmmnCodeT.cs" />
+    <Compile Include="SystemMng\EmplyrConectHistPageT.cs" />
+    <Compile Include="SystemMng\EmplyrConectHistSearchT.cs" />
+    <Compile Include="SystemMng\EmplyrConectHistT.cs" />
+    <Compile Include="SystemMng\MenuPageT.cs" />
+    <Compile Include="SystemMng\MenuSearchT.cs" />
+    <Compile Include="SystemMng\MenuT.cs" />
+    <Compile Include="SystemMng\PopupPageT.cs" />
+    <Compile Include="SystemMng\PopupSearchT.cs" />
+    <Compile Include="SystemMng\PopupT.cs" />
+    <Compile Include="UserMng\AppnReqstRealmT.cs" />
+    <Compile Include="UserMng\EmplPageT.cs" />
+    <Compile Include="UserMng\EmplSearchT.cs" />
+    <Compile Include="UserMng\EmplT.cs" />
+    <Compile Include="UserMng\EmplTreeT.cs" />
+    <Compile Include="UserMng\EntrprsAdresT.cs" />
+    <Compile Include="UserMng\EntrprsChghstSearchT.cs" />
+    <Compile Include="UserMng\EntrprsChghstT.cs" />
+    <Compile Include="UserMng\EntrprsSearchT.cs" />
+    <Compile Include="UserMng\EntrprsT.cs" />
+    <Compile Include="UserMng\EntrprsUserPageT.cs" />
+    <Compile Include="UserMng\EntrprsUserSearchT.cs" />
+    <Compile Include="UserMng\EntrprsUserT.cs" />
+    <Compile Include="UserMng\IndvdlUserPageT.cs" />
+    <Compile Include="UserMng\IndvdlUserSearchT.cs" />
+    <Compile Include="UserMng\IndvdlUserT.cs" />
+    <Compile Include="UserMng\InsttPageT.cs" />
+    <Compile Include="UserMng\InsttSearchT.cs" />
+    <Compile Include="UserMng\InsttT.cs" />
+    <Compile Include="UserMng\InsttUserPageT.cs" />
+    <Compile Include="UserMng\InsttUserSearchT.cs" />
+    <Compile Include="UserMng\InsttUserT.cs" />
+    <Compile Include="UserMng\ProfileT.cs" />
+    <Compile Include="UserMng\SignguUserPageT.cs" />
+    <Compile Include="UserMng\SignguUserSearchT.cs" />
+    <Compile Include="UserMng\SignguUserT.cs" />
+    <Compile Include="UserMng\UserMenuAuthSearchT.cs" />
+    <Compile Include="UserMng\UserT.cs" />
+    <Compile Include="ZipCode\LnmAdresT.cs" />
+    <Compile Include="ZipCode\RdnmadrT.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArchFx\ArchFx.csproj">
+      <Project>{93eff17f-dbde-423b-9483-9ac23a080005}</Project>
+      <Name>ArchFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JS.Boots\JS.Boots.csproj">
+      <Project>{920aee56-e4ff-429f-8e65-69a6273995e7}</Project>
+      <Name>JS.Boots</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

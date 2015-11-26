@@ -14,5 +14,9 @@ namespace BootStrapTest.Controllers
         {
             return View();
         }
+        public ActionResult TestBoot()
+        {
+            return View();
+        }
 	}
 }
