@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="JS.Boots.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+  <statements>
+    <select id="TestDac.SelectTest" resultClass="string">
+      SELECT AAA FROM TN_DUALTEST
+    </select>
+  </statements>
+</sqlMap>
