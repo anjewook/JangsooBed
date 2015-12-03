@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="JS.Boots.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="UserT"  type="JS.Boots.Data.UserMng.UserT" />
+  </alias>
+
+
+  <statements>
+
+    <select id="UserDac.SelectUserExistYn" parameterClass="string" resultClass="string">
+      /* UserDac.SelectUserExistYn */
+      SELECT DECODE(COUNT(USER_ID),0,'N','Y')AS "ExistYn"
+      FROM TN_USER
+      WHERE USER_ID = #UserId#
+
+    </select>
+
+    <select id="UserDac.SelectUserId" parameterClass="UserT" resultClass="string">
+      /* UserDac.SelectUser */
+      SELECT
+      USER_ID             AS "UserId"
+      FROM TN_USER
+      WHERE USER_ID = (
+      SELECT USER_ID
+      <isNotEmpty property="UserSeCode">
+        <isEqual property="UserSeCode" compareValue="AC007001">
+          FROM TN_INDVDL_USER
+        </isEqual>
+        <isEqual property="UserSeCode" compareValue="AC007002">
+          FROM TN_ENTRPRS_USER
+        </isEqual>
+        <isEqual property="UserSeCode" compareValue="AC007003">
+          FROM TN_INSTT_USER
+        </isEqual>
+        <isEqual property="UserSeCode" compareValue="AC007004">
+          FROM TN_SIGNGU_USER
+        </isEqual>
+      </isNotEmpty>
+
+      <isNotEmpty property="FindSeCode">
+        <isEqual property="FindSeCode" compareValue="ID">
+          WHERE USER_NM = #UserNm#
+          AND EMAIL_ADRES = #EmailAdres#
+        </isEqual>
+        <isEqual property="FindSeCode" compareValue="PW">
+          WHERE USER_ID = #UserId#
+          AND EMAIL_ADRES = #EmailAdres#
+          <isEqual property="UserSeCode" compareValue="AC007001">
+            AND PASSWORD_HINT_SE_CODE = #PasswordHintSeCode#
+            AND PASSWORD_HINT_CNSR = #PasswordHintCnsr#
+          </isEqual>
+        </isEqual>
+      </isNotEmpty>
+      )
+    </select>
+
+    <insert  id="UserDac.InsertUser" parameterClass="UserT">
+      /* UserDac.InsertUser */
+      INSERT INTO TN_USER
+      (
+      USER_ID
+      ,USER_SE_CODE
+      ,PASSWORD
+      ,PASSWORD_INITL_AT
+      ,PASSWORD_CHANGE_DT
+      )
+      VALUES
+      (
+      #UserId#
+      ,#UserSeCode#
+      ,#Password#
+      ,#PasswordInitlAt#
+      ,SYSDATE
+      )
+    </insert >
+
+
+    <update id="UserDac.UpdateUserPassword" parameterClass="UserT">
+      /* UserDac.UpdateUserPassword */
+
+      UPDATE TN_USER
+      SET
+      PASSWORD = #Password#
+      ,PASSWORD_INITL_AT = #PasswordInitlAt#
+      ,PASSWORD_CHANGE_DT = SYSDATE
+      WHERE
+      USER_ID = #UserId#
+    </update >
+
+    <delete id="UserDac.DeleteUser" parameterClass="string">
+      /* UserDac.DeleteUser */
+      DELETE FROM TN_USER
+      WHERE USER_ID = #UserId#
+    </delete>
+
+    <select id="UserDac.SelectUserOfUserSeCode" parameterClass="string" resultClass="string">
+      /* UserDac.SelectUserExistYn */
+      SELECT PASSWORD
+      FROM TN_USER
+      WHERE USER_SE_CODE = #UserSeCode#
+
+    </select>
+
+  </statements>
+
+</sqlMap>

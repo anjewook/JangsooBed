@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="JS.Boots.BizDac.Common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="cmmnCodeT" type="JS.Boots.Data.SystemMng.CmmnCodeT" />
+  </alias>
+
+  <statements>
+    <select id="CommonDac.SelectCmmnCodeList" parameterClass="string" resultClass="cmmnCodeT">
+      /* CommonDac.SelectCmmnCodeList 공통코드 조회 */
+      SELECT
+      BSIS_CODE AS "BsisCode"
+      ,BSIS_CODE_NM AS "BsisCodeNm"
+      ,UPPER_CODE_ONE AS "UpperCodeOne"
+      ,UPPER_CODE_TWO AS "UpperCodeTwo"
+      ,UPPER_CODE_THREE AS "UpperCodeThree"
+      FROM TN_CMMN_CODE
+      WHERE UPPER_BSIS_CODE = #upperBsisCode#
+      AND USE_AT = 'Y'
+      ORDER BY BSIS_CODE
+    </select>
+
+    <select id="CommonDac.SelectCmmnCodeListByUpperCodeOne" parameterClass="string" resultClass="cmmnCodeT">
+      /* CommonDac.SelectCmmnCodeListByUpperCodeOne upperCodeOne 하위 공통코드 조회 */
+      SELECT
+      BSIS_CODE AS "BsisCode"
+      ,BSIS_CODE_NM AS "BsisCodeNm"
+      FROM TN_CMMN_CODE
+      WHERE UPPER_CODE_ONE = #UpperCodeOne#
+      AND USE_AT = 'Y'
+      ORDER BY BSIS_CODE
+    </select>
+
+    <select id="CommonDac.SelectCmmnCodeListByUpperCodeTwo" parameterClass="string" resultClass="cmmnCodeT">
+      /* CommonDac.SelectCmmnCodeListByUpperCodeTwo upperCodeTwo 하위 공통코드 조회 */
+      SELECT
+      BSIS_CODE AS "BsisCode"
+      ,BSIS_CODE_NM AS "BsisCodeNm"
+      FROM TN_CMMN_CODE
+      WHERE UPPER_CODE_TWO = #UpperCodeTwo#
+      AND USE_AT = 'Y'
+      ORDER BY BSIS_CODE
+    </select>
+
+    <select id="CommonDac.SelectCmmnCodeListByUpperCodeThree" parameterClass="string" resultClass="cmmnCodeT">
+      /* CommonDac.SelectCmmnCodeListByUpperCodeThree upperCodeThree 하위 공통코드 조회 */
+      SELECT
+      BSIS_CODE AS "BsisCode"
+      ,BSIS_CODE_NM AS "BsisCodeNm"
+      FROM TN_CMMN_CODE
+      WHERE UPPER_CODE_THREE = #UpperCodeThree#
+      AND USE_AT = 'Y'
+      ORDER BY BSIS_CODE
+    </select>
+
+    <select id="CommonDac.SelectCmmnCodeByCmmnCodeNm" parameterClass="cmmnCodeT" resultClass="string">
+      /* CommonDac.SelectCmmnCodeByCmmnCodeNm 공통코드명 매핑 공통코드 조회 */
+      SELECT
+      BSIS_CODE AS "BsisCode"
+      FROM TN_CMMN_CODE
+      WHERE UPPER_BSIS_CODE = #UpperBsisCode#
+      AND BSIS_CODE_NM = #BsisCodeNm#
+      AND USE_AT = 'Y'
+      ORDER BY BSIS_CODE
+    </select>
+
+  </statements>
+</sqlMap>

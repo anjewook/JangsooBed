@@ -16,14 +16,12 @@ D:\99_MyProject\BootStrapTest\JS.Boots\bin\Debug\ArchFx.dll
 D:\99_MyProject\BootStrapTest\JS.Boots\bin\Debug\ArchFx.pdb
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\JS.Boots.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\JS.Boots.pdb
-D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\ArchFx.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\Cryptor.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\Ninject.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\RexToolkit-2.0.0.24-RexSOPToolkit.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\System.Web.Http.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\System.Net.Http.Formatting.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\Newtonsoft.Json.dll
-D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\ArchFx.pdb
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\Ninject.xml
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\System.Web.Http.xml
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\System.Net.Http.Formatting.xml
@@ -32,3 +30,5 @@ D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\ko\System.Net.Http.Formatti
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\obj\Debug\JS.Boots.csprojResolveAssemblyReference.cache
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\obj\Debug\JS.Boots.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots\obj\Debug\JS.Boots.pdb
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\ArchFx.dll
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots\bin\Debug\ArchFx.pdb

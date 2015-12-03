@@ -164,6 +164,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\BaseAdminController.cs" />
+    <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\BoostrapCertification.cs" />
+    <Compile Include="Common\BootstrapAuthorize.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -230,6 +234,7 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\TestBoot.cshtml" />
+    <Content Include="SqlMap.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -243,6 +248,18 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArchFx\ArchFx.csproj">
+      <Project>{93eff17f-dbde-423b-9483-9ac23a080005}</Project>
+      <Name>ArchFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JS.Boots.BizDac\JS.Boots.BizDac.csproj">
+      <Project>{9d2afa9c-d2a8-4af8-a3fe-1057f1e04fdf}</Project>
+      <Name>JS.Boots.BizDac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JS.Boots.Data\JS.Boots.Data.csproj">
+      <Project>{89365fb5-a6d3-492a-851a-768285047f22}</Project>
+      <Name>JS.Boots.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JS.Boots\JS.Boots.csproj">
       <Project>{920aee56-e4ff-429f-8e65-69a6273995e7}</Project>
       <Name>JS.Boots</Name>

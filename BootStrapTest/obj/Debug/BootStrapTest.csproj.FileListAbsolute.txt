@@ -228,3 +228,13 @@ D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.dll
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\RexToolkit-2.0.0.24-RexSOPToolkit.dll
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.pdb
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\Cryptor.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\ArchFx.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.BizDac.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.Data.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\ClosedXML.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\IBatisNet.DataMapper.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\IBatisNet.Common.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\DocumentFormat.OpenXml.dll
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\ArchFx.pdb
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.BizDac.pdb
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.Data.pdb

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace JS.Boots.Data
 {
-    class MessageT
+    public class MessageT
     {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public string MappingCode { get; set; }
     }
 }

@@ -71,9 +71,14 @@
   <ItemGroup>
     <Compile Include="BaseBiz.cs" />
     <Compile Include="BaseDac.cs" />
+    <Compile Include="Common\CommonBiz.cs" />
+    <Compile Include="Common\CommonDac.cs" />
+    <Compile Include="Common\EmailSendBiz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBiz.cs" />
     <Compile Include="TestDac.cs" />
+    <Compile Include="UserMng\UserBiz.cs" />
+    <Compile Include="UserMng\UserDac.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JS.Boots.Data\JS.Boots.Data.csproj">
@@ -89,7 +94,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\Common.xml" />
     <Content Include="Test.xml" />
+    <Content Include="UserMng\User.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdminMain\" />
