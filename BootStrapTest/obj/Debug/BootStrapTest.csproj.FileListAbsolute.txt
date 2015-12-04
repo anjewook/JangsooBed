@@ -238,3 +238,4 @@ D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\DocumentFormat.OpenXml.dll
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\ArchFx.pdb
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.BizDac.pdb
 D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\JS.Boots.Data.pdb
+D:\99_MyProject\GitHub\JangsooBed\BootStrapTest\bin\ClosedXML.xml

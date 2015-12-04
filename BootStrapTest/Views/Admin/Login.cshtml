@@ -1,4 +1,20 @@
 ﻿
+@using ArchFx.ExtensionMethod
+@using JS.Boots
+
+@using JS.Boots.Data
+@using JS.Boots.Data.Member
+
+@{
+    ViewBag.Title = "로그인";
+    Layout = "~/Views/Shared/_PortalLayoutPage.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Views/Member/Login.js?date=201512040000" type="text/javascript"></script>
+}
+
 @{
     ViewBag.Title = "BootStrap Login";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
