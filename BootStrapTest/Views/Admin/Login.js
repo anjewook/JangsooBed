@@ -15,6 +15,7 @@ $(document).ready(function () {
     });
 
     $("#frmLogin").validate({
+
         onkeyup: false,
         onclick: false,
         onfocusout: false,
@@ -45,6 +46,9 @@ $(document).ready(function () {
     });
 
     $("#acLogin").click(function () {
+
+        alert(1818);
+
         if ($("#frmLogin").valid()) {
 
             $("#userId").val($("#userId").val().replace(/ /g, ''));
@@ -53,21 +57,25 @@ $(document).ready(function () {
             $.ajax({
                 type: "POST",
                 async: false,
-                url: "/Member/Login",
+                url: "/Admin/Login",
                 data: $("#frmLogin").serialize(),
                 success: function (data) {
                     if (data.Success == true) {
                         if ($("#idsave").is(":checked") == true) {
-                            $.cookie("KTC_METER_LOGIN", $("#userId").val(), { expires: 7 });
-                            $.cookie("KTC_METER_LOGIN_CODE", $(':radio[name="userSeCode"]:checked').val(), { expires: 7 });
+                            $.cookie("JS_BOOTS_LOGIN", $("#userId").val(), { expires: 7 });
+                            $.cookie("JS_BOOTS_LOGIN_CODE", $(':radio[name="userSeCode"]:checked').val(), { expires: 7 });
                         }
+
                         var url = PORTAL_MAIN_URL;
+
                         if ($.trim($("#returnUrl").val()).length > 0) {
                             url = $("#returnUrl").val();
                         }
+
                         if (data.PassChangeElapseAt == "Y") { //비밀번호변경 시간경과여부
                             url = "/MyPage/MberPasswordEdit"; //비밀번호 변경 페이지 이동
                         }
+
                         $(location).attr("href", url);
                     }
                     else {
@@ -78,7 +86,7 @@ $(document).ready(function () {
                 error: function (xhr, status, error) {
                     if (error == "NetworkError") {
                         alert("올바를 입력정보가 아닙니다.");
-                        $(location).attr("href", "/Member/Login");
+                        $(location).attr("href", "/Admin/Login");
                     } else {
                         alert(error);
                     }
@@ -115,13 +123,16 @@ $(document).ready(function () {
 });
 
 function fn_SaveIdCheck() {
-    if ($.cookie("KTC_METER_LOGIN") != null) {
-        $("#userId").val($.cookie("KTC_METER_LOGIN"));
+
+    if ($.cookie("JS_BOOTS_LOGIN") != null) {
+
+        $("#userId").val($.cookie("JS_BOOTS_LOGIN"));
         $("#idsave").attr("checked", true);
         $("#password").val("");
 
-        var ck_usercode = $.cookie("KTC_METER_LOGIN_CODE");
+        var ck_usercode = $.cookie("JS_BOOTS_LOGIN_CODE");
 
         $('input:radio[name=userSeCode]:input[value=' + ck_usercode + ']').attr("checked", true);
+
     }
 }
