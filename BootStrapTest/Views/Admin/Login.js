@@ -61,9 +61,10 @@ $(document).ready(function () {
                 success: function (data) {
 
                     if (data.Success == true) {
+
                         if ($("#idsave").is(":checked") == true) {
                             $.cookie("JS_BOOTS_LOGIN", $("#userId").val(), { expires: 7 });
-                            $.cookie("JS_BOOTS_LOGIN_CODE", $(':radio[name="userSeCode"]:checked').val(), { expires: 7 });
+                            //$.cookie("JS_BOOTS_LOGIN_CODE", $(':radio[name="userSeCode"]:checked').val(), { expires: 7 });
                         }
 
                         //var url = PORTAL_MAIN_URL;
