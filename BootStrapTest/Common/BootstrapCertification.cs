@@ -23,7 +23,7 @@ namespace BootStrapTest.Common
             try
             {
                 // DB 에서 사용자 인증 확인
-                //profileT = new ProfileBiz().LoginCheck(profileT);
+                profileT = new ProfileBiz().LoginCheck(profileT);
 
                 if (profileT != null)
                 {

@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="Ktc.Meter.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="IndvdlUserSearchT"   type="Ktc.Meter.Data.UserMng.IndvdlUserSearchT" />
+    <typeAlias alias="IndvdlUserT"         type="Ktc.Meter.Data.UserMng.IndvdlUserT" />
+  </alias>
+
+  <statements>
+
+    <select id="IndvdlUserDac.SelectIndvdlUserList" parameterClass="IndvdlUserSearchT" resultClass="IndvdlUserT">
+      /* IndvdlUserDac.SelectIndvdlUserList */
+      SELECT
+      *
+      FROM
+      (
+      SELECT
+      A.*
+      ,ROWNUM AS "RowNumber"
+      ,COUNT(*) OVER() AS "TotalCount"
+      FROM
+      (
+      SELECT
+      A.USER_ID                        AS "UserId"                       /* 사용자ID */
+      , A.USER_NM                        AS "UserNm"                       /* 사용자명 */
+      , A.TELNO                          AS "Telno"                        /* 전화번호 */
+      , FN_CRYPTO(A.MBTLNUM,'D')         AS "Mbtlnum"                      /* 휴대폰번호 */
+      , A.EMAIL_ADRES                    AS "EmailAdres"                   /* 이메일주소 */
+      , A.BRTHDY                         AS "Brthdy"                       /* 생년월일 */
+      , A.ADRES_SE_CODE                  AS "AdresSeCode"                  /* 주소구분코드 */
+      , A.ZIP                            AS "Zip"                          /* 우편번호 */
+      , A.BASS_ADRES                     AS "BassAdres"                    /* 기본주소 */
+      , A.DETAIL_ADRES                   AS "DetailAdres"                  /* 상세주소 */
+      , A.PASSWORD_HINT_SE_CODE          AS "PasswordHintSeCode"           /* 비밀번호힌트구분코드 */
+      , A.PASSWORD_HINT_CNSR             AS "PasswordHintCnsr"             /* 비밀번호힌트정답 */
+      , A.EMAIL_RECPTN_AT                AS "EmailRecptnAt"                /* 이메일수신여부 */
+      , A.SMS_RECPTN_AT                  AS "SmsRecptnAt"                  /* SMS수신여부 */
+      , A.INDVDL_USER_STTUS_CODE         AS "IndvdlUserSttusCode"          /* 개인사용자상태코드 */
+      , A.REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , A.REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , A.UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , A.UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , A.REGISTER_SE_CODE               AS "RegisterSeCode"               /* 등록자구분코드 */
+      , A.UPDUSR_SE_CODE                 AS "UpdusrSeCode"                 /* 수정자구분코드 */
+      , FN_USER_NM(A.REGISTER_SE_CODE, REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(A.UPDUSR_SE_CODE, UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      FROM TN_INDVDL_USER A, TN_USER B
+      WHERE B.USER_ID = A.USER_ID
+
+      <isNotEmpty property="SearchIndvdlUserSttusCode">
+        AND A.INDVDL_USER_STTUS_CODE = #SearchIndvdlUserSttusCode#
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchText">
+        <isEqual property="SearchType" compareValue="A">
+          AND A.USER_NM LIKE '%' || #SearchText# || '%'   /* 사용자명 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="B">
+          AND A.USER_ID LIKE '%' || #SearchText# || '%'   /* 사용자ID */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="C">
+          AND A.TELNO LIKE '%' || #SearchText# || '%'   /* 전화번호 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="D">
+          AND FN_CRYPTO(A.MBTLNUM,'D') LIKE '%' || #SearchText# || '%'   /* 핸드폰번호 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="E">
+          AND A.EMAIL_ADRES LIKE '%' || #SearchText# || '%'   /* 이메일주소 */
+        </isEqual>
+      </isNotEmpty>
+      ORDER BY  A.USER_ID DESC
+      ) A
+      )
+      WHERE "RowNumber" BETWEEN #StartIndex# AND #EndIndex#
+    </select>
+
+    <select id="IndvdlUserDac.SelectIndvdlUser" parameterClass="IndvdlUserT" resultClass="IndvdlUserT">
+      /* IndvdlUserDac.SelectIndvdlUser */
+      SELECT
+      USER_ID                        AS "UserId"                       /* 사용자ID */
+      , USER_NM                        AS "UserNm"                       /* 사용자명 */
+      , TELNO                          AS "Telno"                        /* 전화번호 */
+      , FN_CRYPTO(MBTLNUM,'D')         AS "Mbtlnum"                      /* 휴대폰번호 */
+      , EMAIL_ADRES                    AS "EmailAdres"                   /* 이메일주소 */
+      , BRTHDY                         AS "Brthdy"                       /* 생년월일 */
+      , ADRES_SE_CODE                  AS "AdresSeCode"                  /* 주소구분코드 */
+      , ZIP                            AS "Zip"                          /* 우편번호 */
+      , BASS_ADRES                     AS "BassAdres"                    /* 기본주소 */
+      , DETAIL_ADRES                   AS "DetailAdres"                  /* 상세주소 */
+      , PASSWORD_HINT_SE_CODE          AS "PasswordHintSeCode"           /* 비밀번호힌트구분코드 */
+      , PASSWORD_HINT_CNSR             AS "PasswordHintCnsr"             /* 비밀번호힌트정답 */
+      , EMAIL_RECPTN_AT                AS "EmailRecptnAt"                /* 이메일수신여부 */
+      , SMS_RECPTN_AT                  AS "SmsRecptnAt"                  /* SMS수신여부 */
+      , INDVDL_USER_STTUS_CODE         AS "IndvdlUserSttusCode"          /* 개인사용자상태코드 */
+      , REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , REGISTER_SE_CODE               AS "RegisterSeCode"               /* 등록자구분코드 */
+      , UPDUSR_SE_CODE                 AS "UpdusrSeCode"                 /* 수정자구분코드 */
+      , FN_USER_NM(REGISTER_SE_CODE, REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(UPDUSR_SE_CODE, UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      FROM TN_INDVDL_USER
+      WHERE USER_ID = #UserId#
+    </select>
+
+
+    <insert  id="IndvdlUserDac.InsertIndvdlUser" parameterClass="IndvdlUserT">
+      /* IndvdlUserDac.InsertIndvdlUser */
+      INSERT INTO TN_INDVDL_USER
+      (
+      USER_ID
+      ,USER_NM
+      ,TELNO
+      ,MBTLNUM
+      ,EMAIL_ADRES
+      ,BRTHDY
+      ,ADRES_SE_CODE
+      ,ZIP
+      ,BASS_ADRES
+      ,DETAIL_ADRES
+      ,PASSWORD_HINT_SE_CODE
+      ,PASSWORD_HINT_CNSR
+      ,EMAIL_RECPTN_AT
+      ,SMS_RECPTN_AT
+      ,INDVDL_USER_STTUS_CODE
+      ,REGIST_DT
+      ,REGISTER_ID
+      ,UPDT_DT
+      ,UPDUSR_ID
+      ,REGISTER_SE_CODE
+      ,UPDUSR_SE_CODE
+      ,IPIN_INNB
+      )
+      VALUES
+      (
+      #UserId#
+      ,#UserNm#
+      ,#Telno#
+      ,FN_CRYPTO(#Mbtlnum#,'E')
+      ,#EmailAdres#
+      ,#Brthdy#
+      ,#AdresSeCode#
+      ,#Zip#
+      ,#BassAdres#
+      ,#DetailAdres#
+      ,#PasswordHintSeCode#
+      ,#PasswordHintCnsr#
+      ,#EmailRecptnAt#
+      ,#SmsRecptnAt#
+      ,#IndvdlUserSttusCode#
+      , SYSDATE
+      ,#RegisterId#
+      , SYSDATE
+      ,#UpdusrId#
+      ,#RegisterSeCode#
+      ,#UpdusrSeCode#
+      ,#IpinInnb#
+      )
+    </insert >
+
+
+    <update id="IndvdlUserDac.DeleteIndvdlUser" parameterClass="string">
+      /* IndvdlUserDac.DeleteIndvdlUser */
+      DELETE FROM
+      TN_INDVDL_USER
+      WHERE
+      USER_ID = #UserId#
+    </update >
+
+
+    <update id="IndvdlUserDac.UpdateIndvdlUser" parameterClass="IndvdlUserT">
+      /* IndvdlUserDac.UpdateIndvdlUser */
+      UPDATE
+      TN_INDVDL_USER
+      SET
+      USER_NM = #UserNm#
+      ,TELNO = #Telno#
+      ,MBTLNUM = FN_CRYPTO(#Mbtlnum#,'E')
+      ,EMAIL_ADRES = #EmailAdres#
+      ,BRTHDY = #Brthdy#
+      ,ADRES_SE_CODE = #AdresSeCode#
+      ,ZIP = #Zip#
+      ,BASS_ADRES = #BassAdres#
+      ,DETAIL_ADRES = #DetailAdres#
+      ,PASSWORD_HINT_SE_CODE = #PasswordHintSeCode#
+      ,PASSWORD_HINT_CNSR = #PasswordHintCnsr#
+      ,EMAIL_RECPTN_AT = #EmailRecptnAt#
+      ,SMS_RECPTN_AT = #SmsRecptnAt#
+      ,INDVDL_USER_STTUS_CODE = #IndvdlUserSttusCode#
+      ,UPDT_DT = SYSDATE
+      ,UPDUSR_ID = #UpdusrId#
+      ,UPDUSR_SE_CODE = #UpdusrSeCode#
+      WHERE
+      USER_ID = #UserId#
+    </update>
+
+
+    <select id="IndvdlUserDac.SelectIpinExistYn" parameterClass="string" resultClass="string">
+      /* IndvdlUserDac.SelectIpinExistYn */
+      SELECT DECODE(COUNT(USER_ID),0,'N','Y')AS "ExistYn"
+      FROM TN_INDVDL_USER
+      WHERE IPIN_INNB = #IpinInnb#
+    </select>
+  </statements>
+
+</sqlMap>

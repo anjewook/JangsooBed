@@ -1,0 +1,726 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="Ktc.Meter.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="EntrprsSearchT"   type="Ktc.Meter.Data.UserMng.EntrprsSearchT" />
+    <typeAlias alias="EntrprsT"         type="Ktc.Meter.Data.UserMng.EntrprsT" />
+    <typeAlias alias="EntrprsAdresT"    type="Ktc.Meter.Data.UserMng.EntrprsAdresT" />
+    <typeAlias alias="MnfcturMrnrInfoT" type="Ktc.Meter.Data.UserMng.MnfcturMrnrInfoT" />
+    <typeAlias alias="MesurProofInfoT"  type="Ktc.Meter.Data.UserMng.MesurProofInfoT" />
+    <typeAlias alias="EntrprsRcognInfoT"  type="Ktc.Meter.Data.UserMng.EntrprsRcognInfoT" />
+    <typeAlias alias="EntrprsRcognInfoSearchT"  type="Ktc.Meter.Data.UserMng.EntrprsRcognInfoSearchT" />
+    <typeAlias alias="EntrprsChghstT"  type="Ktc.Meter.Data.UserMng.EntrprsChghstT" />
+    <typeAlias alias="EntrprsChghstSearchT"  type="Ktc.Meter.Data.UserMng.EntrprsChghstSearchT" />
+  </alias>
+
+  <statements>
+
+    <select id="EntrprsDac.SelectEntrprsList" parameterClass="EntrprsSearchT" resultClass="EntrprsT">
+      /* EntrprsDac.SelectEntrprsList */
+      SELECT
+      *
+      FROM
+      (
+      SELECT
+      A.*
+      ,ROWNUM AS "RowNumber"
+      ,COUNT(*) OVER() AS "TotalCount"
+      FROM
+      (
+      SELECT
+      A.ENTRPRS_SN                     AS "EntrprsSn"                    /* 기업일련번호 */
+      , ENTRPRS_NM                     AS "EntrprsNm"                    /* 기업명 */
+      , BIZRNO                         AS "Bizrno"                       /* 사업자등록번호 */
+      , RPRSNTV_NM                     AS "RprsntvNm"                    /* 대표자명 */
+      , REPRSNT_TELNO                  AS "ReprsntTelno"                 /* 대표전화번호 */
+      , REPRSNT_FXNUM                  AS "ReprsntFxNum"                 /* 대표팩스번호 */
+      , MFCRTR_AT                      AS "MfcrtrAt"                     /* 제조업여부 */
+      , IRTB_AT                        AS "IrtbAt"                       /* 수입업여부 */
+      , REPAIR_INDUTY_AT               AS "RepairIndutyAt"               /* 수리업여부 */
+      , MESUR_PROOF_INDUTY_AT          AS "MesurProofIndutyAt"           /* 계량증명업여부 */
+      , MRNR_EMPLYR_AT                 AS "MrnrEmplyrAt"                 /* 계량기사용자여부 */
+      , ATPT_RCEPT_AT                  AS "AtptRceptAt"                  /* 시도접수여부 */
+      , MBER_AT                        AS "MberAt"                       /* 회원여부 */
+      , DELETE_AT                      AS "DeleteAt"                     /* 삭제여부 */
+      , FN_ENTRPRS_SE_NM('00',A.ENTRPRS_SN)   AS "EnterpriseSectionName"   /* 업체구분명 */
+      , REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , REGISTER_SE_CODE               AS "RegisterSeCode"                /* 등록자구분코드 */
+      , UPDUSR_SE_CODE                 AS "UpdusrSeCode"                  /* 수정자구분코드 */
+      , FN_USER_NM(REGISTER_SE_CODE, REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(UPDUSR_SE_CODE, UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      , HMPG_URL                       AS "HmpgUrl"                       /* 홈페이지URL */
+      , NVL(RCOGN_DE, '미확인')        AS "RcognDe"                      /* 인정일자 */
+      , NVL(FN_CMMN_CODE_NM(RCOGN_SE_CODE), '미확인')        AS "RcognSeCodeNm" /* 업체구분 */
+      FROM TN_ENTRPRS A
+      Left Outer Join TN_ENTRPRS_RCOGN_INFO B
+      On A.ENTRPRS_SN = B.ENTRPRS_SN
+      WHERE DELETE_AT = 'N'
+      <isNotEmpty property="SearchMberAt">
+        AND MBER_AT = #SearchMberAt# /* 회원여부 */
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchRprsntvNm">
+        AND RPRSNTV_NM LIKE '%' || #SearchRprsntvNm#  || '%'
+      </isNotEmpty>
+      <isNotEmpty property="SearchEntrprsNm">
+        AND ENTRPRS_NM LIKE '%' || #SearchEntrprsNm#  || '%'
+      </isNotEmpty>
+      <isNotEmpty property="SearchBizrNO">
+        AND BIZRNO LIKE '%' || #SearchBizrNO#  || '%'
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchAtptSeCode">
+        AND ENTRPRS_SN IN (
+        SELECT ENTRPRS_SN
+        FROM TN_ENTRPRS_ADRES
+        WHERE SUBSTR(ZIP, 0, 2) IN (
+        SELECT COLUMN_VALUE
+        FROM TABLE(FN_ATPT_TO_ZIP(#SearchAtptSeCode#))
+        )
+        <isNotEmpty property="SearchGuGunSeCode">
+          AND  ZIP LIKE FN_GUGUN_TO_ZIP(#SearchGuGunSeCode#) || '%'
+        </isNotEmpty>
+        )
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchStartDate">
+        <isNotEmpty property="SearchEndDate">
+          AND A.ENTRPRS_SN IN (
+          SELECT ENTRPRS_SN FROM TN_ENTRPRS_RCOGN_INFO
+          WHERE RCOGN_DE BETWEEN #SearchStartDate# AND #SearchEndDate#
+          GROUP BY ENTRPRS_SN
+          )
+        </isNotEmpty>
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchMnfcturAt">
+        /* 제조/수리/수입업 여부 */
+        <isEqual property="SearchMnfcturAt" compareValue="Y">
+          AND ( (MFCRTR_AT = 'Y') OR (IRTB_AT = 'Y') OR (REPAIR_INDUTY_AT = 'Y') )
+
+          <isNotEmpty property="SearchEntrprsSeCode">
+            /* 구분 */
+            <isEqual property="SearchEntrprsSeCode" compareValue="A">
+              AND MFCRTR_AT = 'Y'
+            </isEqual>
+            <isEqual property="SearchEntrprsSeCode" compareValue="B">
+              AND IRTB_AT = 'Y'
+            </isEqual>
+            <isEqual property="SearchEntrprsSeCode" compareValue="C">
+              AND REPAIR_INDUTY_AT = 'Y'
+            </isEqual>
+          </isNotEmpty>
+
+          <isNotEmpty property="SearchMrnrKndCode">
+            /* 계량기종류코드 */
+            AND A.ENTRPRS_SN IN (
+            SELECT ENTRPRS_SN FROM TN_MNFCTUR_MRNR_INFO WHERE MRNR_KND_CODE = #SearchMrnrKndCode#
+            )
+          </isNotEmpty>
+          <isNotEmpty property="SearchRcognNoNm">
+            /* 인정번호(제조,수리) */
+            AND A.ENTRPRS_SN IN (
+            SELECT ENTRPRS_SN FROM TN_ENTRPRS_RCOGN_INFO WHERE RCOGN_SE_CODE IN('AC028001','AC028002') AND RCOGN_NO_NM LIKE '%' || #SearchRcognNoNm# || '%'
+            )
+          </isNotEmpty>
+
+        </isEqual>
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchMesurProofIndutyAt">
+        /* 계량증명업 여부 */
+        <isEqual property="SearchMesurProofIndutyAt" compareValue="Y">
+          AND MESUR_PROOF_INDUTY_AT = #SearchMesurProofIndutyAt#
+          <isNotEmpty property="SearchStartDate">
+            <isNotEmpty property="SearchEndDate">
+              AND MESUR_PROOF_REGIST_DE BETWEEN #SearchStartDate# AND #SearchEndDate#
+            </isNotEmpty>
+          </isNotEmpty>
+
+          <isNotEmpty property="SearchMrnrKndCode">
+            /* 계량기종류코드 */
+            AND A.ENTRPRS_SN IN (
+            SELECT ENTRPRS_SN FROM TN_MESUR_PROOF_INFO WHERE MRNR_KND_CODE = #SearchMrnrKndCode#
+            )
+          </isNotEmpty>
+
+          <isNotEmpty property="SearchRcognNoNm">
+            /* 인정번호(계량증명업) */
+            AND A.ENTRPRS_SN IN (
+            SELECT ENTRPRS_SN FROM TN_ENTRPRS_RCOGN_INFO WHERE RCOGN_SE_CODE = 'AC028003' AND RCOGN_NO_NM LIKE '%' || #SearchRcognNoNm# || '%'
+            )
+          </isNotEmpty>
+        </isEqual>
+      </isNotEmpty>
+
+
+      ORDER BY  A.ENTRPRS_SN DESC
+      ) A
+      )
+      WHERE "RowNumber" BETWEEN #StartIndex# AND #EndIndex#
+    </select>
+
+    <insert  id="EntrprsDac.InsertEntrprs" parameterClass="EntrprsT">
+      <selectKey type="pre" resultClass="long" property="EntrprsSn">
+        SELECT NVL(MAX(ENTRPRS_SN),0) + 1 AS EntrprsSn
+        FROM TN_ENTRPRS
+      </selectKey>
+
+      /* EntrprsDac.InsertEntrprs */
+      INSERT INTO TN_ENTRPRS
+      (
+      ENTRPRS_SN
+      ,ENTRPRS_NM
+      ,BIZRNO
+      ,RPRSNTV_NM
+      ,REPRSNT_TELNO
+      ,REPRSNT_FXNUM
+      ,MFCRTR_AT
+      ,IRTB_AT
+      ,REPAIR_INDUTY_AT
+      ,MESUR_PROOF_INDUTY_AT
+      ,MRNR_EMPLYR_AT
+      ,ATPT_RCEPT_AT
+      ,MBER_AT
+      ,REGIST_DT
+      ,REGISTER_ID
+      ,UPDT_DT
+      ,UPDUSR_ID
+      ,REGISTER_SE_CODE
+      ,UPDUSR_SE_CODE
+      ,HMPG_URL
+      )
+      VALUES
+      (
+      #EntrprsSn#
+      ,#EntrprsNm#
+      ,#Bizrno#
+      ,#RprsntvNm#
+      ,#ReprsntTelno#
+      ,#ReprsntFxNum#
+      ,#MfcrtrAt#
+      ,#IrtbAt#
+      ,#RepairIndutyAt#
+      ,#MesurProofIndutyAt#
+      ,#MrnrEmplyrAt#
+      ,#AtptRceptAt#
+      ,#MberAt#
+      , SYSDATE
+      ,#RegisterId#
+      , SYSDATE
+      ,#UpdusrId#
+      ,#RegisterSeCode#
+      ,#UpdusrSeCode#
+      ,#HmpgUrl#
+      )
+    </insert>
+
+    <select id="EntrprsDac.SelectEntrprs" parameterClass="EntrprsT" resultClass="EntrprsT">
+      /* EntrprsDac.SelectEntrprs */
+      SELECT    ENTRPRS_SN                     AS "EntrprsSn"
+      , ENTRPRS_NM                     AS "EntrprsNm"                    /* 기업명 */
+      , BIZRNO                         AS "Bizrno"                       /* 사업자등록번호 */
+      , RPRSNTV_NM                     AS "RprsntvNm"                    /* 대표자명 */
+      , REPRSNT_TELNO                  AS "ReprsntTelno"                 /* 대표전화번호 */
+      , REPRSNT_FXNUM                  AS "ReprsntFxNum"                 /* 대표팩스번호 */
+      , MFCRTR_AT                      AS "MfcrtrAt"                     /* 제조업여부 */
+      , IRTB_AT                        AS "IrtbAt"                       /* 수입업여부 */
+      , REPAIR_INDUTY_AT               AS "RepairIndutyAt"               /* 수리업여부 */
+      , MESUR_PROOF_INDUTY_AT          AS "MesurProofIndutyAt"           /* 계량증명업여부 */
+      , MRNR_EMPLYR_AT                 AS "MrnrEmplyrAt"                 /* 계량기사용자여부 */
+      , ATPT_RCEPT_AT                  AS "AtptRceptAt"                  /* 시도접수여부 */
+      , MBER_AT                        AS "MberAt"                       /* 회원여부 */
+      , DELETE_AT                      AS "DeleteAt"                     /* 삭제여부 */
+      , FN_ENTRPRS_SE_NM('00',ENTRPRS_SN)   AS "EnterpriseSectionName"   /* 업체구분명 */
+      , REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , REGISTER_SE_CODE               AS "RegisterSeCode"                /* 등록자구분코드 */
+      , UPDUSR_SE_CODE                 AS "UpdusrSeCode"                  /* 수정자구분코드 */
+      , FN_USER_NM(REGISTER_SE_CODE, REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(UPDUSR_SE_CODE, UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      , HMPG_URL                       AS "HmpgUrl"                       /* 홈페이지URL */
+      FROM    TN_ENTRPRS
+      WHERE   ENTRPRS_SN = #EntrprsSn#
+    </select>
+
+    <select id="EntrprsDac.SelectEntrprsOfBizrno" parameterClass="string" resultClass="EntrprsT">
+      /* EntrprsDac.SelectEntrprs */
+      SELECT    ENTRPRS_SN                     AS "EntrprsSn"
+      , ENTRPRS_NM                     AS "EntrprsNm"                    /* 기업명 */
+      , BIZRNO                         AS "Bizrno"                       /* 사업자등록번호 */
+      , RPRSNTV_NM                     AS "RprsntvNm"                    /* 대표자명 */
+      , REPRSNT_TELNO                  AS "ReprsntTelno"                 /* 대표전화번호 */
+      , REPRSNT_FXNUM                  AS "ReprsntFxNum"                 /* 대표팩스번호 */
+      , MFCRTR_AT                      AS "MfcrtrAt"                     /* 제조업여부 */
+      , IRTB_AT                        AS "IrtbAt"                       /* 수입업여부 */
+      , REPAIR_INDUTY_AT               AS "RepairIndutyAt"               /* 수리업여부 */
+      , MESUR_PROOF_INDUTY_AT          AS "MesurProofIndutyAt"           /* 계량증명업여부 */
+      , MRNR_EMPLYR_AT                 AS "MrnrEmplyrAt"                 /* 계량기사용자여부 */
+      , ATPT_RCEPT_AT                  AS "AtptRceptAt"                  /* 시도접수여부 */
+      , MBER_AT                        AS "MberAt"                       /* 회원여부 */
+      , DELETE_AT                      AS "DeleteAt"                     /* 삭제여부 */
+      , FN_ENTRPRS_SE_NM('00',ENTRPRS_SN)   AS "EnterpriseSectionName"   /* 업체구분명 */
+      , REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , REGISTER_SE_CODE               AS "RegisterSeCode"                /* 등록자구분코드 */
+      , UPDUSR_SE_CODE                 AS "UpdusrSeCode"                  /* 수정자구분코드 */
+      , FN_USER_NM(REGISTER_SE_CODE, REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(UPDUSR_SE_CODE, UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      , HMPG_URL                       AS "HmpgUrl"                       /* 홈페이지URL */
+      FROM    TN_ENTRPRS
+      WHERE   BIZRNO = #Bizrno#
+    </select>
+
+    <update id="EntrprsDac.DeleteEntrprs" parameterClass="EntrprsT">
+      /* EntrprsDac.DeleteEntrprs */
+      UPDATE TN_ENTRPRS
+      SET
+      DELETE_AT = 'Y'
+      ,UPDT_DT = SYSDATE
+      ,UPDUSR_ID = #UpdusrId#
+      ,UPDUSR_SE_CODE = #UpdusrSeCode#
+      WHERE
+      ENTRPRS_SN = #EntrprsSn#
+    </update >
+
+
+    <update id="EntrprsDac.UpdateEntrprs" parameterClass="EntrprsT">
+      /* EntrprsDac.UpdateEntrprs */
+      UPDATE TN_ENTRPRS
+      SET
+      ENTRPRS_NM = #EntrprsNm#
+      ,BIZRNO = #Bizrno#
+      ,RPRSNTV_NM = #RprsntvNm#
+      ,REPRSNT_TELNO = #ReprsntTelno#
+      ,REPRSNT_FXNUM = #ReprsntFxNum#
+      ,MFCRTR_AT = #MfcrtrAt#
+      ,IRTB_AT = #IrtbAt#
+      ,REPAIR_INDUTY_AT = #RepairIndutyAt#
+      ,MESUR_PROOF_INDUTY_AT = #MesurProofIndutyAt#
+      ,MRNR_EMPLYR_AT = #MrnrEmplyrAt#
+      ,UPDT_DT = SYSDATE
+      ,UPDUSR_ID = #UpdusrId#
+      ,UPDUSR_SE_CODE = #UpdusrSeCode#
+      ,HMPG_URL = #HmpgUrl#
+      ,MBER_AT = #MberAt#
+      WHERE
+      ENTRPRS_SN = #EntrprsSn#
+    </update>
+
+
+
+    <insert id="EntrprsDac.InsertEntrprsAdres" parameterClass="EntrprsAdresT">
+      /* EntrprsDac.InsertEntrprsAdres */
+      INSERT INTO TN_ENTRPRS_ADRES
+      (
+      ENTRPRS_ADRES_SN
+      ,ENTRPRS_SN
+      ,ENTRPRS_ADRES_SE_CODE
+      ,ENTRPRS_ADRES_NM
+      ,ADRES_TELNO
+      ,ADRES_FXNUM
+      ,ADRES_SE_CODE
+      ,DETAIL_ADRES
+      ,BASS_ADRES
+      ,ZIP
+      ,DMSTC_AT
+      )
+      VALUES
+      (
+      (SELECT NVL(MAX(ENTRPRS_ADRES_SN), 0) + 1
+      FROM   TN_ENTRPRS_ADRES
+      WHERE  ENTRPRS_SN = #EntrprsSn#)
+      ,#EntrprsSn#
+      ,#EntrprsAdresSeCode#
+      ,#EntrprsAdresNm#
+      ,#AdresTelno#
+      ,#AdresFxnum#
+      ,#AdresSeCode#
+      ,#DetailAdres#
+      ,#BassAdres#
+      ,#Zip#
+      ,#DmstcAt#
+      )
+    </insert >
+
+    <delete id="EntrprsDac.DeleteEntrprsAdres" parameterClass="long">
+      /* EntrprsDac.DeleteEntrprsAdres */
+      DELETE FROM TN_ENTRPRS_ADRES
+      WHERE
+      ENTRPRS_SN = #EntrprsSn#
+    </delete >
+
+    <update id="EntrprsDac.UpdateEntrprsAdres" parameterClass="EntrprsAdresT">
+      /* EntrprsDac.UpdateEntrprsAdres */
+      UPDATE TN_ENTRPRS_ADRES
+      SET
+      ENTRPRS_ADRES_SE_CODE = #EntrprsAdresSeCode#
+      ,ENTRPRS_ADRES_NM = #EntrprsAdresNm#
+      ,ADRES_TELNO = #AdresTelno#
+      ,ADRES_SE_CODE = #AdresSeCode#
+      ,DETAIL_ADRES = #DetailAdres#
+      ,BASS_ADRES = #BassAdres#
+      ,ZIP = #Zip#
+      ,DMSTC_AT = #DmstcAt#
+      WHERE
+      ENTRPRS_ADRES_SN = #EntrprsAdresSn#
+      AND    ENTRPRS_SN = #EntrprsSn#
+    </update>
+
+    <select id="EntrprsDac.SelectEntrprsAdresList" parameterClass="EntrprsAdresT" resultClass="EntrprsAdresT">
+      /* EntrprsDac.SelectEntrprsAdresList */
+      SELECT   ENTRPRS_ADRES_SN      AS "EntrprsAdresSn"
+      ,ENTRPRS_SN            AS "EntrprsSn"
+      ,ENTRPRS_ADRES_SE_CODE AS "EntrprsAdresSeCode"
+      ,FN_CMMN_CODE_NM(ENTRPRS_ADRES_SE_CODE) AS "EntrprsAdresSeCodeNm"
+      ,ENTRPRS_ADRES_NM      AS "EntrprsAdresNm"
+      ,ADRES_TELNO           AS "AdresTelno"
+      ,ADRES_FXNUM           AS "AdresFxnum"
+      ,ADRES_SE_CODE         AS "AdresSeCode"
+      ,DETAIL_ADRES          AS "DetailAdres"
+      ,BASS_ADRES            AS "BassAdres"
+      ,ZIP                   AS "Zip"
+      ,SUBSTR(ZIP, 0, 3)     AS "Zip1"
+      ,SUBSTR(ZIP, 4, 3)     AS "Zip2"
+      ,DMSTC_AT             AS "DmstcAt"
+      FROM    TN_ENTRPRS_ADRES
+      WHERE   ENTRPRS_SN = #EntrprsSn#
+      <isNotEmpty property="EntrprsAdresSeCode">
+        AND ENTRPRS_ADRES_SE_CODE = #EntrprsAdresSeCode#
+      </isNotEmpty>
+      ORDER BY ENTRPRS_ADRES_SN ASC
+    </select>
+
+    <select id="EntrprsDac.SelectEntrprsAdres" parameterClass="EntrprsAdresT" resultClass="EntrprsAdresT">
+      /* EntrprsDac.SelectEntrprsAdres */
+      SELECT   ENTRPRS_ADRES_SN      AS "EntrprsAdresSn"
+      ,ENTRPRS_SN            AS "EntrprsSn"
+      ,ENTRPRS_ADRES_SE_CODE AS "EntrprsAdresSeCode"
+      ,FN_CMMN_CODE_NM(ENTRPRS_ADRES_SE_CODE) AS "EntrprsAdresSeCodeNm"
+      ,ENTRPRS_ADRES_NM      AS "EntrprsAdresNm"
+      ,ADRES_TELNO           AS "AdresTelno"
+      ,ADRES_FXNUM           AS "AdresFxnum"
+      ,ADRES_SE_CODE         AS "AdresSeCode"
+      ,DETAIL_ADRES          AS "DetailAdres"
+      ,BASS_ADRES            AS "BassAdres"
+      ,ZIP                   AS "Zip"
+      ,SUBSTR(ZIP, 0, 3)     AS "Zip1"
+      ,SUBSTR(ZIP, 4, 3)     AS "Zip2"
+      ,DMSTC_AT             AS "DmstcAt"
+      FROM    TN_ENTRPRS_ADRES
+      WHERE   ENTRPRS_SN = #EntrprsSn#
+      AND   ENTRPRS_ADRES_SN = #EntrprsAdresSn#
+    </select>
+
+    <select id="EntrprsDac.SelectEntrprsAdresByEntrPrsAdresSeCode" parameterClass="EntrprsAdresT" resultClass="EntrprsAdresT">
+      /* EntrprsDac.SelectEntrprsAdres */
+      SELECT   ENTRPRS_ADRES_SN      AS "EntrprsAdresSn"
+      ,ENTRPRS_SN            AS "EntrprsSn"
+      ,ENTRPRS_ADRES_SE_CODE AS "EntrprsAdresSeCode"
+      ,FN_CMMN_CODE_NM(ENTRPRS_ADRES_SE_CODE) AS "EntrprsAdresSeCodeNm"
+      ,ENTRPRS_ADRES_NM      AS "EntrprsAdresNm"
+      ,ADRES_TELNO           AS "AdresTelno"
+      ,ADRES_FXNUM           AS "AdresFxnum"
+      ,ADRES_SE_CODE         AS "AdresSeCode"
+      ,DETAIL_ADRES          AS "DetailAdres"
+      ,BASS_ADRES            AS "BassAdres"
+      ,ZIP                   AS "Zip"
+      ,SUBSTR(ZIP, 0, 3)     AS "Zip1"
+      ,SUBSTR(ZIP, 4, 3)     AS "Zip2"
+      ,DMSTC_AT             AS "DmstcAt"
+      FROM    TN_ENTRPRS_ADRES
+      WHERE   ENTRPRS_SN = #EntrprsSn#
+      AND  ENTRPRS_ADRES_SN = (
+      SELECT MAX(ENTRPRS_ADRES_SN)
+      FROM TN_ENTRPRS_ADRES
+      WHERE ENTRPRS_SN = #EntrprsSn#
+      AND ENTRPRS_ADRES_SE_CODE = #EntrprsAdresSeCode#
+      )
+      AND   ENTRPRS_ADRES_SE_CODE = #EntrprsAdresSeCode#
+    </select>
+
+    <select id="EntrprsDac.SelectEntrprsBizrnoExistYn" parameterClass="string" resultClass="string">
+      /* EntrprsDac.SelectEntrprsBizrnoExistYn 기업 사업자번호 존재여부 조회*/
+      SELECT DECODE(COUNT(BIZRNO),0,'N','Y') AS ExistYn
+      FROM TN_ENTRPRS
+      WHERE BIZRNO = #Bizrno#
+    </select>
+
+
+    <select id="EntrprsDac.SelectMnfcturMrnrInfoList" parameterClass="long" resultClass="MnfcturMrnrInfoT">
+      /* EntrprsDac.SelectMnfcturMrnrInfoList */
+      SELECT
+      A.ENTRPRS_SN                     AS "EntrprsSn"                    /* 기업일련번호 */
+      , B.ENTRPRS_NM                     AS "EntrprsNm"                    /* 기업명 */
+      , A.MNFCTUR_MRNR_SN                AS "MnfcturMrnrSn"                /* 제조계량기일련번호 */
+      , A.MRNR_KND_CODE                  AS "MrnrKndCode"                  /* 계량기종류코드 */
+      , FN_CMMN_CODE_NM(A.MRNR_KND_CODE) AS "MrnrKndCodeNm"                /* 계량기종류코드명 */
+      , A.MRNR_SCOPE_VALUE               AS "MrnrScopeValue"               /* 계량기범위값 */
+      , A.MRNR_SCOPE_UNIT_CODE           AS "MrnrScopeUnitCode"            /* 계량기범위단위코드 */
+      , FN_CMMN_CODE_NM(A.MRNR_SCOPE_UNIT_CODE) AS "MrnrScopeUnitCodeNm"            /* 계량기범위단위코드명 */
+      , A.REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , A.REGISTER_SE_CODE               AS "RegisterSeCode"               /* 등록자구분코드 */
+      , A.REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , A.UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , A.UPDUSR_SE_CODE                 AS "UpdusrSeCode"                 /* 수정자구분코드 */
+      , A.UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , FN_USER_NM(A.REGISTER_SE_CODE, A.REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(A.UPDUSR_SE_CODE, A.UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      FROM TN_MNFCTUR_MRNR_INFO A
+      ,TN_ENTRPRS B
+      WHERE B.ENTRPRS_SN = A.ENTRPRS_SN
+      AND A.ENTRPRS_SN = #SearchEntrprsSn#
+    </select>
+
+    <insert id="EntrprsDac.InsertMnfcturMrnrInfo">
+      <selectKey type="pre" resultClass="long" property="MnfcturMrnrSn">
+        SELECT NVL(MAX(MNFCTUR_MRNR_SN),0)+1 FROM TN_MNFCTUR_MRNR_INFO WHERE ENTRPRS_SN = #EntrprsSn#
+      </selectKey>
+
+      /* MnfcturMrnrInfoDac.InsertMnfcturMrnrInfo */
+      INSERT INTO TN_MNFCTUR_MRNR_INFO
+      (
+      ENTRPRS_SN
+      ,MNFCTUR_MRNR_SN
+      ,MRNR_KND_CODE
+      ,MRNR_SCOPE_VALUE
+      ,MRNR_SCOPE_UNIT_CODE
+      ,REGIST_DT
+      ,REGISTER_SE_CODE
+      ,REGISTER_ID
+      ,UPDT_DT
+      ,UPDUSR_SE_CODE
+      ,UPDUSR_ID
+      )
+      VALUES
+      (
+      #EntrprsSn#
+      ,#MnfcturMrnrSn#
+      ,#MrnrKndCode#
+      ,#MrnrScopeValue#
+      ,#MrnrScopeUnitCode#
+      , SYSDATE
+      ,#RegisterSeCode#
+      ,#RegisterId#
+      , SYSDATE
+      ,#UpdusrSeCode#
+      ,#UpdusrId#
+      )
+    </insert>
+
+    <delete id="EntrprsDac.DeleteMnfcturMrnrInfoOfEntrprs" parameterClass="MnfcturMrnrInfoT">
+      /* EntrprsDac.DeleteMnfcturMrnrInfoOfEntrprs */
+
+      DELETE FROM
+      TN_MNFCTUR_MRNR_INFO
+      WHERE
+      ENTRPRS_SN = #EntrprsSn#
+    </delete >
+
+
+    <select id="EntrprsDac.SelectMesurProofInfoList" parameterClass="long" resultClass="MesurProofInfoT">
+      SELECT
+      A.ENTRPRS_SN                     AS "EntrprsSn"                    /* 기업일련번호 */
+      , B.ENTRPRS_NM                     AS "EntrprsNm"                    /* 기업명 */
+      , A.MESUR_PROOF_SN                 AS "MesurProofSn"                 /* 계량증명업일련번호 */
+      , A.MRNR_KND_CODE                  AS "MrnrKndCode"                  /* 계량기종류코드 */
+      , FN_CMMN_CODE_NM(A.MRNR_KND_CODE) AS "MrnrKndCodeNm"                /* 계량기종류코드명 */
+      , A.MRNR_SCOPE_VALUE               AS "MrnrScopeValue"               /* 계량기범위값 */
+      , A.MRNR_SCOPE_UNIT_CODE           AS "MrnrScopeUnitCode"            /* 계량기범위단위코드 */
+      , FN_CMMN_CODE_NM(A.MRNR_SCOPE_UNIT_CODE) AS "MrnrScopeUnitCodeNm"   /* 계량기범위단위코드명 */
+      , A.ADRES_SE_CODE                  AS "AdresSeCode"                  /* 주소구분코드 */
+      , FN_CMMN_CODE_NM(A.ADRES_SE_CODE) AS "AdresSeCodeNm"                /* 주소구분코드명 */
+      , A.ZIP                            AS "Zip"                          /* 우편번호 */
+      , A.BASS_ADRES                     AS "BassAdres"                    /* 기본주소 */
+      , A.DETAIL_ADRES                   AS "DetailAdres"                  /* 상세주소 */
+      , A.RECENT_ATHRZ_DE                AS "RecentAthrzDe"                /* 최근검정일자 */
+      , A.REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , A.REGISTER_SE_CODE               AS "RegisterSeCode"               /* 등록자구분코드 */
+      , A.REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , A.UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      , A.UPDUSR_SE_CODE                 AS "UpdusrSeCode"                 /* 수정자구분코드 */
+      , A.UPDUSR_ID                      AS "UpdusrId"                     /* 수정자ID */
+      , FN_USER_NM(A.REGISTER_SE_CODE, A.REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(A.UPDUSR_SE_CODE, A.UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      FROM TN_MESUR_PROOF_INFO A
+      ,TN_ENTRPRS B
+      WHERE B.ENTRPRS_SN = A.ENTRPRS_SN
+      AND A.ENTRPRS_SN = #SearchEntrprsSn#
+
+    </select>
+
+
+    <insert id="EntrprsDac.InsertMesurProofInfo" parameterClass="MesurProofInfoT">
+      <selectKey type="pre" resultClass="long" property="MesurProofSn">
+        SELECT NVL(MAX(MESUR_PROOF_SN),0)+1 FROM TN_MESUR_PROOF_INFO WHERE ENTRPRS_SN = #EntrprsSn#
+      </selectKey>
+
+      /* EntrprsDac.InsertMesurProofInfo */
+      INSERT INTO TN_MESUR_PROOF_INFO
+      (
+      ENTRPRS_SN
+      ,MESUR_PROOF_SN
+      ,MRNR_KND_CODE
+      ,MRNR_SCOPE_VALUE
+      ,MRNR_SCOPE_UNIT_CODE
+      ,ADRES_SE_CODE
+      ,ZIP
+      ,BASS_ADRES
+      ,DETAIL_ADRES
+      ,RECENT_ATHRZ_DE
+      ,REGIST_DT
+      ,REGISTER_SE_CODE
+      ,REGISTER_ID
+      ,UPDT_DT
+      ,UPDUSR_SE_CODE
+      ,UPDUSR_ID
+      )
+      VALUES
+      (
+      #EntrprsSn#
+      ,#MesurProofSn#
+      ,#MrnrKndCode#
+      ,#MrnrScopeValue#
+      ,#MrnrScopeUnitCode#
+      ,#AdresSeCode#
+      ,#Zip#
+      ,#BassAdres#
+      ,#DetailAdres#
+      ,#RecentAthrzDe#
+      , SYSDATE
+      ,#RegisterSeCode#
+      ,#RegisterId#
+      , SYSDATE
+      ,#UpdusrSeCode#
+      ,#UpdusrId#
+      )
+    </insert >
+
+    <delete id="EntrprsDac.DeleteMesurProofInfoOfEntrprs" parameterClass="MesurProofInfoT">
+      /* EntrprsDac.DeleteMesurProofInfoOfEntrprs */
+
+      DELETE FROM
+      TN_MESUR_PROOF_INFO
+      WHERE
+      ENTRPRS_SN = #EntrprsSn#
+    </delete>
+
+
+    <select id="EntrprsDac.SelectEntrprsRcognInfoList" parameterClass="EntrprsRcognInfoSearchT" resultClass="EntrprsRcognInfoT">
+      /* EntrprsDac.SelectEntrprsRcognInfoList */
+      SELECT
+      ENTRPRS_SN                     AS "EntrprsSn"                    /* 기업일련번호 */
+      , ENTRPRS_RCOGN_INFO_SN          AS "EntrprsRcognInfoSn"           /* 기업인정정보일련번호 */
+      , RCOGN_SE_CODE                  AS "RcognSeCode"                  /* 인정구분코드 */
+      , FN_CMMN_CODE_NM(RCOGN_SE_CODE) AS "RcognSeCodeNm"                /* 인정구분코드명 */
+      , RCOGN_NO_NM                    AS "RcognNoNm"                    /* 인정번호명 */
+      , RCOGN_DE                       AS "RcognDe"                      /* 인정일자 */
+      FROM TN_ENTRPRS_RCOGN_INFO
+      WHERE 1=1
+      <isNotEmpty property="SearchEntrprsSn">
+        AND ENTRPRS_SN = #SearchEntrprsSn#
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchRcognSeCode">
+        AND RCOGN_SE_CODE = #SearchRcognSeCode#   /* 인정구분코드 */
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchMnfcturAt">
+        AND (RCOGN_SE_CODE = 'AC028001' OR  RCOGN_SE_CODE = 'AC028002')  /* 제조.수리여부 */
+      </isNotEmpty>
+
+      ORDER BY  ENTRPRS_SN DESC , ENTRPRS_RCOGN_INFO_SN DESC
+    </select>
+
+
+
+    <insert id="EntrprsDac.InsertEntrprsRcognInfo" parameterClass="EntrprsRcognInfoT">
+      <selectKey type="pre" resultClass="long" property="EntrprsRcognInfoSn">
+        SELECT NVL(MAX(ENTRPRS_RCOGN_INFO_SN),0)+1 FROM TN_ENTRPRS_RCOGN_INFO WHERE ENTRPRS_SN = #EntrprsSn#
+      </selectKey>
+
+      /* EntrprsDac.InsertEntrprsRcognInfo */
+      INSERT INTO TN_ENTRPRS_RCOGN_INFO
+      (
+      ENTRPRS_SN
+      ,ENTRPRS_RCOGN_INFO_SN
+      ,RCOGN_SE_CODE
+      ,RCOGN_NO_NM
+      ,RCOGN_DE
+      )
+      VALUES
+      (
+      #EntrprsSn#
+      ,#EntrprsRcognInfoSn#
+      ,#RcognSeCode#
+      ,#RcognNoNm#
+      ,#RcognDe#
+      )
+    </insert>
+
+
+    <delete id="EntrprsDac.DeleteEntrprsRcognInfo" parameterClass="long">
+      /* EntrprsRcognInfoDac.DeleteEntrprsRcognInfo */
+      DELETE FROM
+      TN_ENTRPRS_RCOGN_INFO
+      WHERE
+      ENTRPRS_SN = #EntrprsSn#
+    </delete >
+
+
+    <select id="EntrprsDac.SelectEntrprsChghstList" parameterClass="long" resultClass="EntrprsChghstT">
+      /* EntrprsDac.SelectEntrprsChghstList */
+      SELECT
+      ENTRPRS_SN                     AS "EntrprsSn"                    /* 기업일련번호 */
+      , ENTRPRS_CHGHST_SN              AS "EntrprsChghstSn"              /* 기업변경이력일련번호 */
+      , CHANGE_DE                      AS "ChangeDe"                     /* 변경일자 */
+      , CHANGE_CN                      AS "ChangeCn"                     /* 변경내용 */
+      , REGISTER_SE_CODE               AS "RegisterSeCode"               /* 등록자구분코드 */
+      , REGISTER_ID                    AS "RegisterId"                   /* 등록자ID */
+      , REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , FN_USER_NM(REGISTER_SE_CODE, REGISTER_ID)			AS "RegisterNm"    /* 등록자명 */
+      FROM TN_ENTRPRS_CHGHST
+      WHERE ENTRPRS_SN = #SearchEntrprsSn#
+      ORDER BY  ENTRPRS_SN DESC , ENTRPRS_CHGHST_SN DESC
+    </select>
+
+
+    <insert  id="EntrprsDac.InsertEntrprsChghst" parameterClass="EntrprsChghstT">
+      <selectKey type="pre" resultClass="long" property="EntrprsChghstSn">
+        SELECT NVL(MAX(ENTRPRS_CHGHST_SN),0)+1 FROM TN_ENTRPRS_CHGHST WHERE ENTRPRS_SN = #EntrprsSn#
+      </selectKey>
+
+      /* EntrprsDac.InsertEntrprsChghst */
+      INSERT INTO TN_ENTRPRS_CHGHST
+      (
+      ENTRPRS_SN
+      ,ENTRPRS_CHGHST_SN
+      ,CHANGE_DE
+      ,CHANGE_CN
+      ,REGISTER_SE_CODE
+      ,REGISTER_ID
+      ,REGIST_DT
+      )
+      VALUES
+      (
+      #EntrprsSn#
+      ,#EntrprsChghstSn#
+      ,#ChangeDe#
+      ,#ChangeCn#
+      ,#RegisterSeCode#
+      ,#RegisterId#
+      , SYSDATE
+      )
+    </insert >
+
+  </statements>
+
+</sqlMap>

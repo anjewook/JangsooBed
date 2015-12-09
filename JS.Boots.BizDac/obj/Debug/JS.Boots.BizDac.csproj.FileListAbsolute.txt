@@ -41,10 +41,6 @@ D:\99_MyProject\GitHub\JangsooBed\JS.BizDac\obj\Debug\JS.Boots.BizDac.csprojReso
 D:\99_MyProject\GitHub\JangsooBed\JS.BizDac\obj\Debug\JS.BizDac.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.BizDac\obj\Debug\JS.BizDac.pdb
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\obj\Debug\JS.Boots.BizDac.csprojResolveAssemblyReference.cache
-D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\obj\Debug\JS.BizDac.dll
-D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\obj\Debug\JS.BizDac.pdb
-D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\JS.BizDac.dll
-D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\JS.BizDac.pdb
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\ArchFx.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\ClosedXML.dll
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\Cryptor.dll
@@ -62,3 +58,7 @@ D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\JS.Boots.pdb
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\ArchFx.pdb
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\ClosedXML.xml
 D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\Ninject.xml
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\JS.Boots.BizDac.dll
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\bin\Debug\JS.Boots.BizDac.pdb
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\obj\Debug\JS.Boots.BizDac.dll
+D:\99_MyProject\GitHub\JangsooBed\JS.Boots.BizDac\obj\Debug\JS.Boots.BizDac.pdb

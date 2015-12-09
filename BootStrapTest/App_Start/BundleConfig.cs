@@ -15,8 +15,8 @@ namespace BootStrapTest
                         "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.validate*"));
+                        //"~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.validate.min.js"));
 
             // Modernizr의 개발 버전을 사용하여 개발하고 배우십시오. 그런 다음
             // 프로덕션할 준비가 되면 http://modernizr.com의 빌드 도구를 사용하여 필요한 테스트만 선택하십시오.

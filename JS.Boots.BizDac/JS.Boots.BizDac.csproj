@@ -7,8 +7,8 @@
     <ProjectGuid>{9D2AFA9C-D2A8-4AF8-A3FE-1057F1E04FDF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JS.BizDac</RootNamespace>
-    <AssemblyName>JS.BizDac</AssemblyName>
+    <RootNamespace>JS.Boots.BizDac</RootNamespace>
+    <AssemblyName>JS.Boots.BizDac</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -77,6 +77,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBiz.cs" />
     <Compile Include="TestDac.cs" />
+    <Compile Include="UserMng\EmplBiz.cs" />
+    <Compile Include="UserMng\EmplDac.cs" />
+    <Compile Include="UserMng\EntrprsBiz.cs" />
+    <Compile Include="UserMng\EntrprsDac.cs" />
+    <Compile Include="UserMng\EntrprsUserBiz.cs" />
+    <Compile Include="UserMng\EntrprsUserDac.cs" />
+    <Compile Include="UserMng\IndvdlUserBiz.cs" />
+    <Compile Include="UserMng\IndvdlUserDac.cs" />
+    <Compile Include="UserMng\ProfileBiz.cs" />
+    <Compile Include="UserMng\ProfileDac.cs" />
     <Compile Include="UserMng\UserBiz.cs" />
     <Compile Include="UserMng\UserDac.cs" />
   </ItemGroup>
@@ -96,6 +106,11 @@
   <ItemGroup>
     <Content Include="Common\Common.xml" />
     <Content Include="Test.xml" />
+    <Content Include="UserMng\Empl.xml" />
+    <Content Include="UserMng\Entrprs.xml" />
+    <Content Include="UserMng\EntrprsUser.xml" />
+    <Content Include="UserMng\IndvdlUser.xml" />
+    <Content Include="UserMng\Profile.xml" />
     <Content Include="UserMng\User.xml" />
   </ItemGroup>
   <ItemGroup>

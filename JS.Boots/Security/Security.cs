@@ -8,7 +8,7 @@ using Neoplus.Cryptor;
 
 namespace JS.Boots.Security
 {
-    public enum UserType { None, NormalUser, SiGunGuUser, OrganUser, EnterpriseUser, KtcUser, PblOfficialUser };
+    public enum UserType { None, NormalUser, SiGunGuUser, OrganUser, EnterpriseUser, JsUser, PblOfficialUser };
     public enum Authorize { None, Create, Read, Update, Delete, Print, Admin };
 
     public class Security
@@ -120,7 +120,7 @@ namespace JS.Boots.Security
                     userType = UserType.EnterpriseUser;
                     break;
                 case "AC007005":
-                    userType = UserType.KtcUser;
+                    userType = UserType.JsUser;
                     break;
                 case "AC007006":
                     userType = UserType.PblOfficialUser;
@@ -150,7 +150,7 @@ namespace JS.Boots.Security
                 case UserType.EnterpriseUser:
                     userTypeCode = "AC007002";
                     break;
-                case UserType.KtcUser:
+                case UserType.JsUser:
                     userTypeCode = "AC007005";
                     break;
                 case UserType.PblOfficialUser:

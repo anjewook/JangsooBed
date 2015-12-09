@@ -180,6 +180,15 @@ namespace JS.Boots.Data.UserMng
         /// </summary> 
         public string OldPassword { get; set; }
 
+        /// <summary>
+        /// 사업장주소
+        /// </summary>
+        public EntrprsAdresT BizEntrprsAdresT { get; set; }
+
+        /// <summary>
+        /// 기업주소 리스트
+        /// </summary>
+        public IList<EntrprsAdresT> entrprsAdresList;
 
         /// <summary>
         /// 제조계량기정보 업데이트 여부

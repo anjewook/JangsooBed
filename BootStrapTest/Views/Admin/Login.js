@@ -19,6 +19,7 @@ $(document).ready(function () {
         onkeyup: false,
         onclick: false,
         onfocusout: false,
+        debug: true,
         rules: {
             userId: {
                 required: true,
@@ -51,9 +52,6 @@ $(document).ready(function () {
 
             $("#userId").val($("#userId").val().replace(/ /g, ''));
             $("#password").val($("#password").val().replace(/ /g, ''));
-
-            alert($("#userId").val());
-            alert($("#password").val());
 
             $.ajax({
                 type: "POST",

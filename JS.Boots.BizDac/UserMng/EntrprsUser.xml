@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="Ktc.Meter.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="EntrprsUserSearchT"   type="Ktc.Meter.Data.UserMng.EntrprsUserSearchT" />
+    <typeAlias alias="EntrprsUserT"         type="Ktc.Meter.Data.UserMng.EntrprsUserT" />
+    <typeAlias alias="MyPageFrmIptCountT"   type="Ktc.Meter.Data.UserMng.MyPageFrmIptCountT" />
+  </alias>
+
+
+  <statements>
+
+    <select id="EntrprsUserDac.SelectEntrprsUserList" parameterClass="EntrprsUserSearchT" resultClass="EntrprsUserT">
+      /* EntrprsUserDac.SelectEntrprsUserList */
+      SELECT
+      *
+      FROM
+      (
+      SELECT
+      A.*
+      ,ROWNUM AS "RowNumber"
+      ,COUNT(*) OVER() AS "TotalCount"
+      FROM
+      (
+      SELECT
+      A.USER_ID                      AS "UserId"                       /* 사용자ID */
+      , A.ENTRPRS_SN                   AS "EntrprsSn"                    /* 기업일련번호 */
+      , B.ENTRPRS_NM                   AS "EntrprsNm"                    /* 기업명 */
+      , A.USER_NM                      AS "UserNm"                       /* 사용자명 */
+      , A.TELNO                        AS "Telno"                        /* 전화번호 */
+      , FN_CRYPTO(A.MBTLNUM,'D')                      AS "Mbtlnum"                      /* 휴대폰번호 */
+      , A.EMAIL_ADRES                  AS "EmailAdres"                   /* 이메일주소 */
+      , A.MNGR_AT                      AS "MngrAt"                       /* 관리자여부 */
+      , A.ENTRPRS_USER_STTUS_CODE      AS "EntrprsUserSttusCode"         /* 기업사용자상태코드 */
+      , A.REGIST_DT                    AS "RegistDt"                     /* 등록일시 */
+      , A.REGISTER_ID                  AS "RegisterId"                   /* 등록자ID */
+      , A.UPDT_DT                      AS "UpdtDt"                       /* 수정일시 */
+      , A.UPDUSR_ID                    AS "UpdusrId"                     /* 수정자ID */
+      , A.REGISTER_SE_CODE             AS "RegisterSeCode"                /* 등록자구분코드 */
+      , A.UPDUSR_SE_CODE               AS "UpdusrSeCode"                  /* 수정자구분코드 */
+      , FN_USER_NM(A.REGISTER_SE_CODE, A.REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(A.UPDUSR_SE_CODE, A.UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      FROM TN_ENTRPRS_USER A
+      ,TN_ENTRPRS B
+      WHERE B.ENTRPRS_SN = A.ENTRPRS_SN
+
+      <isNotEmpty property="SearchEntrprsUserSttusCode">
+        AND A.ENTRPRS_USER_STTUS_CODE = #SearchEntrprsUserSttusCode#   /* 기업사용자상태코드 */
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchEntrprsSn">
+        <isNotEqual property="SearchEntrprsSn" compareValue="0">
+          AND A.ENTRPRS_SN = #SearchEntrprsSn#    /* 기업일련번호 */
+        </isNotEqual>
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchEntrprsNm">
+        AND B.ENTRPRS_NM LIKE #SearchEntrprsNm#  || '%'   /* 기업명 */
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchText">
+        <isEqual property="SearchType" compareValue="A">
+          AND A.USER_NM LIKE '%' || #SearchText# || '%'   /* 사용자명 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="B">
+          AND A.USER_ID LIKE '%' || #SearchText# || '%'   /* 사용자ID */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="C">
+          AND A.TELNO LIKE '%' || #SearchText# || '%'   /* 전화번호 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="D">
+          AND FN_CRYPTO(A.MBTLNUM,'D') LIKE '%' || #SearchText# || '%'   /* 휴대폰번호 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="E">
+          AND A.EMAIL_ADRES LIKE '%' || #SearchText# || '%'   /* 이메일주소 */
+        </isEqual>
+      </isNotEmpty>
+      ORDER BY A.ENTRPRS_SN ASC, A.USER_ID ASC
+      ) A
+      )
+      WHERE "RowNumber" BETWEEN #StartIndex# AND #EndIndex#
+
+    </select>
+
+    <select id="EntrprsUserDac.SelectEntrprsUser" parameterClass="string" resultClass="EntrprsUserT">
+      /* EntrprsUserDac.SelectEntrprsUser */
+      SELECT
+      A.USER_ID                      AS "UserId"                       /* 사용자ID */
+      , A.ENTRPRS_SN                   AS "EntrprsSn"                    /* 기업일련번호 */
+      , B.ENTRPRS_NM                   AS "EntrprsNm"                    /* 기업명 */
+      , A.USER_NM                      AS "UserNm"                       /* 사용자명 */
+      , A.TELNO                        AS "Telno"                        /* 전화번호 */
+      , FN_CRYPTO(A.MBTLNUM,'D')                      AS "Mbtlnum"                      /* 휴대폰번호 */
+      , A.EMAIL_ADRES                  AS "EmailAdres"                   /* 이메일주소 */
+      , A.MNGR_AT                      AS "MngrAt"                       /* 관리자여부 */
+      , A.ENTRPRS_USER_STTUS_CODE      AS "EntrprsUserSttusCode"         /* 기업사용자상태코드 */
+      , A.REGIST_DT                    AS "RegistDt"                     /* 등록일시 */
+      , A.REGISTER_ID                  AS "RegisterId"                   /* 등록자ID */
+      , A.UPDT_DT                      AS "UpdtDt"                       /* 수정일시 */
+      , A.UPDUSR_ID                    AS "UpdusrId"                     /* 수정자ID */
+      , A.REGISTER_SE_CODE             AS "RegisterSeCode"                /* 등록자구분코드 */
+      , A.UPDUSR_SE_CODE               AS "UpdusrSeCode"                  /* 수정자구분코드 */
+      , FN_USER_NM(A.REGISTER_SE_CODE, A.REGISTER_ID)			AS "RegisterNm"     /* 등록자명 */
+      , FN_USER_NM(A.UPDUSR_SE_CODE, A.UPDUSR_ID)					AS "UpdusrNm"       /* 수정자명 */
+      FROM TN_ENTRPRS_USER A
+      ,TN_ENTRPRS B
+      WHERE B.ENTRPRS_SN = A.ENTRPRS_SN
+      AND A.USER_ID = #UserId#
+    </select>
+
+    <insert id="EntrprsUserDac.InsertEntrprsUser" parameterClass="EntrprsUserT">
+      /* EntrprsUserDac.InsertEntrprsUser */
+      INSERT INTO TN_ENTRPRS_USER
+      (
+      USER_ID
+      ,ENTRPRS_SN
+      ,USER_NM
+      ,TELNO
+      ,MBTLNUM
+      ,EMAIL_ADRES
+      ,MNGR_AT
+      ,ENTRPRS_USER_STTUS_CODE
+      ,REGIST_DT
+      ,REGISTER_ID
+      ,UPDT_DT
+      ,UPDUSR_ID
+      ,REGISTER_SE_CODE
+      ,UPDUSR_SE_CODE
+      )
+      VALUES
+      (
+      #UserId#
+      ,#EntrprsSn#
+      ,#UserNm#
+      ,#Telno#
+      ,FN_CRYPTO(#Mbtlnum#,'E')
+      ,#EmailAdres#
+      ,#MngrAt#
+      ,#EntrprsUserSttusCode#
+      ,SYSDATE
+      ,#RegisterId#
+      ,SYSDATE
+      ,#UpdusrId#
+      ,#RegisterSeCode#
+      ,#UpdusrSeCode#
+      )
+    </insert >
+
+
+    <update id="EntrprsUserDac.UpdateEntrprsUserSttusCode" parameterClass="EntrprsUserT">
+      /* EntrprsUserDac.UpdateEntrprsUserSttusCode */
+
+      UPDATE TN_ENTRPRS_USER
+      SET
+      ENTRPRS_USER_STTUS_CODE = #EntrprsUserSttusCode#
+      ,UPDT_DT = SYSDATE
+      ,UPDUSR_ID = #UpdusrId#
+      WHERE
+      USER_ID = #UserId#
+    </update >
+
+
+    <update id="EntrprsUserDac.UpdateEntrprsUser" parameterClass="EntrprsUserT">
+      /* EntrprsUserDac.UpdateEntrprsUser */
+
+      UPDATE
+      TN_ENTRPRS_USER
+      SET
+      ENTRPRS_SN = #EntrprsSn#
+      ,USER_NM = #UserNm#
+      ,TELNO = #Telno#
+      ,MBTLNUM = FN_CRYPTO(#Mbtlnum#,'E')
+      ,EMAIL_ADRES = #EmailAdres#
+      ,MNGR_AT = #MngrAt#
+      ,ENTRPRS_USER_STTUS_CODE = #EntrprsUserSttusCode#
+      ,UPDT_DT = SYSDATE
+      ,UPDUSR_ID = #UpdusrId#
+      ,UPDUSR_SE_CODE = #UpdusrSeCode#
+      WHERE
+      USER_ID = #UserId#
+    </update>
+
+
+    <select id="EntrprsUserDac.SelectFrmIptCount" parameterClass="EntrprsT" resultClass="MyPageFrmIptCountT">
+      /* EntrprsUserDac.SelectFrmIptCount */
+      SELECT  /* 형식승인 : 전체신청현황 */
+      (SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  1=1
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormTotalRequestCnt"
+      /* 형식승인 : 임시저장 */
+      ,(SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  FOM_CONFM_PROCESS_STTUS_CODE = 'AB007001'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormTempSaveCnt"
+      /* 형식승인 : 신청 */
+      ,(SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  FOM_CONFM_PROCESS_STTUS_CODE = 'AB007002'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormNewRequestCnt"
+      /* 형식승인 : 접수 (회계.검토.접수승인,부분납부,재발급신청포함)*/
+      ,(SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  FOM_CONFM_PROCESS_STTUS_CODE IN ( 'AB007003', 'AB007005', 'AB007006', 'AB007007', 'AB007021', 'AB007024' )
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormReceiptCnt"
+      /* 형식승인 : 접수반려 */
+      ,(SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  FOM_CONFM_PROCESS_STTUS_CODE = 'AB007004'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormReceiptRejectCnt"
+      /* 형식승인 : 시험진행 (시험결과등록, 최종승인요청, 최종승인 포함)*/
+      ,(SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  FOM_CONFM_PROCESS_STTUS_CODE IN ( 'AB007008', 'AB007009', 'AB007010', 'AB007011' )
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormTestProgressCnt"
+      /* 형식승인 : 신청취소 */
+      ,(SELECT COUNT(*)
+      FROM   TN_FOM_CONFM
+      WHERE  FOM_CONFM_PROCESS_STTUS_CODE = 'AB007020'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "FormRequestCancelCnt"
+
+      /* 검정 : 전체신청현황 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE != 'AD001007'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptTotalRequestCnt"
+      /* 검정 : 임시저장 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001001'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptTempSaveCnt"
+      /* 검정 : 신청 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001002'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptConfmRequestCnt"
+      /* 검정 : 접수 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001003'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptReceiptCnt"
+      /* 검정 : 서류검토 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001004'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptDocumentReviewCnt"
+      /* 검정 : 검정진행 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001005'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptProgressCnt"
+      /* 검정 : 내부결제 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001006'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptInnerConfirmCnt"
+      /* 검정 : 검정완료 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001007'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptConfirmCompleteCnt"
+      /* 검정 : 접수신청취소 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001008'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptReceiptCancelCnt"
+      /* 검정 : 재발급신청 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001009'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptReConfirmIssueCnt"
+      /* 검정 : 접수반려 건수 */
+      ,(SELECT COUNT(*)
+      FROM   TN_ATHRZ
+      WHERE  ATHRZ_PROCESS_STTUS_CODE = 'AD001010'
+      <isNotEmpty property="EntrprsSn">
+        <isGreaterThan property="EntrprsSn" compareValue="0">
+          AND ENTRPS_SN = #EntrprsSn#
+        </isGreaterThan>
+      </isNotEmpty>
+      ) AS "IptReceiptRejectCnt"
+
+      FROM   DUAL
+    </select>
+
+  </statements>
+
+</sqlMap>

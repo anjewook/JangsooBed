@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="Ktc.Meter.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="ProfileT"   type="Ktc.Meter.Data.UserMng.ProfileT" />
+    <typeAlias alias="UserMenuAuthSearchT"   type="Ktc.Meter.Data.UserMng.UserMenuAuthSearchT" />
+  </alias>
+
+
+  <statements>
+
+    <select id="ProfileDac.SelectUser" parameterClass="ProfileT" resultClass="ProfileT">
+      /* ProfileDac.SelectUser */
+      SELECT
+      A.PASSWORD AS "Password"
+      ,A.USER_SE_CODE AS "UserSeCode"
+      ,FN_CMMN_CODE_NM(A.USER_SE_CODE) AS "UserSeName"
+      ,CASE WHEN FLOOR(MONTHS_BETWEEN(SYSDATE,  TO_DATE(PASSWORD_CHANGE_DT))) &gt;= 3 THEN 'Y' ELSE 'N' END AS "PassChangeElapseAt" /* 비밀번호변경 경과여부 (3개월)*/
+      ,CASE A.USER_SE_CODE
+      WHEN 'AC007001' THEN (SELECT EMAIL_ADRES FROM TN_INDVDL_USER WHERE USER_ID = A.USER_ID)
+      WHEN 'AC007002' THEN (SELECT EMAIL_ADRES FROM TN_ENTRPRS_USER WHERE USER_ID = A.USER_ID)
+      WHEN 'AC007003' THEN (SELECT EMAIL_ADRES FROM TN_INSTT_USER WHERE USER_ID = A.USER_ID)
+      WHEN 'AC007004' THEN (SELECT EMAIL_ADRES FROM TN_SIGNGU_USER WHERE USER_ID = A.USER_ID)
+      ELSE ''
+      END AS "Email"
+      FROM TN_USER A
+      WHERE A.USER_ID = #UserId#
+      <isNotEmpty property="UserSeCode">
+        AND A.USER_SE_CODE = #UserSeCode#
+      </isNotEmpty>
+    </select>
+
+    <select id="ProfileDac.SelectKtcUser" parameterClass="ProfileT" resultClass="ProfileT">
+      /* ProfileDac.SelectKtcUser */
+      SELECT
+      PASSWORD AS "Password"
+      ,EMPL_CODE AS "EmplCode"
+      FROM
+      TN_EMPL
+      WHERE
+      USER_ID = #UserId#
+      AND USE_AT = 'Y'
+    </select>
+
+
+    <select id="ProfileDac.SelectKtcUserMenuAuthList" parameterClass="UserMenuAuthSearchT" resultClass="string">
+      /* ProfileDac.SelectKtcUserMenuAuthList */
+      SELECT
+      ALWNC_AUTHOR_CODE
+      FROM
+      TN_EMPL
+      LEFT JOIN TN_AUTHOR_GROUP_EMPLYR ON TN_EMPL.EMPL_CODE = TN_AUTHOR_GROUP_EMPLYR.EMPL_CODE
+      LEFT JOIN TN_AUTHOR_GROUP ON TN_AUTHOR_GROUP_EMPLYR.AUTHOR_GROUP_CODE = TN_AUTHOR_GROUP.AUTHOR_GROUP_CODE AND TN_AUTHOR_GROUP.USE_AT = 'Y'
+      LEFT JOIN TN_AUTHOR_GROUP_MENU ON TN_AUTHOR_GROUP.AUTHOR_GROUP_CODE = TN_AUTHOR_GROUP_MENU.AUTHOR_GROUP_CODE AND MENU_CODE = #MenuCode#
+      WHERE
+      TN_EMPL.USER_ID = #UserId#
+      AND TN_EMPL.USE_AT = 'Y'
+      AND TN_AUTHOR_GROUP.USE_AT = 'Y'
+    </select>
+
+
+    <select id="ProfileDac.SelectKtcUserAuthGroupList" parameterClass="string" resultClass="string">
+      /* ProfileDac.SelectKtcUserMenuAuthList KTC사용자 권한그룹 목록 조회*/
+      SELECT A.AUTHOR_GROUP_CODE
+      FROM TN_AUTHOR_GROUP_EMPLYR A, TN_AUTHOR_GROUP B
+      WHERE B.AUTHOR_GROUP_CODE = B.AUTHOR_GROUP_CODE
+      AND A.EMPL_CODE = #emplCode#
+      AND B.USE_AT = 'Y'
+    </select>
+
+
+    <select id="ProfileDac.SelectUserMenuAuthList" parameterClass="UserMenuAuthSearchT" resultClass="string">
+      /* ProfileDac.SelectUserMenuAuthList 사용자메뉴권한 목록 조회*/
+      SELECT ALWNC_AUTHOR_CODE
+      FROM TN_AUTHOR_GROUP_MENU
+      WHERE MENU_CODE = #MenuCode#
+      <isNotEmpty property="AuthorGroupList">
+        <iterate prepend="AND AUTHOR_GROUP_CODE IN" property="AuthorGroupList" open="(" close=")" conjunction=",">
+          #AuthorGroupList[]#
+        </iterate>
+      </isNotEmpty>
+
+      GROUP BY ALWNC_AUTHOR_CODE
+    </select>
+  </statements>
+
+</sqlMap>
