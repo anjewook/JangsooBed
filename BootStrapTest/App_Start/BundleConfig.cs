@@ -11,7 +11,11 @@ namespace BootStrapTest
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
             // Modernizr의 개발 버전을 사용하여 개발하고 배우십시오. 그런 다음

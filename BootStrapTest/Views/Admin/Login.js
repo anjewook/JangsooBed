@@ -47,12 +47,13 @@ $(document).ready(function () {
 
     $("#acLogin").click(function () {
 
-        alert(1818);
-
         if ($("#frmLogin").valid()) {
 
             $("#userId").val($("#userId").val().replace(/ /g, ''));
             $("#password").val($("#password").val().replace(/ /g, ''));
+
+            alert($("#userId").val());
+            alert($("#password").val());
 
             $.ajax({
                 type: "POST",
@@ -60,14 +61,16 @@ $(document).ready(function () {
                 url: "/Admin/Login",
                 data: $("#frmLogin").serialize(),
                 success: function (data) {
+
                     if (data.Success == true) {
                         if ($("#idsave").is(":checked") == true) {
                             $.cookie("JS_BOOTS_LOGIN", $("#userId").val(), { expires: 7 });
                             $.cookie("JS_BOOTS_LOGIN_CODE", $(':radio[name="userSeCode"]:checked').val(), { expires: 7 });
                         }
 
-                        var url = PORTAL_MAIN_URL;
-
+                        //var url = PORTAL_MAIN_URL;
+                        var url = ADMIN_LOGIN_URL;
+                        
                         if ($.trim($("#returnUrl").val()).length > 0) {
                             url = $("#returnUrl").val();
                         }
@@ -75,6 +78,8 @@ $(document).ready(function () {
                         if (data.PassChangeElapseAt == "Y") { //비밀번호변경 시간경과여부
                             url = "/MyPage/MberPasswordEdit"; //비밀번호 변경 페이지 이동
                         }
+                        //alert(url);
+                        //return false;
 
                         $(location).attr("href", url);
                     }

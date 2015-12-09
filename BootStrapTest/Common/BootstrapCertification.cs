@@ -12,7 +12,7 @@ using JS.Boots.Data;
 
 namespace BootStrapTest.Common
 {
-    public class BootsrapCertification
+    public class BootstrapCertification
     {
         public static MessageT SignOn(ProfileT profileT)
         {
