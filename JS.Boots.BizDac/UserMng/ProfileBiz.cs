@@ -22,6 +22,7 @@ namespace JS.Boots.BizDac.UserMng
 
             //사용자구분별 사용자정보 조회
             profileT.UserTypeCode = profileT.UserSeCode;
+
             if (profileT.UserType == Security.UserType.JsUser)
             {
                 //Js담당자인 경우
@@ -37,7 +38,8 @@ namespace JS.Boots.BizDac.UserMng
             if (resultProfileT != null)
             {
                 //비밀번호 비교 (암호화 후 비교)
-                if (resultProfileT.Password == Security.Security.Encrypt(profileT.Password))
+                //if (resultProfileT.Password == Security.Security.Encrypt(profileT.Password))
+                if (resultProfileT.Password == profileT.Password)
                 {
                     resultProfileT.UserId = profileT.UserId;
                     resultProfileT.UserSeCode = profileT.UserSeCode;

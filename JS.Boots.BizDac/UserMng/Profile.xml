@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<sqlMap namespace="Ktc.Meter.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+<sqlMap namespace="JS.Boots.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
 
   <alias>
-    <typeAlias alias="ProfileT"   type="Ktc.Meter.Data.UserMng.ProfileT" />
-    <typeAlias alias="UserMenuAuthSearchT"   type="Ktc.Meter.Data.UserMng.UserMenuAuthSearchT" />
+    <typeAlias alias="ProfileT"   type="JS.Boots.Data.UserMng.ProfileT" />
+    <typeAlias alias="UserMenuAuthSearchT"   type="JS.Boots.Data.UserMng.UserMenuAuthSearchT" />
   </alias>
 
 
@@ -12,6 +12,7 @@
 
     <select id="ProfileDac.SelectUser" parameterClass="ProfileT" resultClass="ProfileT">
       /* ProfileDac.SelectUser */
+      /*
       SELECT
       A.PASSWORD AS "Password"
       ,A.USER_SE_CODE AS "UserSeCode"
@@ -29,10 +30,21 @@
       <isNotEmpty property="UserSeCode">
         AND A.USER_SE_CODE = #UserSeCode#
       </isNotEmpty>
+      */
+
+      SELECT
+      mempwd AS "Password"
+      , "AC007001" AS "UserSeCode"
+      , grade_name AS "UserSeName"
+      , "N" AS "PassChangeElapseAt"
+      , email AS "Email"
+      FROM gMemb10T
+      WHERE memid = #UserId#
     </select>
 
-    <select id="ProfileDac.SelectKtcUser" parameterClass="ProfileT" resultClass="ProfileT">
-      /* ProfileDac.SelectKtcUser */
+    <select id="ProfileDac.SelectJsUser" parameterClass="ProfileT" resultClass="ProfileT">
+      /* ProfileDac.SelectJsUser */
+      /*
       SELECT
       PASSWORD AS "Password"
       ,EMPL_CODE AS "EmplCode"
@@ -41,6 +53,14 @@
       WHERE
       USER_ID = #UserId#
       AND USE_AT = 'Y'
+      */
+      SELECT
+      emp_pwd AS "Password"
+      ,'AC007005' AS "EmplCode"
+      FROM
+      gEmp10T
+      WHERE
+      emp_id = #UserId#
     </select>
 
 
