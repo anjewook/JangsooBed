@@ -10,7 +10,39 @@
 
   <statements>
 
+    <select id="ProfileDac.SelectJsUser" parameterClass="ProfileT" resultClass="ProfileT">
+      /* ProfileDac.SelectJsUser */
+      SELECT
+      emp_pwd AS "Password"
+      ,'AC007005' AS "EmplCode"
+      FROM
+      gEmp10T
+      WHERE
+      emp_id = #UserId#
+    </select>
+
     <select id="ProfileDac.SelectUser" parameterClass="ProfileT" resultClass="ProfileT">
+      /* ProfileDac.SelectUser */
+      SELECT
+      mempwd AS "Password"
+      , 'AC007001' AS "UserSeCode"
+      , grade_name AS "UserSeName"
+      , 'N' AS "PassChangeElapseAt"
+      , email AS "Email"
+      FROM gMemb10T
+      WHERE memid = #UserId#
+    </select>
+
+    <select id="ProfileDac.SelectJsUserAuthGroupList" parameterClass="string" resultClass="string">
+      /* ProfileDac.SelectJsUserAuthGroupList 사용자 권한그룹 목록 조회*/
+      SELECT A.AUTHOR_GROUP_CODE
+      FROM TN_AUTHOR_GROUP_EMPLYR A, TN_AUTHOR_GROUP B
+      WHERE B.AUTHOR_GROUP_CODE = B.AUTHOR_GROUP_CODE
+      AND A.EMPL_CODE = #emplCode#
+      AND B.USE_AT = 'Y'
+    </select>
+
+    <select id="ProfileDac.OldSelectUser" parameterClass="ProfileT" resultClass="ProfileT">
       /* ProfileDac.SelectUser */
       /*
       SELECT
@@ -31,20 +63,10 @@
         AND A.USER_SE_CODE = #UserSeCode#
       </isNotEmpty>
       */
-
-      SELECT
-      mempwd AS "Password"
-      , "AC007001" AS "UserSeCode"
-      , grade_name AS "UserSeName"
-      , "N" AS "PassChangeElapseAt"
-      , email AS "Email"
-      FROM gMemb10T
-      WHERE memid = #UserId#
     </select>
 
-    <select id="ProfileDac.SelectJsUser" parameterClass="ProfileT" resultClass="ProfileT">
-      /* ProfileDac.SelectJsUser */
-      /*
+    <select id="ProfileDac.OldSelectJsUser" parameterClass="ProfileT" resultClass="ProfileT">
+      /* ProfileDac.OldSelectJsUser */
       SELECT
       PASSWORD AS "Password"
       ,EMPL_CODE AS "EmplCode"
@@ -53,14 +75,6 @@
       WHERE
       USER_ID = #UserId#
       AND USE_AT = 'Y'
-      */
-      SELECT
-      emp_pwd AS "Password"
-      ,'AC007005' AS "EmplCode"
-      FROM
-      gEmp10T
-      WHERE
-      emp_id = #UserId#
     </select>
 
 

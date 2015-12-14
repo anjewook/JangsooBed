@@ -69,7 +69,8 @@ $(document).ready(function () {
                         }
 
                         //var url = PORTAL_MAIN_URL;
-                        var url = ADMIN_LOGIN_URL;
+                        //var url = ADMIN_LOGIN_URL;
+                        var url = ADMIN_MAIN_URL;
                         
                         if ($.trim($("#returnUrl").val()).length > 0) {
                             url = $("#returnUrl").val();

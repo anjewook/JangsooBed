@@ -41,42 +41,45 @@ namespace JS.Boots.BizDac.UserMng
                 //if (resultProfileT.Password == Security.Security.Encrypt(profileT.Password))
                 if (resultProfileT.Password == profileT.Password)
                 {
-                    resultProfileT.UserId = profileT.UserId;
-                    resultProfileT.UserSeCode = profileT.UserSeCode;
-                    resultProfileT.UserTypeCode = profileT.UserSeCode;
-                    resultProfileT.UserHostAddress = profileT.UserHostAddress;
+                    resultProfileT.UserId           = profileT.UserId;
+                    resultProfileT.UserSeCode       = profileT.UserSeCode;
+                    resultProfileT.UserTypeCode     = profileT.UserSeCode;
+                    resultProfileT.UserHostAddress  = profileT.UserHostAddress;
 
                     // 회원 구분별 추가정보 조회
                     if (resultProfileT.UserType == Security.UserType.JsUser)
                     {
+                        /*
                         EmplT emplT = new EmplBiz().SelectEmpl(resultProfileT.EmplCode);
 
-                        resultProfileT.UserNm = emplT.UserNm;               //사용자명
-                        resultProfileT.TelNumber = emplT.Telno;             //전화번호
-                        resultProfileT.MobileNumber = emplT.Mbtlnum;        //핸드폰
-                        resultProfileT.Email = emplT.EmailAdres;            //이메일
-                        resultProfileT.DuzonDeptCode = emplT.DuzonDeptCode; //더존부서코드
-                        resultProfileT.DuzonEmplCode = emplT.DuzonEmplCode; //더존사원코드
+                        resultProfileT.UserNm           = emplT.UserNm;             //사용자명
+                        resultProfileT.TelNumber        = emplT.Telno;              //전화번호
+                        resultProfileT.MobileNumber     = emplT.Mbtlnum;            //핸드폰
+                        resultProfileT.Email            = emplT.EmailAdres;         //이메일
+                        resultProfileT.DuzonDeptCode    = emplT.DuzonDeptCode;      //더존부서코드
+                        resultProfileT.DuzonEmplCode    = emplT.DuzonEmplCode;      //더존사원코드
 
                         //Js사용자 권한그룹 목록 조회
                         resultProfileT.AuthorGroupList = new ProfileBiz().SelectJsUserAuthGroupList(resultProfileT.EmplCode);
 
                         //권한그룹 설정
-                        resultProfileT.IsK0001 = resultProfileT.AuthorGroupList.Contains("K0001"); //접수담당자 여부
-                        resultProfileT.IsK0002 = resultProfileT.AuthorGroupList.Contains("K0002"); //회계담당자 여부
-                        resultProfileT.IsK0003 = resultProfileT.AuthorGroupList.Contains("K0003"); //접수승인자 여부
-                        resultProfileT.IsK0004 = resultProfileT.AuthorGroupList.Contains("K0004"); //검정담당자 여부
-                        resultProfileT.IsK0005 = resultProfileT.AuthorGroupList.Contains("K0005"); //검정책임자 여부
-                        resultProfileT.IsK0006 = resultProfileT.AuthorGroupList.Contains("K0006"); //형식승인담당자 여부
-                        resultProfileT.IsK0007 = resultProfileT.AuthorGroupList.Contains("K0007"); //형식승인책임자 여부
-                        resultProfileT.IsK0008 = resultProfileT.AuthorGroupList.Contains("K0008"); //총괄책임자 여부
-                        resultProfileT.IsK0009 = resultProfileT.AuthorGroupList.Contains("K0009"); //시스템관리자 여부
+                        resultProfileT.IsK0001 = resultProfileT.AuthorGroupList.Contains("K0001"); // 접수담당자 여부
+                        resultProfileT.IsK0002 = resultProfileT.AuthorGroupList.Contains("K0002"); // 회계담당자 여부
+                        resultProfileT.IsK0003 = resultProfileT.AuthorGroupList.Contains("K0003"); // 접수승인자 여부
+                        resultProfileT.IsK0004 = resultProfileT.AuthorGroupList.Contains("K0004"); // 검정담당자 여부
+                        resultProfileT.IsK0005 = resultProfileT.AuthorGroupList.Contains("K0005"); // 검정책임자 여부
+                        resultProfileT.IsK0006 = resultProfileT.AuthorGroupList.Contains("K0006"); // 형식승인담당자 여부
+                        resultProfileT.IsK0007 = resultProfileT.AuthorGroupList.Contains("K0007"); // 형식승인책임자 여부
+                        resultProfileT.IsK0008 = resultProfileT.AuthorGroupList.Contains("K0008"); // 총괄책임자 여부
+                        resultProfileT.IsK0009 = resultProfileT.AuthorGroupList.Contains("K0009"); // 시스템관리자 여부
+                         */
 
                     }
                     else if (resultProfileT.UserType == Security.UserType.NormalUser)
                     {
                         //개인사용자 상세 조회
                         IndvdlUserT indvdlUserT = new IndvdlUserDac().SelectIndvdlUser(resultProfileT.UserId);
+
                         if (indvdlUserT != null)
                         {
                             //개인사용자 상태 체크
@@ -84,16 +87,17 @@ namespace JS.Boots.BizDac.UserMng
                             {
                                 throw new Exception("개인사용자 상태가 미사용 상태입니다. 시스템관리자에게 문의하세요");
                             }
-                            resultProfileT.UserNm = indvdlUserT.UserNm;               //사용자명
-                            resultProfileT.TelNumber = indvdlUserT.Telno;             //전화번호
-                            resultProfileT.MobileNumber = indvdlUserT.Mbtlnum;        //핸드폰
-                            resultProfileT.Email = indvdlUserT.EmailAdres;            //이메일
-                            resultProfileT.SmsRecptnAt = indvdlUserT.SmsRecptnAt;     //sms수신여부
-                            resultProfileT.EmailRecptnAt = indvdlUserT.EmailRecptnAt; //이메일수신여부
+
+                            resultProfileT.UserNm           = indvdlUserT.UserNm;           // 사용자명
+                            resultProfileT.TelNumber        = indvdlUserT.Telno;            // 전화번호
+                            resultProfileT.MobileNumber     = indvdlUserT.Mbtlnum;          // 핸드폰
+                            resultProfileT.Email            = indvdlUserT.EmailAdres;       // 이메일
+                            resultProfileT.SmsRecptnAt      = indvdlUserT.SmsRecptnAt;      // sms수신여부
+                            resultProfileT.EmailRecptnAt    = indvdlUserT.EmailRecptnAt;    // 이메일수신여부
 
                             //권한그룹 설정
-                            IList<string> AuthorGroupList = new List<string>();
-                            resultProfileT.IsA0001 = true; //개인회원 여부
+                            IList<string> AuthorGroupList   = new List<string>();
+                            resultProfileT.IsA0001 = true;          //개인회원 여부
                             AuthorGroupList.Add("A0001");
                             resultProfileT.AuthorGroupList = AuthorGroupList;
                         }
@@ -311,13 +315,15 @@ namespace JS.Boots.BizDac.UserMng
                 // 회원 구분별 추가정보 조회
                 if (resultProfileT.UserType == Security.UserType.JsUser)
                 {
+
                     EmplT emplT = new EmplBiz().SelectEmpl(resultProfileT.EmplCode);
-                    resultProfileT.UserNm = emplT.UserNm;               //사용자명
-                    resultProfileT.TelNumber = emplT.Telno;             //전화번호
-                    resultProfileT.MobileNumber = emplT.Mbtlnum;        //핸드폰
-                    resultProfileT.Email = emplT.EmailAdres;            //이메일
-                    resultProfileT.DuzonDeptCode = emplT.DuzonDeptCode; //더존부서코드
-                    resultProfileT.DuzonEmplCode = emplT.DuzonEmplCode; //더존사원코드
+
+                    resultProfileT.UserNm           = emplT.UserNm;             //사용자명
+                    resultProfileT.TelNumber        = emplT.Telno;              //전화번호
+                    resultProfileT.MobileNumber     = emplT.Mbtlnum;            //핸드폰
+                    resultProfileT.Email            = emplT.EmailAdres;         //이메일
+                    resultProfileT.DuzonDeptCode    = emplT.DuzonDeptCode;      //더존부서코드
+                    resultProfileT.DuzonEmplCode    = emplT.DuzonEmplCode;      //더존사원코드
 
                     //Js사용자 권한그룹 목록 조회
                     resultProfileT.AuthorGroupList = new ProfileBiz().SelectJsUserAuthGroupList(resultProfileT.EmplCode);

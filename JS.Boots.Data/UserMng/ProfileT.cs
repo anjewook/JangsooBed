@@ -21,16 +21,21 @@ namespace JS.Boots.Data.UserMng
             IsK0007 = false;  	//형식승인책임자    
             IsK0008 = false;  	//총괄책임자        
             IsK0009 = false;  	//시스템관리자      
+            
             IsI0001 = false;  	//형식승인기관      
             IsI0002 = false;  	//검정기관          
             IsI0003 = false;  	//계량기관리사업자  
             IsI0004 = false;  	//자체수리자        
             IsI0005 = false;  	//자체검정사업자    
             IsI0006 = false;  	//자체정기검사사업자
+            
             IsA0001 = false;  	//개인회원          
+            
             IsE0001 = false;  	//등록업체          
             IsE0002 = false;  	//계량기사용자      
+            
             IsS0001 = false;  	//계량담당공무원    
+            
             IsR0001 = false;  	//중앙공무원    
         }
 

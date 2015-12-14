@@ -1,1 +1,207 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="JS.Boots.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="EmplT"  type="JS.Boots.Data.UserMng.EmplT" />
+    <typeAlias alias="EmplTreeT"  type="JS.Boots.Data.UserMng.EmplTreeT" />
+    <typeAlias alias="EmplSearchT"  type="JS.Boots.Data.UserMng.EmplSearchT" />
+  </alias>
+
+  <statements>
+
+    <select id="EmplDac.SelectEmpl" parameterClass="string" resultClass="EmplT">
+      /* EmplDac.SelectEmpl */
+
+        SELECT
+        EMPL_CODE      AS "EmplCode" 			/*사원코드*/
+        ,DEPT_CODE      AS "DeptCode" 			/*부서코드*/
+        , (SELECT DEPT_NM FROM TN_DEPT WHERE DEPT_CODE = A.DEPT_CODE) AS "DeptNm"   /* 부서명 */
+        ,USER_ID        AS "UserId" 				/*사용자ID*/
+        ,USER_NM        AS "UserNm" 				/*사용자명*/
+        ,PASSWORD       AS "Password" 			/*비밀번호*/
+        ,TELNO          AS "Telno" 					/*전화번호*/
+        ,FN_CRYPTO(MBTLNUM,'D')        AS "Mbtlnum" 				/*휴대폰번호*/
+        ,EMAIL_ADRES    AS "EmailAdres" 		/*이메일주소*/
+        ,OFCPS_NM       AS "OfcpsNm" 				/*직위명*/
+        ,SORT_ORDR      AS "SortOrdr" 			/*정렬순서*/
+        ,DTY_CN         AS "DtyCn" 					/*직무내용*/
+        ,USE_AT         AS "UseAt" 					/*사용여부*/
+        ,EMPLYM_STLE_NM AS "EmplymStleNm" 	/*고용형태명*/
+        ,HFFC_AT        AS "HffcAt" 				/*재직여부*/
+        ,ENCPN_DE       AS "EncpnDe" 			  /*입사일자*/
+        ,RETIRE_DE      AS "RetireDe" 			/*퇴사일자*/
+        ,REGIST_DT      AS "RegistDt" 			/*등록일시*/
+        ,UPDT_DT        AS "UpdtDt" 				/*수정일시*/
+        , (SELECT DUZON_DEPT_CODE FROM TN_DEPT WHERE DEPT_CODE = A.DEPT_CODE) AS "DuzonDeptCode"   /* 더존부서코드 */
+        ,DUZON_EMPL_CODE      AS "DuzonEmplCode" 			/*더존사원코드*/
+        FROM TN_EMPL A
+        WHERE EMPL_CODE = #EmplCode#
+
+    </select>
+
+    <select id="EmplDac.SelectEmplTree" resultClass="EmplTreeT">
+      /* EmplDac.SelectEmplTree */
+      SELECT
+      FLAG                           AS "Flag"                         /* 구분 */
+      , SUBSTR(SYS_CONNECT_BY_PATH(strRank,'-'),2) AS "Id"
+      , NVL(TRIM('-' FROM SUBSTR(SYS_CONNECT_BY_PATH(strRank,'-') ,1, INSTR(SYS_CONNECT_BY_PATH(strRank,'-'),'-',-2))),0) AS "PId"
+      , CODE                           AS "Code"                         /* 부서코드 혹은 사용자코드 */
+      , UPPER_CODE                     AS "UpperCode"                    /* 부서코드 혹은 사용자코드 */
+      , NVL(NAME,'')                   AS "Name"                         /* 이름 */
+      , NVL(CASE WHEN FLAG = 'E' THEN REPLACE(SUBSTR(SYS_CONNECT_BY_PATH(Name,'&gt;'),6),'&gt;'||NAME,'') ELSE SUBSTR(SYS_CONNECT_BY_PATH(Name,'&gt;'),6) END,'') AS "Path"                /* 전체경로 */
+      , USE_AT                         AS "UseAt"                        /* 사용여부 */
+      , REGIST_DT                      AS "RegistDt"                     /* 등록일시 */
+      , UPDT_DT                        AS "UpdtDt"                       /* 수정일시 */
+      FROM (
+      SELECT  CODE
+      , UPPER_CODE
+      , NAME
+      , USE_AT
+      , REGIST_DT
+      , UPDT_DT
+      , rank() over(partition by UPPER_CODE order by UPPER_CODE, CODE) AS strRank
+      , FLAG
+      FROM (
+      SELECT  'D' AS FLAG
+      , DEPT_CODE AS CODE
+      , UPPER_DEPT_CODE AS UPPER_CODE
+      , DEPT_NM NAME
+      , USE_AT
+      , REGIST_DT
+      , UPDT_DT
+      FROM TN_DEPT
+      WHERE USE_AT = 'Y'
+      UNION ALL
+      SELECT  'E' AS FLAG
+      , 'E'||EMPL_CODE AS CODE
+      , DEPT_CODE AS UPPER_CODE
+      , USER_NM AS NAME
+      , USE_AT
+      , REGIST_DT
+      , UPDT_DT
+      FROM TN_EMPL
+      WHERE USE_AT = 'Y'
+      )
+      )
+      START WITH UPPER_CODE = '0'
+      CONNECT BY UPPER_CODE = PRIOR CODE
+      ORDER BY NAME ASC
+    </select>
+
+    <select id="EmplDac.SelectEmplList" parameterClass="EmplSearchT" resultClass="EmplT">
+      /* EmplDac.SelectEmplList */
+      SELECT
+      *
+      FROM
+      (
+      SELECT
+      A.*
+      ,ROWNUM AS "RowNumber"
+      ,COUNT(*) OVER() AS "TotalCount"
+      FROM
+      (
+      SELECT
+      EMPL_CODE      AS "EmplCode" 			/*사원코드*/
+      ,DEPT_CODE      AS "DeptCode" 			/*부서코드*/
+      , (SELECT DEPT_NM FROM TN_DEPT WHERE DEPT_CODE = A.DEPT_CODE) AS "DeptNm"   /* 부서명 */
+      ,USER_ID        AS "UserId" 				/*사용자ID*/
+      ,USER_NM        AS "UserNm" 				/*사용자명*/
+      ,PASSWORD       AS "Password" 			/*비밀번호*/
+      ,TELNO          AS "Telno" 					/*전화번호*/
+      ,FN_CRYPTO(MBTLNUM,'D') AS "Mbtlnum" 				/*휴대폰번호*/
+      ,EMAIL_ADRES    AS "EmailAdres" 		/*이메일주소*/
+      ,OFCPS_NM       AS "OfcpsNm" 				/*직위명*/
+      ,SORT_ORDR      AS "SortOrdr" 			/*정렬순서*/
+      ,DTY_CN         AS "DtyCn" 					/*직무내용*/
+      ,USE_AT         AS "UseAt" 					/*사용여부*/
+      ,EMPLYM_STLE_NM AS "EmplymStleNm" 	/*고용형태명*/
+      ,HFFC_AT        AS "HffcAt" 				/*재직여부*/
+      ,ENCPN_DE       AS "EncpnDe" 			/*입사일자*/
+      ,RETIRE_DE      AS "RetireDe" 			/*퇴사일자*/
+      ,REGIST_DT      AS "RegistDt" 			/*등록일시*/
+      ,UPDT_DT        AS "UpdtDt" 				/*수정일시*/
+      FROM TN_EMPL A
+      WHERE 1=1
+      <isNotEmpty property="SearchDeptCode">
+        AND DEPT_CODE IN (
+        SELECT DEPT_CODE
+        FROM TN_DEPT
+        WHERE USE_AT = 'Y'
+        START WITH DEPT_CODE = #SearchDeptCode#
+        CONNECT BY UPPER_DEPT_CODE = PRIOR DEPT_CODE
+        ) /* 하위 모든 부서 */
+      </isNotEmpty>
+      <isNotEmpty property="SearchDeptNm">
+        AND DEPT_CODE IN (
+        SELECT DEPT_CODE
+        FROM TN_DEPT
+        WHERE USE_AT = 'Y'
+        AND DEPT_NM LIKE '%' || #SearchDeptNm# || '%'
+        )
+      </isNotEmpty>
+      <isNotEmpty property="SearchUseAt">
+        AND USE_AT = #SearchUseAt#
+      </isNotEmpty>
+
+      <isNotEmpty property="SearchText">
+        <isEqual property="SearchType" compareValue="A">
+          AND USER_NM LIKE '%' || #SearchText# || '%'   /* 사원명 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="B">
+          AND USER_ID LIKE '%' || #SearchText# || '%'  /* 사용자ID */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="C">
+          AND EMPL_CODE LIKE '%' || #SearchText# || '%'   /* 사원코드 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="D">
+          AND FN_CRYPTO(MBTLNUM,'D') LIKE '%' || #SearchText# || '%'   /* 휴대폰번호 */
+        </isEqual>
+        <isEqual property="SearchType" compareValue="E">
+          AND EMAIL_ADRES LIKE '%' || #SearchText# || '%'   /* 이메일주소 */
+        </isEqual>
+      </isNotEmpty>
+      ORDER BY  EMPL_CODE DESC
+      ) A
+      )
+      WHERE "RowNumber" BETWEEN #StartIndex# AND #EndIndex#
+
+    </select>
+
+    <select id="EmplDac.OldSelectEmpl" parameterClass="string" resultClass="EmplT">
+      /* EmplDac.OldSelectEmpl */
+
+      SELECT
+      EMPL_CODE      AS "EmplCode" 			/*사원코드*/
+      ,DEPT_CODE      AS "DeptCode" 			/*부서코드*/
+      , (SELECT DEPT_NM FROM TN_DEPT WHERE DEPT_CODE = A.DEPT_CODE) AS "DeptNm"   /* 부서명 */
+      ,USER_ID        AS "UserId" 				/*사용자ID*/
+      ,USER_NM        AS "UserNm" 				/*사용자명*/
+      ,PASSWORD       AS "Password" 			/*비밀번호*/
+      ,TELNO          AS "Telno" 					/*전화번호*/
+      ,FN_CRYPTO(MBTLNUM,'D')        AS "Mbtlnum" 				/*휴대폰번호*/
+      ,EMAIL_ADRES    AS "EmailAdres" 		/*이메일주소*/
+      ,OFCPS_NM       AS "OfcpsNm" 				/*직위명*/
+      ,SORT_ORDR      AS "SortOrdr" 			/*정렬순서*/
+      ,DTY_CN         AS "DtyCn" 					/*직무내용*/
+      ,USE_AT         AS "UseAt" 					/*사용여부*/
+      ,EMPLYM_STLE_NM AS "EmplymStleNm" 	/*고용형태명*/
+      ,HFFC_AT        AS "HffcAt" 				/*재직여부*/
+      ,ENCPN_DE       AS "EncpnDe" 			  /*입사일자*/
+      ,RETIRE_DE      AS "RetireDe" 			/*퇴사일자*/
+      ,REGIST_DT      AS "RegistDt" 			/*등록일시*/
+      ,UPDT_DT        AS "UpdtDt" 				/*수정일시*/
+      , (SELECT DUZON_DEPT_CODE FROM TN_DEPT WHERE DEPT_CODE = A.DEPT_CODE) AS "DuzonDeptCode"   /* 더존부서코드 */
+      ,DUZON_EMPL_CODE      AS "DuzonEmplCode" 			/*더존사원코드*/
+      FROM TN_EMPL A
+      WHERE EMPL_CODE = #EmplCode#
+
+    </select>
+
+    <procedure id="EmplDac.OrganizationTrans">
+      <![CDATA[{CALL ORGANIZATION_TRANS()}]]>
+    </procedure>
+
+  </statements>
+
+</sqlMap>
