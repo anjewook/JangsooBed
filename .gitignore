@@ -42,3 +42,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.cache
+*.pdb
+*.dll
+JSMall/obj/Debug/JSMall.pdb
+*.pdb

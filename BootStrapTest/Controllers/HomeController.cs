@@ -9,7 +9,7 @@ using BootStrapTest.Common;
 using JS.Boots.Data;
 using JS.Boots.Data.SystemMng;
 using JS.Boots.BizDac.Common;
-//using JS.Boots.BizDac.SystemMng;
+using JS.Boots.BizDac.SystemMng;
 using Neoplus.Cryptor;
 
 namespace BootStrapTest.Controllers
@@ -51,35 +51,35 @@ namespace BootStrapTest.Controllers
             // 로그인 사용자정보
             ViewBag.User = BootstrapCertification.User;
 
-            /*
             MenuBiz menuBiz = new MenuBiz();
-
+            /*
+            */
             // 형식승인관리 하위메뉴
-            IList<MenuT> menuList01 = menuBiz.SelectLowerMenuList("00051");
+            IList<MenuT> menuList01 = menuBiz.SelectLowerMenuList("00001");
 
             // 검정관리
-            IList<MenuT> menuList02 = menuBiz.SelectLowerMenuList("00052");
+            IList<MenuT> menuList02 = menuBiz.SelectLowerMenuList("00002");
 
             // 사후관리정보
-            IList<MenuT> menuList03 = menuBiz.SelectLowerMenuList("00053");
+            IList<MenuT> menuList03 = menuBiz.SelectLowerMenuList("00003");
 
             // 실량표시상품관리
-            IList<MenuT> menuList04 = menuBiz.SelectLowerMenuList("00054");
+            IList<MenuT> menuList04 = menuBiz.SelectLowerMenuList("00004");
 
             // 부가업무관리
-            IList<MenuT> menuList05 = menuBiz.SelectLowerMenuList("00055");
+            IList<MenuT> menuList05 = menuBiz.SelectLowerMenuList("00005");
 
             // 콘텐츠관리
-            IList<MenuT> menuList06 = menuBiz.SelectLowerMenuList("00056");
+            IList<MenuT> menuList06 = menuBiz.SelectLowerMenuList("00006");
 
             // 통계관리
-            IList<MenuT> menuList07 = menuBiz.SelectLowerMenuList("00057");
+            IList<MenuT> menuList07 = menuBiz.SelectLowerMenuList("00007");
 
             // 사용자관리
-            IList<MenuT> menuList08 = menuBiz.SelectLowerMenuList("00058");
+            IList<MenuT> menuList08 = menuBiz.SelectLowerMenuList("00008");
 
             // 시스템관리
-            IList<MenuT> menuList09 = menuBiz.SelectLowerMenuList("00003");
+            IList<MenuT> menuList09 = menuBiz.SelectLowerMenuList("00000");
 
             ViewBag.menuList01 = menuList01;
             ViewBag.menuList02 = menuList02;
@@ -90,7 +90,6 @@ namespace BootStrapTest.Controllers
             ViewBag.menuList07 = menuList07;
             ViewBag.menuList08 = menuList08;
             ViewBag.menuList09 = menuList09;
-            */
 
             return View((object)MenuCode);
         }
