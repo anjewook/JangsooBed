@@ -75,6 +75,8 @@
     <Compile Include="Common\CommonDac.cs" />
     <Compile Include="Common\EmailSendBiz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemMng\MenuBiz.cs" />
+    <Compile Include="SystemMng\MenuDac.cs" />
     <Compile Include="TestBiz.cs" />
     <Compile Include="TestDac.cs" />
     <Compile Include="UserMng\EmplBiz.cs" />
@@ -105,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Common.xml" />
+    <Content Include="SystemMng\Menu.xml" />
     <Content Include="Test.xml" />
     <Content Include="UserMng\Empl.xml" />
     <Content Include="UserMng\Entrprs.xml" />
