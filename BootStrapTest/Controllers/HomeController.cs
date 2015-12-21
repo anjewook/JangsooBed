@@ -54,19 +54,19 @@ namespace BootStrapTest.Controllers
             MenuBiz menuBiz = new MenuBiz();
             /*
             */
-            // 형식승인관리 하위메뉴
+            // 하위메뉴1
             IList<MenuT> menuList01 = menuBiz.SelectLowerMenuList("00001");
 
-            // 검정관리
+            // 하위메뉴2
             IList<MenuT> menuList02 = menuBiz.SelectLowerMenuList("00002");
 
-            // 사후관리정보
+            // 하위메뉴3
             IList<MenuT> menuList03 = menuBiz.SelectLowerMenuList("00003");
 
-            // 실량표시상품관리
+            // 하위메뉴4
             IList<MenuT> menuList04 = menuBiz.SelectLowerMenuList("00004");
 
-            // 부가업무관리
+            // 하위메뉴5
             IList<MenuT> menuList05 = menuBiz.SelectLowerMenuList("00005");
 
             // 콘텐츠관리

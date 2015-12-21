@@ -1,0 +1,75 @@
+﻿@charset "utf-8";
+
+/* container */
+#container{float:left; width:1026px;  position:relative;}
+
+#content{float:left; width:1026px;}
+.rolling{float:left; width:1026px; margin-top:4px; position:relative;}
+.rolling .p_btn{position:absolute; bottom:10px; right:20px;}
+.rolling .btn_formar2{position:absolute; bottom:50px; left:15px;}
+.rolling .btn_next2{position:absolute; bottom:50px; right:15px;}
+.rolling ul li{padding:0; margin:0; display:inline;}
+.service{float:left; padding-top:30px; padding-bottom:30px;}
+.service h3{float:left; width:70px; padding-top:10px; border-top:1px solid #000; display:inline-block; text-align:left; margin-right:45px;}
+.service ul{float:left;}
+.service ul li{float:left; padding-left:15px; padding-right:15px;}
+
+.column_left{float:left; width:321px; margin-right:14px;}
+.popup{float:left; width:321px; border-top:5px solid #00075a; border-bottom:1px solid #00075a; position:relative; margin-bottom:30px;}
+.popup .num01{position:absolute; top:-20px; left:0;}
+.popup .num02{position:absolute; top:-20px; left:15px;}
+.popup .num03{position:absolute; top:-20px; left:30px;}
+.popup .num04{position:absolute; top:-20px; left:45px;}
+.popup .num05{position:absolute; top:-20px; left:60px;}
+.popup .p_btn{position:absolute; bottom:5px; right:0;}
+.customer_center{float:left; width:321px; background:url('../img/main/bg_customer.gif') no-repeat left bottom; text-align:left;}
+.customer_center h3{float:left; width:306px; text-align:left; padding:15px 0 8px 15px; background:url('../img/main/bg_customer.gif') no-repeat left top; height:11px;}
+.customer_center p{float:left; padding-left:12px; background:url('../img/main/customedash.gif') no-repeat 14px 74px;}
+.customer_center span{float:left; padding-left:50px; width:100px; height:72px; line-height:16px; padding-top:5px;}
+.customer_center .img01{ background:url('../img/main/customerimg.gif') no-repeat left top;}
+.customer_center .img02{ background:url('../img/main/customerimg2.gif') no-repeat left top;}
+.customer_center .img03{ background:url('../img/main/customerimg3.gif') no-repeat left top;}
+.customer_center .img04{ background:url('../img/main/customerimg4.gif') no-repeat left 4px;}
+.customer_center span img{padding-bottom:5px;}
+
+
+
+.column_center{float:left; width:342px;}
+.notice{float:left; width:342px; border-top:5px solid #4e4e4e; text-align:left; border-bottom:1px solid #bdbdbd; position:relative; margin-bottom:30px;}
+.notice h3{border-bottom:1px solid #bdbdbd; padding-top:7px; padding-bottom:7px; height:13px;}
+.notice .more{position:absolute; top:8px; right:2px;}
+.notice ul{float:left; width:312px; padding:9px 0 10px 0;display:inline-block;}
+.notice ul li{padding:4px 0; height:14px;}
+.notice ul li .date{float:right; text-align:right; position:absolute; right:0; font-size:10px; color:#999; padding-top:2px;}
+.notice ul li img{vertical-align:middle; padding-right:4px;}
+.technique{float:left; width:340px; border-top:5px solid #4e4e4e; text-align:left; border-bottom:1px solid #bdbdbd; position:relative; margin-bottom:30px;}
+.technique h3{border-bottom:1px solid #bdbdbd; padding-top:7px; padding-bottom:7px; height:13px;}
+.technique .more{position:absolute; top:8px; right:2px;}
+.technique ul{float:left; width:310px; padding:9px 0 10px 0;display:inline-block;}
+.technique ul li{padding:4px 0; height:14px;}
+.technique ul li .date{float:right; text-align:right; position:absolute; right:0; font-size:10px; color:#999; padding-top:2px;}
+.technique ul li img{vertical-align:middle; padding-right:4px;}
+
+.column_right{float:right; width:335px;}
+/*.r_board{float:left; width:335px; position:relative; border-bottom:1px solid #bdbdbd; margin-bottom:30px;}*/
+.r_board{float:left; width:335px; position:relative; margin-bottom:30px; border-bottom:1px solid #bdbdbd;}/* 20130618 수정 디자이너-이지원 */
+.r_board ul li{float:left; width:325px; text-align:left;}
+.r_board ul li .tab01{float:left;}
+.r_board ul li .tab02{float:left; position:absolute; top:0; right:1px;}
+/*.r_board ul li ul{float:left; padding:6px 0 7px 0;}*/
+.r_board ul li ul{float:left; padding:8px 0 8px 0;}/* 20130618 수정 디자이너-이지원 */
+/*.r_board ul li ul li{padding:4px 0 4px 10px; border-bottom:1px dotted #c7c7c7; background:url('../img/main/bl.gif') no-repeat 0 12px; height:14px;}*/
+.r_board ul li ul li{padding:4px 0 4px 5px; border-bottom:1px; height:14px;}
+.r_board ul li ul li .date{float:right;  position:absolute; right:6px; font-size:10px; color:#999; padding-top:2px;}
+.r_board ul li ul .bn{border:none;}
+
+.column_right dl{float:left; width:335px; border-top:1px solid #4e4e4e; border-bottom:1px solid #bdbdbd;}
+.column_right dt{float:left; border-top:4px solid #4e4e4e; width:88px; margin-right:10px; height:160px; background:url('../img/main/serviceimg.gif') no-repeat center bottom; padding-top:5px; text-align:left;}
+.column_right dd{float:right; width:230px; padding-top:5px; padding-bottom:5px; text-align:left; border-bottom:1px solid #dbdbdb;}
+.column_right dl .tit_service{ color:#000; padding-bottom:4px; line-height:20px;}
+.column_right dl .cont_service{font-size:11px; line-height:15px; color:#999;}
+.column_right .bn{border:none;}
+
+
+
+

@@ -1,0 +1,72 @@
+﻿@charset "utf-8";
+/* Layout */
+#wrap{margin:0 auto; width:100%; }
+/* background */
+.bgLeft{position:absolute; left:0px; width:158px; height:1080px; color:#564b47; margin:0px; padding:0px;  background:url('../img/bg_left.png') no-repeat center top;}
+.bgRight{position:absolute; right:0px; width:137px; height:1080px; background:url('../img/bg_right.png') no-repeat center top; color:#564b47; margin:0px; padding:0px;}
+.bgCenter{margin:0px 137px 0px 158px; padding:0px;height:1080px; background:url('../img/bg_center.png') repeat-x center top; text-align:center;}
+
+/* header */
+.header h1{float:left; width:443px; height:55px; background:url('../img/h1_bg.png') no-repeat left top; text-align:left; padding:140px 0 0 15px;}
+.header h2{float:left; width:49%; margin:60px 0 0 0; font-size:60px; color:#fff; text-shadow:2px 2px #000; letter-spacing:-1px;}
+.header .timer{float:right; width:350px; height:86px; padding:66px 0 0 0; background:url('../img/timer_bg.png') no-repeat right bottom;}
+.header .timer p{float:left; padding:28px 8px 0 42px; font-size:28px; font-weight:bold; color:#000; font-family:Tahoma, Geneva, sans-serif;}
+
+/* content */
+.content{width:100%; display:inline-block;}
+.contentL{float:left; width:75%; height:779px; background:url('../img/data_bg_left.gif') no-repeat left top;}
+.contentL .data{margin:0 0 0 30px; height:285px; background:url('../img/data_bg_right.gif') no-repeat right -7px;}
+.contentL .data h3{height:40px; padding:2px 0 0 23px;background:url('../img/title_bg.gif') no-repeat left top; text-align:left; color:#fff; font-size:18px;}
+.contentL .data .graphL{float:left; width:48%; margin-right:20px; text-align:left;}
+.contentL .data .graphL span{float:left; width:110px;}
+.contentL .data .graphL .grapharea{float:left; height:191px; width:79%; padding:10px 0;}
+.contentL .data .graphR{float:right; width:47%; margin-right:30px; text-align:left; }
+.contentL .data .graphR span{float:left; width:110px;}
+.contentL .data .graphR .grapharea{float:left; height:191px; width:76%; padding:10px 0;}
+.contentL .data2{margin:0 0 0 30px; height:240px; background:url('../img/data2_bg_right.gif') no-repeat right -7px;}
+.contentL .data2 h3{height:40px; padding:2px 0 0 23px;background:url('../img/title_bg.gif') no-repeat left top; text-align:left; color:#fff; font-size:18px;}
+.contentL .data2 .graphL{float:left; width:48%; margin-right:20px; text-align:left;}
+.contentL .data2 .graphL span{float:left; width:110px;}
+.contentL .data2 .graphL .grapharea{float:left; height:159px; width:79%; padding:10px 0;}
+.contentL .data2 .graphR{float:right; width:47%; margin-right:30px; text-align:left; }
+.contentL .data2 .graphR span{float:left; width:110px;}
+.contentL .data2 .graphR .grapharea{float:left; height:159px; width:76%; padding:10px 0;}
+.contentL .data3{margin:0 0 0 30px; height:250px; background:url('../img/data3_bg_right.gif') no-repeat right -2px;}
+.contentL .data3 h3{height:40px; padding:2px 0 0 23px;background:url('../img/title_bg.gif') no-repeat left top; text-align:left; color:#fff; font-size:18px;}
+.contentL .data3 .graphL{float:left; width:48%; margin-right:20px; text-align:left;}
+.contentL .data3 .graphL span{float:left; width:110px;}
+.contentL .data3 .graphL .grapharea{float:left; height:159px; width:79%; padding:10px 0;}
+.contentL .data3 .graphR{float:right; width:47%; margin-right:30px; text-align:left; }
+.contentL .data3 .graphR span{float:left; width:110px;}
+.contentL .data3 .graphR .grapharea{float:left; height:159px; width:76%; padding:10px 0;}
+
+.contentR{float:left; width:24%; height:779px; margin:0px 0px 50px 0px; background:url('../img/table_bg_left.gif') no-repeat 20px 10px;}
+.contentR .status{margin:0 0 0 30px; padding-right:10px; height:285px; background:url('../img/table_bg_right.gif') no-repeat right 10px;}
+.contentR .status h3{height:40px; padding:20px 0 0 5px; text-align:left; color:#fff; font-size:16px;}
+.contentR .status .tableList{ width:100%; padding-right:10px; border-right:none;}
+.contentR .status .tableList, 
+.contentR .status .tableList th, 
+.contentR .status .tableList td{border:0}
+.contentR .status .tableList caption, 
+.contentR .status .tableList label{display:none;}
+.contentR .status .tableList thead th{color:#fff; height:38px; background-color:#092664; border-right:1px solid #fff;}
+.contentR .status .tableList tfoot th{color:#000; height:38px; background-color:#d9d9d9; border-right:1px dotted #a2a2a2;}
+.contentR .status .tableList td{color:#000; font-weight:bold; height:38px; border-right:1px dotted #a2a2a2;}
+.contentR .status .tableList .ov{background-color:#f1f1f1;}
+.contentR .status .tableList .bn{border:none;}
+.contentR{float:left; width:24%; height:779px; margin:0px 0px 50px 0px; background:url('../img/table_bg_left.gif') no-repeat 20px 10px;}
+.contentR .status2{margin:0 0 0 30px; padding-right:10px; height:285px; background:url('../img/table_bg_right.gif') no-repeat right 10px;}
+.contentR .status2 h3{height:40px; padding:20px 0 0 5px; text-align:left; color:#fff; font-size:16px;}
+.contentR .status2 .tableList{width:100%; padding-right:10px; border-right:1px solid #fff;}
+.contentR .status2 .tableList, 
+.contentR .status2 .tableList th, 
+.contentR .status2 .tableList td{border:0}
+.contentR .status2 .tableList caption, 
+.contentR .status2 .tableList label{display:none;}
+.contentR .status2 .tableList thead th{color:#fff; height:38px; background-color:#092664; border-right:1px solid #fff;}
+.contentR .status2 .tableList tfoot th{color:#000; height:38px; background-color:#d9d9d9; border-right:1px dotted #a2a2a2;}
+.contentR .status2 .tableList td{color:#000; font-weight:bold; height:54px; border-right:1px dotted #a2a2a2;}
+.contentR .status2 .tableList .ov{background-color:#f1f1f1;}
+.contentR .status2 .tableList .bn{border:none;}
+
+

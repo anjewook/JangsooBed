@@ -1,0 +1,9 @@
+<dap>
+ <assembly/>
+ <document path="C:\papyrus-plugin_sample\sample_PDF\A123E5DBAC1410247BAC634299BB9383_1_1.PDF"/>
+ <watermark opacity="255" x="0" y="0" alignment="130" imageRatio="100" type="image">c:\Users\opensns81\AppData\Local\Temp\ePapyrus_Scourt\stamp_plain.gif</watermark>
+ <properties>
+  <view-mode type="1"/>
+  <last-view hscroll-pos="0" view-mode="0" zoom-level="1.33" vscroll-pos="-7" rotate-override="" page-number="0"/>
+ </properties>
+</dap>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<head>
+<title>Innorix File Transfer Solution - InnoDS</title>
+<script type="text/javascript" src="../common/innorix.js"></script>
+
+<script type="text/javascript">
+window.onload = function()
+{
+	innoInit({
+		ContainElementID : "innorix_component",			// 컴포넌트 출력객체 ID
+		ErrorTableElementID : "innorix_resume_info",	// 이어올리기 정보출력 객체ID			
+		ActionElementID : "form_write",					// 메타정보 전송폼 ID
+		UploadURL : "upload.aspx", 						// 업로드 처리 페이지
+		ResultURL : "result.aspx", 						// 업로드 결과 페이지
+		SetResume : "true",								// 이어올리기 기능 활성화
+		MaxTotalSize : "5GB",							// 첨부가능 전체용량
+		MaxFileSize : "5GB",							// 첨부가능 1개파일 용량
+		MaxFileCount : "200",							// 첨부가능 파일개수
+		TransferMode : "innods"							// InnoDS 업로드 모드 설정
+	});
+}
+</script>
+<style>
+	#innorix_resume_info { border-collapse:collapse; border: 1px solid #B4B4B4; width:520px;margin:0 auto;margin-top:27px; }
+	#innorix_resume_info tr th { background-color: #FCFCFC; font-size: 12px; padding: 6px 5px 6px 5px; font-weight:normal; }
+	#innorix_resume_info tr td { background-color: #ffffff; font-size: 12px; padding: 6px 5px 6px 5px; font-weight:normal; border:none; border-top:1px solid #E2E2E2; text-align:center; }
+	#innorix_resume_info tr td.taLeft { text-align:left; }
+</style>
+</head>
+<body>
+
+<div id="UploadErrorDiv" style="margin-left:15px;display:none; text-align:center;">
+	<p><span style="color:#224985;">전송이 완료되지 않았습니다.</span><span style="color:#333333;">이어올리기가 가능합니다.</span></p>
+	<table id="innorix_resume_info">
+		<tr>
+			<th>파일명</th>
+			<th>원본용량</th>
+			<th>업로드용량</th>
+			<th>상태</th>
+		</tr>
+	</table><br />
+	<input type="button" value="이어올리기" onClick="File.Upload();">
+</div>
+
+<div id="UploadComponent">
+	<form name="form_write" id="form_write" method="post">
+	test1 : <input type="text" name="test1" id="test1" />
+	</form><br />
+
+	<div id="innorix_component" style="border: 1px solid #c0c0c0; width:500px; height:200px"></div><br />
+
+	<input class="innoBlueBtn" type="button" value="파일추가" onClick="File.OpenFileDialog();" />
+	<input class="innoGreenBtn" type="button" value="전송하기" onClick="File.Upload();" />
+</div>
+
+</body>
+</html>

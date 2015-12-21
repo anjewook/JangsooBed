@@ -1,0 +1,63 @@
+﻿
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <title>1234</title>
+        <meta name="viewport" content="width=device-width" />
+    <script src="./cheditor.js"></script>
+</head>
+    <body>
+        <div id="body">
+            
+            <section class="content-wrapper main-content clear-fix">
+                
+
+
+<form id="frm" name="frm" method="post">
+    <input type="hidden" id="BbsSn" name="BbsSn" value="1" />
+    <input type="hidden" id="BbscttSn" name="BbscttSn" />
+    <input type="hidden" id="ReplyYn" name="ReplyYn" />
+
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>제목</td>
+                    <td>
+                        <input type="text" id="SjNm" name="SjNm" value="" maxlength="300" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea id="Contents" name="Contents" style="display:none;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>첨부파일</td>
+                    <td><input type="file" name="" value="" style="width:300px;height:22px;" /></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:center;"></td>
+    </tr>
+</table>
+
+</form>
+            </section>
+        </div>
+    <script type="text/javascript">
+        var myeditor = new cheditor("myeditor");
+
+        myeditor.config.editorHeight = '200px';
+        myeditor.config.editorWidth = '100%';
+        myeditor.config.editorPath = '../CHEditor/';
+        myeditor.inputForm = 'Contents';
+        myeditor.run();
+    </script>
+    </body>
+</html>

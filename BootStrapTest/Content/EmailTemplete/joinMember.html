@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>계량종합관리시스템</title>
+<meta name="keywords" content="계량종합관리시스템,계량, 관리시스템" />
+<meta name="subject" content="계량종합관리시스템" />
+<meta name="description" content="KTC 계량종합관리시스템 입니다." />
+<meta name="author" content="NEOPLUS,(주)네오플러스" />
+<meta name="robots" content="index,follow" />
+<meta name="copyright" content="copyrights 2013 Neoplus corp." />
+<style type="text/css">
+/* Base */
+html,body{width:100%;height:100%; background-color:#f2f2f2;}
+html{overflow-y:scroll}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,p,button{margin:0;padding:0}
+body,h1,h2,h3,h4,input,button{font-family:'NanumGothic', 'Malgun Gothic', Dotum, Helvetica, sans-serif;font-size:12px; color:#666666;}
+img,fieldset,iframe{border:0 none}
+p,ul,ol,li,dl,dt,dd,form {list-style:none}
+body{text-align:center;*word-break:break-all;-ms-word-break:break-all}
+input,select,button{vertical-align:middle;}
+img{vertical-align:top}
+i,em,address{font-style:normal}
+label,button{cursor:pointer}
+button{margin:0;padding:0}
+a{color:#666666;text-decoration:none}
+a:hover{color:#4179d3;text-decoration:none;}
+button *{position:relative}
+hr{display:none}
+table{/* border-collapse:collapse;table-layout:fixed; */border-collapse:collapse;border-spacing:0}
+caption {visibility:hidden; font-size:0; height:0; position:absolute; left:-10000px;} 
+input[type=radio]{display:inline-block; margin-top:-3px; margin-right:3px; .margin-right:0}
+input[type=checkbox]{display:inline-block; margin-top:-3px; .margin-top:-2px; margin-right:3px}
+input[type=image]{display:inline-block; margin-top:-1px}
+input[disabled], input[readonly], select[disabled], select[readonly], checkbox[disabled], checkbox[readonly], textarea[disabled], textarea[readonly]  {background-color:#f8f7f7;} 
+/* Common */
+.ellipsis{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis}
+.blind,legend{display:block;overflow:hidden;position:absolute;top:-1000em;left:0}
+.mail{ margin:0 auto; width:702px;  position:relative;}
+.mail h1{float:left; width:699px; background:url($$HOST_URL$$/$$IMG_PATH$$/mail/bg_top.jpg) no-repeat; height:76px; margin-top:40px; text-align:left; padding:33px 0 0 33px;}
+/* lnb */
+.mail .lnb{float:left; position:absolute; top:0; right:0; height:40px; width:700px; }
+.mail .lnb ul {float:right; padding-top:15px;}
+.mail .lnb ul li{float:left; padding-left:10px; padding-right:10px; background:url($$HOST_URL$$/$$IMG_PATH$$/mail/lnb_line.gif) no-repeat right 3px;}
+.mail .lnb .bn{background:none; padding-right:0;}
+.mail .mailtext{float:left; text-align:left; padding:0 45px 30px 45px;  background:url($$HOST_URL$$/$$IMG_PATH$$/mail/bg_line.gif) repeat-y left top;}
+.mail .mailtext li{float:left; width:580px; line-height:18px; padding:0 20px 0 10px; background:url($$HOST_URL$$/$$IMG_PATH$$/mail/bl.gif) no-repeat left 9px;}
+.mailform{float:left; width:702px; background:url($$HOST_URL$$/$$IMG_PATH$$/mail/bg_visual.jpg) no-repeat left top; text-align:left;}
+.mailform p{float:left; width:700px; padding-left:48px; color:#000;}
+.mailform .tit{float:left; width:330px; padding:0 40px 180px 330px; color:#010c4c; font-size:22px; font-weight:bold; text-align:left; background:url($$HOST_URL$$/$$IMG_PATH$$/mail/bg_visual2.jpg) no-repeat 450px bottom; line-height:26px;}
+.mailform .tit span{ color:#74778b; font-size:13px;}
+/* board */
+.mailform .boardListTypeA{float:left; width:600px; margin:10px 48px;}
+.boardListTypeA, .boardListTypeA th, .boardListTypeA td{border:0;}
+.boardListTypeA {width: 100%; border-top:2px solid #7892c5; border-bottom: 1px solid #999; color: #666; font-size: 12px; table-layout:fixed;}
+.boardListTypeA caption{display:none;}
+.boardListTypeA th{ padding: 10px 20px 10px 5px; border-bottom: 1px solid #d2d2d2; background-color: #f1f1f1; color: #666; font-weight:normal; line-height: 18px; vertical-align: top; text-align:right;}
+.boardListTypeA td{padding: 5px; border-bottom: 1px solid #c9c9c9; text-align: left; line-height:18px;}
+.boardListTypeA .tl{text-align:left;}
+.boardListTypeA .tr{text-align:right;}
+.boardListTypeA .inputSelect_01{width:250px;}
+.boardListTypeA .inputSelect_02{width:60px;}
+.boardListTypeA .inputSelect_03{width:150px;}
+.boardListTypeA .inputText_01{width:245px;}
+.boardListTypeA .inputText_02{width:140px;}
+.boardListTypeA .inputText_03{width:50px;}
+.boardListTypeA .inputText_04{width:30px;}
+.boardListTypeA .inputText_05{width:615px;}
+.boardListTypeA .Notd{padding:0;}
+.boardListTypeA img{vertical-align:middle;}
+.boardListTypeA .small{ font-size:11px; color:#88c4b7;  text-align:left; padding:0;}
+.mailform .btn{float:left; width:600px; text-align:right; margin-right:100px; padding-bottom:40px;}
+/* footer */
+.mailfooter{float:left; width:682px; background:url($$HOST_URL$$/$$IMG_PATH$$/mail/bg_bottom.jpg) no-repeat left bottom; padding:0 10px 10px 10px; height:67px;}
+.mailfooter .f_logo{float:left; padding:30px 110px 0 30px;}
+.mailfooter .address{float:left; text-align:left; font-size:11px; padding-top:30px;}
+/* button */
+a.btnType{display:inline-block; padding-right:4px; background:url('$$HOST_URL$$/$$IMG_PATH$$/common/btn_pack.gif') no-repeat right -35px; font-family:'돋움',dotum; font-size:12px; color:#fff; font-weight:normal; line-height:30px; word-spacing:-1px;text-decoration:none; white-space:nowrap;}
+a.btnType span{display:inline-block; padding:0 34px 0 38px; background:url('$$HOST_URL$$/$$IMG_PATH$$/common/btn_pack.gif') no-repeat 0 -35px; cursor:pointer; font-size:12px; color:#fff; font-weight:normal;}
+.btn .bl{padding:0 5px 0 0; font-size:10px; background:none; }
+</style>
+
+</head>
+<body>
+<!-- 메일링 서비스 -->
+<div class="mail">
+  <h1><img src="$$HOST_URL$$/$$IMG_PATH$$/mail/logo.gif" alt="계량종합관리시스템" /></h1>
+  <!-- lnb -->
+  <h2 class="blind">회원가입정보</h2>
+  <div class="mailform">
+    <p class="tit"><span>공정한 상거래 질서 확립과 계량산업 선진화를 위한</span><br /> 계량종합관리시스템 회원가입에<br /> 감사합니다.</p>  
+    <p>* 회원님의 가입정보는 아래와 같습니다.</p>
+    <!-- 회원가입상세정보 -->    
+    <table cellspacing="0" border="1" summary="회원님의 가입정보를 확인할 수 있습니다." class="boardListTypeA">
+      <caption>
+      회원가입상세정보
+      </caption>
+      <colgroup>
+      <col width="20%" />
+      <col />
+      </colgroup>
+      <tbody>              
+        <tr>
+          <th scope="row">회원구분</th>
+          <td>$$USER_SE_CODE$$</td>
+        </tr>
+        <tr> 
+          <th scope="row">회원아이디</th>
+          <td>$$USER_ID$$</td>
+        </tr>
+        <tr>
+          <th scope="row">이메일 주소</th>
+          <td>$$EMAIL_ADRES$$</td>
+        </tr> 
+        <tr>
+          <th scope="row">가입일</th>
+          <td>$$JOIN_DATE$$</td>
+        </tr>                                                                                                                                                                                                                                 
+      </tbody>
+    </table><!-- //회원가입상세정보 -->
+    <p class="btn"><a href="$$HOST_URL$$" class="btnType"><span><span class="bl">▶</span>계량종합관리시스템 바로가기</span></a></p>    
+  </div>
+  <ul class="mailtext">
+    <li>본 메일은 정보통신망 이용촉진 및 정보보호 등에 관한 법률에 의거 [2013-04-29]에 확인한 결과 회원으로 가입하거나 메일 수신에 동의하신 고객님께 발송되었습니다.</li>
+    <li>이메일을 원하지 않으실 경우 마이페이지>회원정보관리에서 수신거부를 설정해주시기 바랍니다.</li>
+    <li>본 메일은 발송 전용이오니 문의사항이 있으시면 고객지원센터를 이용해 주시기 바랍니다.</li>
+  </ul>
+  <!-- 메일링 footer -->
+  <div class="mailfooter">
+    <p class="f_logo"><img src="$$HOST_URL$$/$$IMG_PATH$$/common/f_logo.gif" alt="계량종합관리시스템" /></p>
+    <address class="address">
+    <!--<p>(463-470)경기도 성남시 분당 궁내동 349-2 고객센터:031-785-1200</p>-->
+    <p>(463-470)경기도 성남시 분당 궁내로 55 (궁내동) 고객센터:031-785-1200</p>
+    <p class="copy">COPYRIGHTⓒ 2013 KTC.ALL RIGHTS RESERVED</p>
+    </address>  
+  </div><!-- //메일링 footer -->
+</div><!--// 메일링 서비스 -->
+</body>
+</html>

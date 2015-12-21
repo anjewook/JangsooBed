@@ -11,8 +11,7 @@ using JS.Boots.BizDac.UserMng;
 //using JS.Boots.BizDac.Stats;
 using JS.Boots.Data;
 using JS.Boots.Data.SystemMng;
-//using JS.Boots.BizDac.SystemMng;
-
+using JS.Boots.BizDac.SystemMng;
 
 namespace BootStrapTest.Common
 {
@@ -33,6 +32,7 @@ namespace BootStrapTest.Common
 
 
         /*
+        */
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             IsLogin = base.AuthorizeCore(httpContext);
@@ -50,7 +50,7 @@ namespace BootStrapTest.Common
             httpContext.Items["MenuCode"] = MenuCode;
 
             // 메뉴코드 통계INSERT
-            new StatsBiz().ProcessStatsMenuCount(MenuCode);
+            //new StatsBiz().ProcessStatsMenuCount(MenuCode);
 
             if (IsLogin == true)
             {
@@ -58,9 +58,9 @@ namespace BootStrapTest.Common
 
                 try
                 {
-                    if (BootsrapCertification.User == null || BootsrapCertification.User.UserId == null)
+                    if (BootstrapCertification.User == null || BootstrapCertification.User.UserId == null)
                     {
-                        BootsrapCertification.SignOut();
+                        BootstrapCertification.SignOut();
                         IsLogin = false;
                         bIsAuth = false;
                     }
@@ -69,9 +69,9 @@ namespace BootStrapTest.Common
                         // MenuCode 에 해당하는 사용자의 권한목록을 DB에서 조회
                         UserMenuAuthSearchT userMenuAuthSearchT = new UserMenuAuthSearchT();
                         userMenuAuthSearchT.MenuCode = MenuCode; //메뉴ID
-                        userMenuAuthSearchT.UserId = BootsrapCertification.User.UserId; //사용자ID
-                        userMenuAuthSearchT.UserSeCode = BootsrapCertification.User.UserSeCode; //사용자구분코드
-                        userMenuAuthSearchT.AuthorGroupList = BootsrapCertification.User.AuthorGroupList; //권한그룹목록
+                        userMenuAuthSearchT.UserId = BootstrapCertification.User.UserId; //사용자ID
+                        userMenuAuthSearchT.UserSeCode = BootstrapCertification.User.UserSeCode; //사용자구분코드
+                        userMenuAuthSearchT.AuthorGroupList = BootstrapCertification.User.AuthorGroupList; //권한그룹목록
 
                         IList<string> authList = new ProfileBiz().SelectUserMenuAuthList(userMenuAuthSearchT);
 
@@ -91,8 +91,9 @@ namespace BootStrapTest.Common
                         httpContext.Items["AuthT"] = authT;
 
 
-                        // 체크할 기능권한이 있으면
-                        List<Authorize> authotizeList = Security.Security.AuthorizeTypeChange(authList.ToList());
+                        // 체크할 기능권한이 있으면 Security
+                        //List<Authorize> authotizeList = Security.Security.AuthorizeTypeChange(authList.ToList());
+                        List<Authorize> authotizeList = Security.AuthorizeTypeChange(authList.ToList());
                         if (CheckAuth != null)
                         {
                             // 권한이 존재하는지 체크
@@ -125,9 +126,9 @@ namespace BootStrapTest.Common
                         if (bIsAuth)
                         {
                             //사용자접속통계 INSERT 
-                            if (BootsrapCertification.User.UserSeCode == "AC007003" || BootsrapCertification.User.UserSeCode == "AC007004" || BootsrapCertification.User.UserSeCode == "AC007005")
+                            if (BootstrapCertification.User.UserSeCode == "AC007003" || BootstrapCertification.User.UserSeCode == "AC007004" || BootstrapCertification.User.UserSeCode == "AC007005")
                             {
-                                //new EmplyrConectHistBiz().InsertEmplyrConectHist(MenuCode, BootsrapCertification.User);
+                                //new EmplyrConectHistBiz().InsertEmplyrConectHist(MenuCode, BootstrapCertification.User);
                             }
                         } 
                     }
@@ -139,7 +140,7 @@ namespace BootStrapTest.Common
                 }
 
 #if DEBUG
-                if (BootsrapCertification.User.UserId == "system" || BootsrapCertification.User.UserId == "entr01")
+                if (BootstrapCertification.User.UserId == "system" || BootstrapCertification.User.UserId == "entr01")
                 {
                     bIsAuth = true;
                 }
@@ -158,7 +159,6 @@ namespace BootStrapTest.Common
                 }
             }
         }
-        */
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

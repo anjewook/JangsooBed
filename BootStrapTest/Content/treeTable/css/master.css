@@ -1,0 +1,26 @@
+
+.treeTableList{width:100%;color:#646464; font-size:12px; font-family:'µ¸¿ò',dotum; table-layout:fixed; }
+.treeTableList, .list th, .list td{border:0}
+.treeTableList caption, .list .frm label{display:none;}
+.treeTableList a{color:#646464; text-decoration:underline;}
+.treeTableList a:hover{color:#f60; text-decoration:underline;}
+.treeTableList th{padding:5px 0 4px; border-right:1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; background:url(../../Admin/img/common/tree_bg.gif); color:#333; font-weight:normal; line-height:22px;vertical-align:middle; }
+.treeTableList td{padding:6px 0 5px; border-right:1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; height:20px; text-align:center; vertical-align:middle; line-height:19px;}
+.treeTableList .tl{text-align:left;}
+.treeTableList .tr{text-align:right;}
+.treeTableList .tc{text-align:center;}
+.treeTableList .te{border-right:0px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;}
+
+.treeTableList span {
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding: .2em 0 .2em 1.5em;
+}
+.treeTableList span.file {
+  background-image: url(../images/page_white_text.png);
+}
+
+.treeTableList span.folder {
+  background-image: url(../images/folder.png);
+}
+

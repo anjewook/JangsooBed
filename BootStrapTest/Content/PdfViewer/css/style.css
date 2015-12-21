@@ -1,0 +1,45 @@
+A:link    {font-family:"굴림"; font-size: 12px; color:#3C3C3C; text-decoration: none;}
+A:visited {font-family:"굴림"; font-size: 12px; color:#3C3C3C; text-decoration: none;}
+A:hover   {font-family:"굴림"; font-size: 12px; color:#EF6918; text-decoration: none;}
+A:active  {font-family:"굴림"; font-size: 12px; color:#3C3C3C; text-decoration: none;}
+
+
+/* 링크 점선 제거 */
+a {selector-dummy: expression(this.hideFocus=true);}
+
+
+/*  내부화면스크롤바에 대한 정의  */
+body {scrollbar-3dlight-color:#CCCCCC; 
+	scrollbar-arrow-color:#888888; 
+	scrollbar-track-color:#F5F5F5; 
+	scrollbar-darkshadow-color:#CCCCCC; 
+	scrollbar-face-color:#eeeeee; 
+	scrollbar-highlight-color:#FFFFFF; 
+	scrollbar-shadow-color:#FFFFFF  ;
+	margin:0px
+}
+
+/*본문 box 여백*/
+.body                  {
+	padding:4px;
+	background-color:eff2f9;
+	/*height: 1024px;
+	width: 768px;*/
+}
+
+.toolbar {	
+	border: #b6bccc 1px solid;
+	background: #fff url(../images/bg.gif) bottom repeat-x;
+	background-color: #d0d0d0;
+	height: 30px;
+}
+
+img {
+	vertical-align: middle;
+	border: 0;
+	cursor: pointer;
+}
+
+img.separator {
+	height: 30px;
+}

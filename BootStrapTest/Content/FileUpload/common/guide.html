@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<head>
+<title>Innorix File Transfer Solution - Install</title>
+<script type="text/javascript" src="./innorix.js"></script>
+
+<style>
+body { font-family: 'Dotum', '돋음', Arial sans-serif; font-size:12px; }
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; color:#777776; text-decoration:none; }
+#instalWrap { position:absolute; left:50%; top:20%; margin-left:-248px; padding:5px 5px 5px 5px; background:#a7bdd7; width:497px;  font-size:14px; }
+table.table_style_install { padding:10px; margin:10px;  width:477px; border:1px solid #317de5; background:#f7f7f7; color:#666666; }
+table.table_style_install tr td { height:70px; line-height:19px; border-bottom:0; }
+table.table_style_install tr td h2 { color:#333333; font-weight:bold; padding-top:5px; }
+table.table_style_install span.installBox { width:195px; height:35px; display:block; text-align:left; line-height:14px;  background:#2e8be9; border:1px solid #317de5; margin:0; font-size:14px; padding:5px 0 0 10px; color:#ffffff; cursor:pointer; }
+table.table_style_install span.installBoxOver { background:#317de5; cursor:pointer; }
+</style>
+
+</head>
+
+<body>
+<div id="instalWrap">
+
+	<div style=" padding:0px 0px 0px 0px; background:#ffffff; width:495px;  font-size:14px; display:block; border:1px solid #d7d7d7;">
+		<table class="table_style_install" style="padding:10px; margin:0px;  width:100%; border:0px solid #317de5; background:#f7f7f7; color:#666666;">
+			<tr>
+				<td align="center" style="padding-top:35px;"><img src="./image/install_icon.png" /></td>
+			</tr>
+			<tr>
+				<td>
+				<div style="padding-left:18px; padding-right:15px; font-size:12px;">
+				<h2 style="font-size:18px; padding-bottom:5px;">파일전송 기능이 정상적으로 설치되지 않는 경우</h2>
+				아래의 수동 설치 파일을 다운로드 후 실행하여 주십시오.<br/>
+				<br/>
+				수동설치 파일이 실행되면<br/>
+				1. 실행중인 모든 브라우저가 종료되고 됩니다.<br/>
+				2. 불완전하게 남아있는 정보가 완전히 제거된 후 설치 됩니다.<br/><br/>
+				</div>
+				</td>
+			</tr>									
+			<tr>
+				<td align="center" style="padding-top:10px;"><a id="innomp_download_link" href="#" onclick="fileDown();" ><span class="installBox" style="padding-top:10px;" id="innomp_download_button"><b>설치파일 다운로드</b><br/><span style="font-size:12px; padding-top:3px;" id="innomp_download_str">Version 7.1 for Windows</span></span></a></td>
+			</tr>
+			<tr style="height:15px;">
+				<td style="height:15px;"></td>
+				<td style="height:15px;"></td>
+			</tr>
+		</table>
+	</div>
+
+</div>
+
+<div id="innomp_check_obj"></div>
+
+<script type="text/javascript">
+function fileDown() {
+
+	Utility.DelCookie("installCookie");
+
+	browserDetect.init();
+	
+	var innomp_detected_os = browserDetect.OS;
+	var innomp_download_file = "";
+	var dnUrl = "";
+	
+	if (innomp_detected_os == "Win32") {
+		innomp_download_file = "InnoGMP_Win.exe";
+		document.getElementById("innomp_download_str").innerHTML = "Version 7.1 for Windows";
+		dnUrl = Config.InnoPackage + "/" + innomp_download_file;
+	}
+	else if (innomp_detected_os == "Linux i686") {
+		innomp_download_file = "InnoGMP_Linux.bin";
+		document.getElementById("innomp_download_str").innerHTML = "Version 7.1 for Linux";
+		dnUrl = Config.InnoPackage + "/" + innomp_download_file;
+	}
+	else if (innomp_detected_os == "MacIntel") {
+		innomp_download_file = "InnoGMP_Mac_Intel.pkg";
+		document.getElementById("innomp_download_str").innerHTML = "Version 7.1 for Intel";
+		dnUrl = Config.InnoPackage + "/" + innomp_download_file;
+	}
+	else if (innomp_detected_os == "MacPPC") {
+		innomp_download_file = "InnoGMP_Mac_PPC.pkg";
+		document.getElementById("innomp_download_str").innerHTML = "Version 7.1 for PPC";
+		dnUrl = Config.InnoPackage + "/" + innomp_download_file;
+	}
+
+	location.href=dnUrl;
+
+}
+</script>
+
+</body>
+</html>
