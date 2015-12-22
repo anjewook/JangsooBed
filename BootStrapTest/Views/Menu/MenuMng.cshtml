@@ -1,0 +1,138 @@
+﻿@using ArchFx.ExtensionMethod
+@using JS.Boots
+@using JS.Boots.Data
+@using JS.Boots.Data.SystemMng
+
+@{
+    ViewBag.Title = "MenuMng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~/Content/zTree/js/jquery.ztree.core-3.5.js" type="text/javascript"></script>
+    <script src="MenuMng.js?date=@DateTime.Now.ToString("yyyyMMddhhmmss")" type="text/javascript"></script>
+}
+
+<div class="tit">
+    <h2>메뉴관리</h2>
+    <p class="nav"><img src="@Images.AdminImagesPath/common/icon_home.gif" alt="홈" /> > 시스템관리 > <span class="txt000000">메뉴관리</span></p>
+</div>
+<div class="pb10">&nbsp;</div>
+
+<form id="frm" name="frm">
+    <input type="hidden" id="mode" name="mode" value="I" />
+    <input type="hidden" id="upperMenuCode" name="upperMenuCode" value="" />
+
+    <!-- 메뉴관리 -->
+    <div class="menu_edit">
+
+        <!--메뉴구분 -->
+        <div class="c_tree">
+            <div class="c_tit">
+                <h3>메뉴구분</h3>
+                <span class="blind"><label for="searchUpperMenuCode">메뉴구분</label></span>
+                <select id="searchUpperMenuCode" name="searchUpperMenuCode" class="input_01 sel" title="메뉴구분">
+                    <option value="00001">관리자 메뉴</option>
+                    <option value="00002">사용자 메뉴</option>
+                </select>
+            </div>
+            <div class="menu_tree">
+                <ul id="menuTree" class="ztree"></ul>
+            </div>
+        </div>
+        <!-- //메뉴구분 -->
+        <!-- 메뉴등록 -->
+        <fieldset>
+            <legend>메뉴등록</legend>
+            <table cellspacing="0" border="0" summary="메뉴등록" class="sea">
+                <caption>메뉴등록</caption>
+                <colgroup>
+                    <col style="width:25%;" />
+                    <col />
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="upperMenuNm">상위메뉴</label></th>
+                        <td>
+                            <input type="text" id="upperMenuNm" name="upperMenuNm" value="" maxlength="50" readonly="readonly" class="input_01" title="상위메뉴" />
+                            <a href="#" id="btnSearchUpperMenu" class="btn_02"><span>메뉴검색</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="menuNm">메뉴명</label></th>
+                        <td>
+                            <input type="text" id="menuCode" name="paramMenuCode" value="" maxlength="5" style="width:30px;" readonly="readonly" />
+                            <input type="text" id="menuNm" name="menuNm" value="" maxlength="50" class="input_01" title="메뉴명" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">메뉴유형</th>
+                        <td>
+                            <input type="radio" id="menuTyCode01" name="menuTyCode" value="AC009001" checked /> <label for="menuTyCode01">폴더</label>
+                            <input type="radio" id="menuTyCode02" name="menuTyCode" value="AC009002" /> <label for="menuTyCode02">프로그램</label>
+                        </td>
+                    </tr>
+                    <tr style="display:none;">
+                        <th scope="row">컨텐츠유형</th>
+                        <td>
+                            <input type="radio" id="cntntsTyCode01" name="cntntsTyCode" value="AC010001" checked /> <label for="cntntsTyCode01">일반</label>
+                            <input type="radio" id="cntntsTyCode02" name="cntntsTyCode" value="AC010002" /> <label for="cntntsTyCode02">게시판</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">링크유형</th>
+                        <td>
+                            <input type="radio" id="linkTyCode01" name="linkTyCode" value="AC011001" checked /> <label for="linkTyCode01">일반</label>
+                            <input type="radio" id="linkTyCode02" name="linkTyCode" value="AC011002" /> <label for="linkTyCode02">팝업</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="menuUrl">메뉴URL</label></th>
+                        <td>
+                            <input type="text" id="menuUrl" name="menuUrl" value="" maxlength="200" class="input_07" title="메뉴URL" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="sortOrdr">정렬순서</label></th>
+                        <td>
+                            <input type="text" id="sortOrdr" name="sortOrdr" value="" maxlength="3" class="input_05" title="정렬순서" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">사용여부</th>
+                        <td>
+                            <input type="radio" id="useAtY" name="useAt" value="Y" checked /> <label for="useAtY">사용</label>
+                            <input type="radio" id="useAtN" name="useAt" value="N" /> <label for="useAtN">미사용</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="menuDc">메뉴설명</label></th>
+                        <td>
+                            <textarea id="menuDc" name="menuDc" rows="5" style="width:98%;" title="메뉴설명"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <!-- //메뉴등록 -->
+
+    </div>
+</form>
+
+<div class="pb10">&nbsp;</div>
+<p class="b_btn">
+    @if (ViewBag.AuthT.IsAdmin)
+    {
+        <a href="#" id="acRegist" class="btn_01"><span>초기화</span></a>
+            <!--<a href="#" class="btn_01"><span>삭제</span></a>&nbsp;-->
+        <a href="#" id="acSave" class="btn_01"><span>저장</span></a>
+
+    }
+</p>
+
+
+<div id="menuContent" class="menuContent" style="display:none; position: absolute;background:#eee;">
+    <ul id="menuSelectTree" class="ztree" style="margin-top:0; width:160px;"></ul>
+</div>
