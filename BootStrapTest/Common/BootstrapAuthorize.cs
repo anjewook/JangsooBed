@@ -68,10 +68,10 @@ namespace BootStrapTest.Common
                     {
                         // MenuCode 에 해당하는 사용자의 권한목록을 DB에서 조회
                         UserMenuAuthSearchT userMenuAuthSearchT = new UserMenuAuthSearchT();
-                        userMenuAuthSearchT.MenuCode = MenuCode; //메뉴ID
-                        userMenuAuthSearchT.UserId = BootstrapCertification.User.UserId; //사용자ID
-                        userMenuAuthSearchT.UserSeCode = BootstrapCertification.User.UserSeCode; //사용자구분코드
-                        userMenuAuthSearchT.AuthorGroupList = BootstrapCertification.User.AuthorGroupList; //권한그룹목록
+                        userMenuAuthSearchT.MenuCode            = MenuCode; //메뉴ID
+                        userMenuAuthSearchT.UserId              = BootstrapCertification.User.UserId; //사용자ID
+                        userMenuAuthSearchT.UserSeCode          = BootstrapCertification.User.UserSeCode; //사용자구분코드
+                        userMenuAuthSearchT.AuthorGroupList     = BootstrapCertification.User.AuthorGroupList; //권한그룹목록
 
                         IList<string> authList = new ProfileBiz().SelectUserMenuAuthList(userMenuAuthSearchT);
 

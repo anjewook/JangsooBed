@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1494,6 +1495,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Admin\Login.js" />
+    <Content Include="Views\Member\Login.js" />
     <Content Include="Views\Menu\MenuMng.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1533,6 +1535,7 @@
     <Content Include="Views\Shared\_AdminLoginLayout.cshtml" />
     <Content Include="Views\Shared\_AdminTopMenu.cshtml" />
     <Content Include="Views\Menu\MenuMng.cshtml" />
+    <Content Include="Views\Member\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -124,19 +124,24 @@ function onClick(event, treeId, treeNode, clickFlag) {
         });
 
     } else if (treeId == "menuSelectTree") {
+
         if (treeNode.menuTycode != "AC009001") {
             alert("메뉴유형이 폴더인 경우만 선택가능합니다.");
             return;
         }
+
         var zTree = $.fn.zTree.getZTreeObj("menuSelectTree"),
         nodes = zTree.getSelectedNodes(),
         vCode = "";
         vName = "";
+
         nodes.sort(function compare(a, b) { return a.id - b.id; });
+
         for (var i = 0, l = nodes.length; i < l; i++) {
             vCode += nodes[i].menuCode;
             vName += nodes[i].name;
         }
+
         $("#upperMenuCode").attr("value", vCode);
         $("#upperMenuNm").attr("value", vName);
 
@@ -145,25 +150,33 @@ function onClick(event, treeId, treeNode, clickFlag) {
 }
 
 function showMenu() {
+
     var targetObj = $("#upperMenuCode");
     var targetOffset = $("#upperMenuNm").offset();
+
     $("#menuContent").css({ left: targetOffset.left + "px", top: targetOffset.top + targetObj.outerHeight() - $("#divColumnSubRight").offset().top + "px" }).slideDown("fast");
 
     $("body").bind("mousedown", onBodyDown);
 }
 
 function hideMenu() {
+
     $("#menuContent").fadeOut("fast");
+
     $("body").unbind("mousedown", onBodyDown);
+
 }
 
 function onBodyDown(event) {
+
     if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
         hideMenu();
     }
+
 }
 
 function fn_Init(objTree) {
+
     $.ajax({
         type: "GET",
         async: false,
@@ -179,9 +192,11 @@ function fn_Init(objTree) {
             alert("error : " + error);
         }
     });
+
 }
 
 function fn_SetDefault() {
+
     $("#menuCode").attr("value", "");
     $("#menuNm").attr("value", "");
     $("#upperMenuCode").attr("value", $("#searchUpperMenuCode").val());
@@ -194,4 +209,5 @@ function fn_SetDefault() {
     $(':radio[name="useAt"]:input[value=Y]').attr("checked", true);
     $("#menuDc").attr("value", "");
     $("#mode").attr("value", "I");
+
 }
