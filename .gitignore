@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 .cache
 .pdb
 .dll
+*.cache
+JSMall/obj/Debug/JSMall.pdb
+*.dll
+*.pdb
+*.dll

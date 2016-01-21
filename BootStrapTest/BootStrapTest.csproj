@@ -199,9 +199,17 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BoardController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1495,6 +1503,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Admin\Login.js" />
+    <Content Include="Views\Admin\Main.js" />
     <Content Include="Views\Member\Login.js" />
     <Content Include="Views\Menu\MenuMng.js" />
     <Content Include="Web.config" />
@@ -1529,13 +1538,35 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\TestBoot.cshtml" />
-    <Content Include="SqlMap.config" />
+    <Content Include="SqlMap.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Admin\Login_bak.cshtml" />
     <Content Include="Views\Admin\Main.cshtml" />
     <Content Include="Views\Shared\_AdminLoginLayout.cshtml" />
     <Content Include="Views\Shared\_AdminTopMenu.cshtml" />
     <Content Include="Views\Menu\MenuMng.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
+    <Content Include="Views\Manage\Member.cshtml" />
+    <Content Include="Views\Manage\Menu.cshtml" />
+    <Content Include="Views\Manage\Mall.cshtml" />
+    <Content Include="Views\Manage\DiscountSave.cshtml" />
+    <Content Include="Views\Sales\SalesState.cshtml" />
+    <Content Include="Views\Sales\CalcState.cshtml" />
+    <Content Include="Views\Payment\PaymentFee.cshtml" />
+    <Content Include="Views\Product\ProductManage.cshtml" />
+    <Content Include="Views\Category\Category.cshtml" />
+    <Content Include="Views\Order\OrderManage.cshtml" />
+    <Content Include="Views\Order\CancelManage.cshtml" />
+    <Content Include="Views\Order\ReturnManage.cshtml" />
+    <Content Include="Views\Order\StatementManage.cshtml" />
+    <Content Include="Views\Board\Notice.cshtml" />
+    <Content Include="Views\Board\Individual.cshtml" />
+    <Content Include="Views\Board\Product.cshtml" />
+    <Content Include="Views\Board\GoodsReply.cshtml" />
+    <Content Include="Views\Board\Faq.cshtml" />
+    <Content Include="Views\Delivery\DeliveryManage.cshtml" />
+    <Content Include="Views\Delivery\DeliveryFee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

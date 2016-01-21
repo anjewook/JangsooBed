@@ -41,7 +41,7 @@
       AND A.EMPL_CODE = #emplCode#
       AND B.USE_AT = 'Y'
     </select>
-
+    
     <select id="ProfileDac.OldSelectUser" parameterClass="ProfileT" resultClass="ProfileT">
       /* ProfileDac.SelectUser */
       /*
@@ -92,17 +92,6 @@
       AND TN_EMPL.USE_AT = 'Y'
       AND TN_AUTHOR_GROUP.USE_AT = 'Y'
     </select>
-
-
-    <select id="ProfileDac.SelectJsUserAuthGroupList" parameterClass="string" resultClass="string">
-      /* ProfileDac.SelectJsUserMenuAuthList Js사용자 권한그룹 목록 조회*/
-      SELECT A.AUTHOR_GROUP_CODE
-      FROM TN_AUTHOR_GROUP_EMPLYR A, TN_AUTHOR_GROUP B
-      WHERE B.AUTHOR_GROUP_CODE = B.AUTHOR_GROUP_CODE
-      AND A.EMPL_CODE = #emplCode#
-      AND B.USE_AT = 'Y'
-    </select>
-
 
     <select id="ProfileDac.SelectUserMenuAuthList" parameterClass="UserMenuAuthSearchT" resultClass="string">
       /* ProfileDac.SelectUserMenuAuthList 사용자메뉴권한 목록 조회*/

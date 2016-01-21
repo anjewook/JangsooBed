@@ -4081,7 +4081,10 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 
 @media(max-width:899px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        /*
         color: #777;
+        */
+        color: #131313;
     }
 
         .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {

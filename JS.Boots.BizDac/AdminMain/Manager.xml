@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="JS.Boots.Data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+
+  <alias>
+    <typeAlias alias="ManagerT"  type="JS.Boots.Data.AdminMain.ManagerT" />
+    <typeAlias alias="ManagerSearchT"  type="JS.Boots.Data.AdminMain.ManagerSearchT" />
+  </alias>
+
+  <statements>
+
+    <select id="ManagerDac.SelectAtManagerList" parameterClass="ManagerSearchT" resultClass="ManagerT">
+      /* EmplDac.SelectEmplList */
+      /*
+      SELECT emp_name			      AS "emp_name"
+            , emp_rank_nm       AS "emp_rank_nm"
+            , emp_rank          AS "emp_rank"
+            , emp_post_nm       AS "emp_post_nm"
+            , emp_post          AS "emp_post"
+            , emp_id            AS "emp_id"
+            , biz_id            AS "biz_id"
+            , emp_tel1          AS "emp_tel1"
+            , emp_tel2          AS "emp_tel2"
+            , emp_tel3          AS "emp_tel3"
+            , emp_hp1           AS "emp_hp1"
+            , emp_hp2           AS "emp_hp2"
+            , emp_hp3           AS "emp_hp3"
+            , regi_date         AS "regi_date"
+            , right_use         AS "right_use"
+            , right_regi        AS "right_regi"
+      */
+      SELECT ROW_NUMBER         AS "Rum"
+            , emp_name          AS "ManagerNm"
+            , emp_rank_nm       AS "ManagerRankNm"
+            , emp_rank          AS "ManagerRank"
+            , emp_post_nm       AS "ManagerPostNm"
+            , emp_post          AS "ManagerPost"
+            , emp_id            AS "ManagerID"
+            , biz_id            AS "ManagerBizID"
+            , emp_tel1          AS "ManagerTel1"
+            , emp_tel2          AS "ManagerTel2"
+            , emp_tel3          AS "ManagerTel3"
+            , emp_hp1           AS "ManagerHp1"
+            , emp_hp2           AS "ManagerHp2"
+            , emp_hp3           AS "ManagerHp3"
+            , regi_date         AS "RegiDate"
+            , right_use         AS "RightUse"
+            , right_regi        AS "RightRegi"
+	          , TOTAL_COUNT       AS "TotalCount"
+      FROM
+      (
+            SELECT  PT.*
+            , row_number()Over(Order By regi_date) AS ROW_NUMBER
+            , COUNT(*) OVER() AS TOTAL_COUNT
+            FROM
+            (
+                SELECT emp_name
+                , dbo.f_code_nm(emp_rank, 'AD_RANK') emp_rank_nm
+                , emp_rank
+                , dbo.f_code_nm(emp_post, 'AD_POST') emp_post_nm
+                , emp_post
+                , emp_id
+                , biz_id
+                , emp_tel1
+                , emp_tel2
+                , emp_tel3
+                , emp_hp1
+                , emp_hp2
+                , emp_hp3
+                , Convert(Char(10),regi_date,120) regi_date
+                , Case When right_use = 'false' Then '정지' Else '정상' End right_use
+                , Case When right_regi = 'true' Then '보기' Else '미등록' End right_regi
+                From gEmp10T
+                Where 1 = 1
+            ) PT
+      ) B
+      WHERE ROW_NUMBER BETWEEN #StartIndex# AND #EndIndex#
+    </select>
+
+    <select id="ManagerDac.SelectAtManager" parameterClass="string" resultClass="ManagerT">
+      /* EmplDac.SelectEmpl */
+    </select>
+
+    /*
+    <procedure id="EmplDac.OrganizationTrans">
+      <![CDATA[{CALL ORGANIZATION_TRANS()}]]>
+    </procedure>
+    */
+
+  </statements>
+
+</sqlMap>

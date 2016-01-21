@@ -16,10 +16,6 @@ namespace BootStrapTest.Controllers
 {
 	public class HomeController : BaseController
 	{
-		public ActionResult Index()
-		{
-			return View();
-		}
 		public ActionResult Test1()
 		{
 			return View();

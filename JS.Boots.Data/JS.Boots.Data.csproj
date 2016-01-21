@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="AdminMain\AdminMainCountT.cs" />
     <Compile Include="AdminMain\AdminMainPageT.cs" />
+    <Compile Include="AdminMain\ManagerSearchT.cs" />
+    <Compile Include="AdminMain\ManagerT.cs" />
     <Compile Include="Atchmnfl\AtchmnflArgsT.cs" />
     <Compile Include="Atchmnfl\AtchmnflT.cs" />
     <Compile Include="AuthT.cs" />
