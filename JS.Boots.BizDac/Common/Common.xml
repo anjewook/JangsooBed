@@ -20,6 +20,24 @@
       AND USE_AT = 'Y'
       ORDER BY BSIS_CODE
     </select>
+    
+    <select id="CommonDac.SelectOptCodeList" parameterClass="cmmnCodeT" resultClass="cmmnCodeT">
+      /* CommonDac.SelectOptCodeList 코드조회(base_codeT 테이블의 분류) */
+
+      Select
+      CDCODE AS "cdCode"
+      , CDNAME AS "cdName"
+      From base_codeT
+      WHERE CDINDEX = #cdIndex#
+      <isEmpty property="cdorder">
+        ORDER BY CDCODE
+      </isEmpty>
+      <isNotEmpty property="cdorder">
+        <isEqual property="cdorder" compareValue="CDORDER">
+          ORDER BY CDORDER
+        </isEqual>
+      </isNotEmpty>
+    </select>
 
     <select id="CommonDac.SelectCmmnCodeListByUpperCodeOne" parameterClass="string" resultClass="cmmnCodeT">
       /* CommonDac.SelectCmmnCodeListByUpperCodeOne upperCodeOne 하위 공통코드 조회 */

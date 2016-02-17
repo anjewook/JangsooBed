@@ -88,7 +88,7 @@ namespace JS.Boots.Pager
 
                 // previous.InnerHtml = "<img src='" + Images.PortalImagesPath + "/common/bl_prev2.gif' alt='이전' />";
                 // previous.AddCssClass("pre");
-                previous.InnerHtml = "<<<<";
+                previous.InnerHtml = "&laquo;";
 
                 routingValues.Add("page", groupStart - cGroupSize);
                 previous.MergeAttribute("href", urlHelper.Action(actionName, routingValues));
@@ -144,39 +144,49 @@ namespace JS.Boots.Pager
 
                     routingValues.Remove("page");
                     routingValues.Add("page", i);
+
                     pageNumber.MergeAttribute("href", urlHelper.Action(actionName, routingValues));
-                    container.InnerHtml += pageNumber.ToString() + " ";
+                    pageNumber.SetInnerText((i).ToString());
+
+                    liTag.InnerHtml += pageNumber.ToString();
+                    //container.InnerHtml += pageNumber.ToString() + " ";
+                    container.InnerHtml += liTag.ToString();
                 }
             }
 
             // 그룹사이즈에 따른 ... 처리및 마지막 페이지 버튼 생성
             if (pageCount > groupEnd)
             {
-
-                var next            = new TagBuilder("a");
-                var routingValues   = new RouteValueDictionary(routeValues);
+                /*
                 var pageEnd         = new TagBuilder("a");
                 var routingValues2  = new RouteValueDictionary(routeValues);
-
-                next.InnerHtml = "<img src=\"" + Images.PortalImagesPath + "/common/bl_next2.gif\" alt=\"다음\" />";
-                next.AddCssClass("next");
-
-                routingValues.Add("page", groupEnd + 1);
-                next.MergeAttribute("href", urlHelper.Action(actionName, routingValues));
-                container.InnerHtml += next.ToString() + " ";
-
                 pageEnd.InnerHtml = "<img src=\"" + Images.PortalImagesPath + "/common/bl_next.gif\" alt=\"맨뒤\" />";
                 pageEnd.AddCssClass("next_end");
-
                 routingValues2.Add("page", pageCount);
                 pageEnd.MergeAttribute("href", urlHelper.Action(actionName, routingValues2));
                 container.InnerHtml += pageEnd.ToString() + " ";
+                 */
+
+                var next            = new TagBuilder("a");
+                var nextLi          = new TagBuilder("li");
+                var routingValues   = new RouteValueDictionary(routeValues);
+
+                //next.InnerHtml = "<img src=\"" + Images.PortalImagesPath + "/common/bl_next2.gif\" alt=\"다음\" />";
+                //next.AddCssClass("next");
+
+                routingValues.Add("page", groupEnd + 1);
+                next.MergeAttribute("href", urlHelper.Action(actionName, routingValues));
+
+                next.InnerHtml = "&raquo;";
+                nextLi.InnerHtml += next.ToString();
+                container.InnerHtml += nextLi.ToString();
+
             }
             else
             {
-                var next = new TagBuilder("a");                      // 이전페이지
-                var nextLi = new TagBuilder("li");
-                var routingValues = new RouteValueDictionary(routeValues);    //
+                var next            = new TagBuilder("a");                               // 다음페이지
+                var nextLi          = new TagBuilder("li");
+                var routingValues   = new RouteValueDictionary(routeValues);    //
 
                 next.InnerHtml = "&raquo;";
                 //previous.AddCssClass("disabled");
@@ -190,19 +200,19 @@ namespace JS.Boots.Pager
 
             }
 
+            // 다음페이지 출력 버튼 생성
             /*
-        // 다음페이지 출력 버튼 생성
-        if (currentPage < pageCount)
-        {
-            var next = new TagBuilder("a");
-            //next.InnerHtml = "<img src='" + Images.ImagesPath + "/Admin/btn/btn_next.gif' alt='다음 리스트' />";
-            next.AddCssClass("next");
-            var routingValues = new RouteValueDictionary(routeValues);
-            routingValues.Add("page", currentPage + 1);
-            next.MergeAttribute("href", urlHelper.Action(actionName, routingValues));
-            container.InnerHtml += next.ToString() + " ";
-        }
-             * /
+            if (currentPage < pageCount)
+            {
+                var next = new TagBuilder("a");
+                //next.InnerHtml = "<img src='" + Images.ImagesPath + "/Admin/btn/btn_next.gif' alt='다음 리스트' />";
+                next.AddCssClass("next");
+                var routingValues = new RouteValueDictionary(routeValues);
+                routingValues.Add("page", currentPage + 1);
+                next.MergeAttribute("href", urlHelper.Action(actionName, routingValues));
+                container.InnerHtml += next.ToString() + " ";
+            }
+            * /
 
         //string onChangeScript = "window.l-ocation.href=this.options[this.selectedIndex].value";
 

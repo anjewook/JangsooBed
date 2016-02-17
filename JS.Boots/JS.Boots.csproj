@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachFile.cs" />
+    <Compile Include="BaseCode\BasicCode.cs" />
     <Compile Include="CHEditor.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConvPDF.cs" />

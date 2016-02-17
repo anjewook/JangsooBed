@@ -10,7 +10,7 @@
   <statements>
 
     <select id="ManagerDac.SelectAtManagerList" parameterClass="ManagerSearchT" resultClass="ManagerT">
-      /* EmplDac.SelectEmplList */
+      /* ManagerDac.SelectEmplList */
       /*
       SELECT emp_name			      AS "emp_name"
             , emp_rank_nm       AS "emp_rank_nm"
@@ -72,6 +72,23 @@
                 , Case When right_regi = 'true' Then '보기' Else '미등록' End right_regi
                 From gEmp10T
                 Where 1 = 1
+                <isNotEmpty property="SearchText">
+                  <isEqual property="SearchType" compareValue="01">
+                      /* 전체 */
+                      AND (emp_id LIKE '%' + #SearchText# + '%' or emp_name LIKE '%' + #SearchText# + '%' )
+                  </isEqual>
+                  <isEqual property="SearchType" compareValue="02">
+                      /* 아이디 */
+                      AND emp_id LIKE '%' || #SearchText# || '%'
+                  </isEqual>
+                  <isEqual property="SearchType" compareValue="03">
+                      /* 이름 */
+                      AND emp_name LIKE '%' || #SearchText# || '%'
+                  </isEqual>
+                  <isEqual property="SearchType" compareValue="04">
+                    /* 휴대폰(제외) */
+                  </isEqual>
+                </isNotEmpty>
             ) PT
       ) B
       WHERE ROW_NUMBER BETWEEN #StartIndex# AND #EndIndex#
@@ -79,8 +96,135 @@
 
     <select id="ManagerDac.SelectAtManager" parameterClass="string" resultClass="ManagerT">
       /* EmplDac.SelectEmpl */
+
+      SELECT emp_name     AS "ManagerNm"
+      , emp_rank_nm       AS "ManagerRankNm"
+      , emp_rank          AS "ManagerRank"
+      , emp_post_nm       AS "ManagerPostNm"
+      , emp_post          AS "ManagerPost"
+      , emp_id            AS "ManagerID"
+      , emp_pwd           AS "ManagerPw"
+      , biz_id            AS "ManagerBizID"
+      , emp_tel1          AS "ManagerTel1"
+      , emp_tel2          AS "ManagerTel2"
+      , emp_tel3          AS "ManagerTel3"
+      , emp_hp1           AS "ManagerHp1"
+      , emp_hp2           AS "ManagerHp2"
+      , emp_hp3           AS "ManagerHp3"
+      , emp_email         AS "ManagerEmail"
+      , regi_date         AS "RegiDate"
+      , right_use         AS "RightUse"
+      , right_regi        AS "RightRegi"
+      FROM
+      (
+      SELECT emp_name
+      , dbo.f_code_nm(emp_rank, 'AD_RANK') emp_rank_nm
+      , emp_rank
+      , dbo.f_code_nm(emp_post, 'AD_POST') emp_post_nm
+      , emp_post
+      , emp_id
+      , emp_pwd
+      , biz_id
+      , emp_tel1
+      , emp_tel2
+      , emp_tel3
+      , emp_hp1
+      , emp_hp2
+      , emp_hp3
+      , emp_email
+      , Convert(Char(10),regi_date,120) regi_date
+      , Case When right_use = 'false' Then '정지' Else '정상' End right_use
+      , Case When right_regi = 'true' Then '보기' Else '미등록' End right_regi
+      From gEmp10T
+      WHERE
+      emp_id = #ManagerID#
+      ) A
     </select>
 
+
+    <insert id="ManagerDac.InsertManager" parameterClass="ManagerT">
+      /* ManagerDac.InsertManager */
+      INSERT INTO gEmp10T
+      (
+      emp_code
+      ,emp_id
+      ,emp_pwd
+      ,emp_name
+      ,emp_rank
+      ,emp_post
+      ,join_date
+      ,emp_tel1
+      ,emp_tel2
+      ,emp_tel3
+      ,emp_hp1
+      ,emp_hp2
+      ,emp_hp3
+      ,emp_email
+      ,regi_date
+      ,emp_level
+      ,struct_lv
+      ,right_regi
+      ,right_use
+      )
+      VALUES
+      (
+      #ManagerCode#
+      ,#ManagerID#
+      ,#ManagerPw#
+      ,#ManagerNm#
+      ,#ManagerRankNm#
+      ,#ManagerPostNm#
+      ,getdate()
+      ,#ManagerTel1#
+      ,#ManagerTel2#
+      ,#ManagerTel3#
+      ,#ManagerHp1#
+      ,#ManagerHp2#
+      ,#ManagerHp3#
+      ,#ManagerEmail#
+      ,getdate()
+      ,'super'
+      ,1
+      ,#RightRegi#
+      ,#RightUse#
+      )
+    </insert>
+
+    <delete id="ManagerDac.DeleteManager" parameterClass="long">
+      /* ManagerDac.DeleteManager */
+      DELETE FROM gEmp10T
+      WHERE
+      seq_no = #ManagerSn#
+    </delete >
+
+    <update id="ManagerDac.UpdateManager" parameterClass="ManagerT">
+      /* ManagerDac.UpdateManager */
+      UPDATE gEmp10T
+      SET emp_pwd     = #ManagerPw#
+      ,emp_name    = #ManagerNm#
+      ,emp_rank    = #ManagerRankNm#
+      ,emp_post    = #ManagerPostNm#
+      ,emp_tel1    = #ManagerTel1#
+      ,emp_tel2    = #ManagerTel2#
+      ,emp_tel3    = #ManagerTel3#
+      ,emp_hp1     = #ManagerHp1#
+      ,emp_hp2     = #ManagerHp2#
+      ,emp_hp3     = #ManagerHp3#
+      ,emp_email   = #ManagerEmail#
+      WHERE
+      emp_id      = #ManagerID#
+    </update>
+
+    <select id="ManagerDac.SelectManagerExistYn" parameterClass="string" resultClass="string">
+      /* ManagerDac.SelectManagerExistYn */
+      SELECT Case When count(emp_id) = 0 Then 'N' When count(emp_id) > 1 Then 'Y' END AS "ExistYn"
+      FROM gEmp10T
+      WHERE emp_id = #ManagerID#
+
+      /* Decode (오라클함수 : Decode(A, 'apple', 1, 0) A가 apple 이면 1 아니면 0*/
+      /*SELECT DECODE(COUNT(USER_ID),0,'N','Y')AS "ExistYn" FROM TN_USER WHERE USER_ID = #UserId#*/
+
+    </select>
     /*
     <procedure id="EmplDac.OrganizationTrans">
       <![CDATA[{CALL ORGANIZATION_TRANS()}]]>

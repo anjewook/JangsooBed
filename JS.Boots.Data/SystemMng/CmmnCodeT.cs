@@ -117,6 +117,26 @@ namespace JS.Boots.Data.SystemMng
         /// Mode I:insert, U:update, D:delete
         /// </summary>
         public string Mode { get; set; }
+
+        /// <summary>
+        /// 구분코드 (기초코드 Table : base_codeT )
+        /// </summary>
+        public string cdIndex { get; set; }
+
+        /// <summary>
+        /// 코드 Index (기초코드 Table : base_codeT )
+        /// </summary>
+        public string cdCode { get; set; }
+
+        /// <summary>
+        /// 코드명 (기초코드 Table : base_codeT )
+        /// </summary>
+        public string cdName { get; set; }
+
+        /// <summary>
+        /// 코드정렬 (기초코드 Table : base_codeT )
+        /// </summary>
+        public string cdorder { get; set; }
     
     }
 }

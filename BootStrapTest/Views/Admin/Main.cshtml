@@ -18,22 +18,23 @@
     <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="~/Scripts/Common.js?date=@DateTime.Now.ToString("yyyyMMddhhmmss")" type="text/javascript"></script>
     <script src="~/Views/Admin/Main.js?date=@DateTime.Now.ToString("yyyyMMddhhmmss")" type="text/javascript"></script>
+    <script src="~/Views/Admin/_ManagerRegist.js?date=@DateTime.Now.ToString("yyyyMMddhhmmss")" type="text/javascript"></script>
+    <script src="~/Views/Admin/_ManagerEdit.js?date=@DateTime.Now.ToString("yyyyMMddhhmmss")" type="text/javascript"></script>
     <script type="text/javascript">
-        alert("@Model.TotalCount");
-        @*document.title = "@ViewBag.BbsT.BbsNm";
+        //alert("@Model.TotalCount");
+        @*document.title = "@ViewBag.BbsT.BbsNm";*@
 
         var page                = "@ViewBag.SearchT.page";
-        var BbsSn               = "@ViewBag.SearchT.BbsSn";
-        var SearchStartDate     = "@ViewBag.SearchT.SearchStartDate";
-        var SearchEndDate       = "@ViewBag.SearchT.SearchEndDate";
+        var ManagerSn           = "@ViewBag.SearchT.ManagerSn";
         var SearchType          = "@ViewBag.SearchT.SearchType";
         var SearchText          = "@ViewBag.SearchT.SearchText";
-        var SearchBbsMrnrSeCode = "@ViewBag.SearchT.SearchBbsMrnrSeCode";
         var OrderColumn         = "@ViewBag.SearchT.OrderColumn";
         var OrderType           = "@ViewBag.SearchT.OrderType";
         var menuCode            = "@ViewBag.SearchT.menuCode";
+        @*
         var BbsTyCode           = "@ViewBag.bbsT.BbsTyCode";
-        var BbsMrnrSeCodeUseAt = "@ViewBag.bbsT.BbsMrnrSeCodeUseAt";*@
+        var BbsMrnrSeCodeUseAt  = "@ViewBag.bbsT.BbsMrnrSeCodeUseAt";
+        *@
 
     </script>
 }
@@ -47,8 +48,8 @@
                 <h2 id="nav-tabs">Main</h2>
                 <div class="bs-component">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#home" data-toggle="tab">관리자 목록</a></li>
-                        <li><a href="#profile" data-toggle="tab">권한 목록</a></li>
+                        <li class="active"><a href="#home" id="mgrList" data-toggle="tab">관리자 목록</a></li>
+                        <li><a href="#profile" id="mgrAuthList" data-toggle="tab">권한 목록</a></li>
                         <!--
                         <li><a href="#profile" data-toggle="tab">Profile</a></li>
                         <li><a href="#profile" data-toggle="tab">Profile</a></li>
@@ -80,20 +81,22 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
+
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <select class="form-control" id="select">
-                                <option>전체</option>
-                                <option>아이디</option>
-                                <option>이름</option>
-                                <option>휴대폰</option>
+                            <select class="form-control" id="SearchType" name="SearchType">
+                            <option value="01">전체</option>
+                            <option value="02">아이디</option>
+                            <option value="03">이름</option>
+                            <!--<option value="04">휴대폰</option>-->
                             </select>
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" id="SearchText" name="SearchText" value="">
+                            <button type="submit" class="btn btn-default" id="btnSearch">검색</button>
                         </div>
-                        <button type="submit" class="btn btn-default">검색</button>
-                        <button type="submit" class="btn btn-default">관리자 등록</button>
-                    </form>
+                        <div id='btnRegistPop' class='btn btn-default'>관리자 등록</div>
+                     </form>
+                
                 </div>
             </div>
         </nav>
@@ -126,12 +129,12 @@
                             {
                                 <tr id="trArea_@Model.GridData[i].Rum">
                                     <td>@Model.GridData[i].Rum</td>
-                                    <td>@Model.GridData[i].ManagerNm</td>
+                                    <td>@Model.GridData[i].ManagerNm ( @Model.GridData[i].ManagerID )</td>
                                     <td>@Model.GridData[i].ManagerRankNm</td>
                                     <td>@Model.GridData[i].ManagerPostNm</td>
                                     <td>@Model.GridData[i].ManagerID</td>
                                     <td>@Model.GridData[i].ManagerHp1-@Model.GridData[i].ManagerHp2-@Model.GridData[i].ManagerHp3</td>
-                                    <td>상세</td>
+                                    <td><a href="#" onclick="fn_View('@Model.GridData[i].ManagerID');return false;">상세</a></td>
                                 </tr>
                             }
                             @if (Model.GridData.Count <= 0)
@@ -178,3 +181,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+
+    <section id="modalpartial">
+        <!--
+        // 컨트롤러 없는 파샬 뷰를 호출한다. 이렇게 하는 이유는 Submit 시에 파라메터를 List 전달하면 너무 불편하기 때문
+        // Html.Partial("_ProductList", item)
+        // Html.Partial("파샬뷰", 모델)을 넘기면 컨트롤러 없이 실행가능
+        // Html.Action  컨트롤러를 반드시 거쳐 간다
+        -->
+        @Html.Partial("_ManagerRegistPartial", new { Action = "ManagerRegist" })
+        @Html.Partial("_ManagerEditPartial", new { Action = "ManagerEdit"  })
+    </section>

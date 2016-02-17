@@ -803,3 +803,14 @@ jQuery.validator.addMethod("beforedate", function (value, element, param) {
     //뒷날짜에 지정하기
     return value >= $(param).val();
 }, "날짜가 올바르게 입력되지 않았습니다.");
+
+// 입력값 Y 체크
+jQuery.validator.addMethod("chkYes", function (value, element) {
+
+    var chkPattern = "Y";
+
+    if (chkPattern.test(value) == false) {
+        return false;
+    }
+    return true;
+}, "입력값 확인해주세요.");

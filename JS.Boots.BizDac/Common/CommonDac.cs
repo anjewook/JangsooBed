@@ -23,6 +23,16 @@ namespace JS.Boots.BizDac.Common
         }
 
         /// <summary>
+        /// base_codeT 테이블의 분류에 따른 코드를 List Up
+        /// </summary>
+        /// <param name="upperBsisCode"></param>
+        /// <returns></returns>
+        public IList<CmmnCodeT> SelectOptCodeList(CmmnCodeT cmdT)
+        {
+            return Js_Instance.QueryForList<CmmnCodeT>("CommonDac.SelectOptCodeList", cmdT);
+        }
+
+        /// <summary>
         /// 상위코드1(UPPER_CODE_ONE) 을 상위코드로 하는 하위 공통코드 목록 조회
         /// </summary>
         /// <param name="upperCodeOne"></param>

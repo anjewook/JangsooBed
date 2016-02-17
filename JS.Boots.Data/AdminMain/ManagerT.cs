@@ -19,6 +19,11 @@ namespace JS.Boots.Data.AdminMain
         public long Rum { get; set; }
 
         /// <summary>  
+        /// 관리자코드
+        /// </summary> 
+        public long ManagerCode { get; set; }
+
+        /// <summary>  
         /// 관리자명
         /// </summary> 
         public string ManagerNm { get; set; }
@@ -47,6 +52,11 @@ namespace JS.Boots.Data.AdminMain
         /// 관리자ID
         /// </summary>
         public string ManagerID { get; set; }
+
+        /// <summary>
+        /// 관리자PassWord
+        /// </summary>
+        public string ManagerPw { get; set; }
 
         /// <summary>
         /// 관리자 사업자ID
@@ -109,6 +119,21 @@ namespace JS.Boots.Data.AdminMain
         public string RightRegi { get; set; }
 
         /// <summary>  
+        /// 관리자 이메일
+        /// </summary> 
+        public string ManagerEmail { get; set; }
+
+        /// <summary>  
+        /// 관리자 이메일1
+        /// </summary> 
+        public string ManagerEmail1 { get; set; }
+
+        /// <summary>  
+        /// 관리자 이메일2
+        /// </summary> 
+        public string ManagerEmail2 { get; set; }
+
+        /// <summary>  
         /// 사용여부
         /// </summary> 
         public string UseAt { get; set; }
@@ -158,5 +183,7 @@ namespace JS.Boots.Data.AdminMain
         /// </summary> 
         public string UpdusrId { get; set; }
 
+
+        public string Message { get; set; }
     }
 }

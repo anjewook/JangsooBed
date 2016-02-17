@@ -32,6 +32,15 @@ namespace JS.Boots.BizDac.Common
         }
 
         /// <summary>
+        /// base_codeT 테이블의 분류에 따른 코드를 List Up
+        /// </summary>
+        /// <returns></returns>
+        public IList<CmmnCodeT> SelectOptCodeList(CmmnCodeT cmdT)
+        {
+            return new CommonDac().SelectOptCodeList(cmdT);
+        }
+
+        /// <summary>
         /// 추가상위코드 공통코드 목록 One
         /// </summary>
         /// <param name="upperCodeOne"></param>

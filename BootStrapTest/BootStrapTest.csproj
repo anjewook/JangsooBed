@@ -1504,6 +1504,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Admin\Login.js" />
     <Content Include="Views\Admin\Main.js" />
+    <Content Include="Views\Admin\ManagerAuth.js" />
+    <Content Include="Views\Admin\_ManagerEdit.js" />
+    <Content Include="Views\Admin\_ManagerRegist.js" />
     <Content Include="Views\Member\Login.js" />
     <Content Include="Views\Menu\MenuMng.js" />
     <Content Include="Web.config" />
@@ -1567,6 +1570,10 @@
     <Content Include="Views\Board\Faq.cshtml" />
     <Content Include="Views\Delivery\DeliveryManage.cshtml" />
     <Content Include="Views\Delivery\DeliveryFee.cshtml" />
+    <Content Include="Views\Admin\_ManagerRegistPartial.cshtml" />
+    <Content Include="Views\Admin\ManagerAuth.cshtml" />
+    <Content Include="Views\Admin\_ManagerAuthPartial.cshtml" />
+    <Content Include="Views\Admin\_ManagerEditPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

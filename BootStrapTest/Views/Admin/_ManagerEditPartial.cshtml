@@ -1,0 +1,144 @@
+﻿@using JS.Boots.Data.SystemMng
+
+@using JS.Boots.BaseCode
+
+@using JS.Boots.Data.AdminMain
+
+
+<form class="navbar-form navbar-right" role="application" id="frmEdit" name="frmEdit" method="post" action="">
+    <input type="hidden" id="ManagerIDH" name="ManagerID" value="" />
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="left:0px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">관리자 수정</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="width:100%;">
+                        <table class="table table-striped table-hover ">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr id="trArea">
+                                    <td>이름</td>
+                                    <td><input type="text" class="form-control" placeholder="이름입력" id="ManagerNmE" name="ManagerNm" value="" style="height:28px" maxlength="20"></td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>직급</td>
+                                    <td>
+                                        <select class="form-control-pop" id="ManagerRankNmE" name="ManagerRankNm" style="width:150px;">
+                                            <option value="">선택</option>
+                                            @{
+                                                if (ViewBag.rankCodeList != null)
+                                                {
+                                                    foreach (CmmnCodeT cmmnCodeT in ViewBag.rankCodeList)
+                                                    {
+                                                        <option value="@cmmnCodeT.cdCode">@cmmnCodeT.cdName</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>부서</td>
+                                    <td>
+                                        <select class="form-control-pop" id="ManagerPostNmE" name="ManagerPostNm" style="width:150px;">
+                                            <option value="">선택</option>
+                                            @{
+                                                if (ViewBag.postCodeList != null)
+                                                {
+                                                    foreach (CmmnCodeT cmmnCodeT in ViewBag.postCodeList)
+                                                    {
+                                                        <option value="@cmmnCodeT.cdCode">@cmmnCodeT.cdName</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>아이디</td>
+                                    <td id="ManagerIDE"></td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>비밀번호</td>
+                                    <td><input type="password" class="form-control" id="ManagerPwE" name="ManagerPw" value="" style="height:28px"></td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>비밀번호 확인</td>
+                                    <td><input type="password" class="form-control" id="ManagerPwcE" name="ManagerPwc" value="" style="height:28px"></td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>전화번호</td>
+                                    <td>
+                                        <input type="hidden" id="ManagerTelE" name="ManagerTel" value="" />
+                                        <select class="form-control-pop" id="ManagerTel1E" name="ManagerTel1" style="width:70px;">
+                                            <option value="">선택</option>
+                                            @{
+                                                if (ViewBag.telCodeList != null)
+                                                {
+                                                    foreach (CmmnCodeT cmmnCodeT in ViewBag.telCodeList)
+                                                    {
+                                                        <option value="@cmmnCodeT.cdCode">@cmmnCodeT.cdName</option>
+                                                    }
+                                                }
+                                            }
+                                        </select> -
+                                        <input type="text" class="form-control" id="ManagerTel2E" name="ManagerTel2" value="" style="height: 28px; width: 100px;" maxlength="4"> -
+                                        <input type="text" class="form-control" id="ManagerTel3E" name="ManagerTel3" value="" style="height: 28px; width: 100px;" maxlength="4">
+                                    </td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>휴대폰번호</td>
+                                    <td>
+                                        <input type="hidden" id="ManagerHpE" name="ManagerHp" value="" />
+                                        <select class="form-control-pop" id="ManagerHp1E" name="ManagerHp1" style="width:70px;">
+                                            <option value="">선택</option>
+                                            @{
+                                                if (ViewBag.celCodeList != null)
+                                                {
+                                                    foreach (CmmnCodeT cmmnCodeT in ViewBag.celCodeList)
+                                                    {
+                                                        <option value="@cmmnCodeT.cdCode">@cmmnCodeT.cdName</option>
+                                                    }
+                                                }
+                                            }
+                                        </select> -
+                                        <input type="text" class="form-control" id="ManagerHp2E" name="ManagerHp2" value="" style="height: 28px; width: 100px;" maxlength="4"> -
+                                        <input type="text" class="form-control" id="ManagerHp3E" name="ManagerHp3" value="" style="height: 28px; width: 100px;" maxlength="4">
+                                    </td>
+                                </tr>
+                                <tr id="trArea">
+                                    <td>메일</td>
+                                    <td>
+                                        <input type="hidden" id="ManagerEmailE" name="ManagerEmail" value="" />
+                                        <input type="text" class="form-control" id="ManagerEmail1E" name="ManagerEmail1" value="" style="height: 28px; width: 80px;"> @@
+                                        <input type="text" class="form-control" id="ManagerEmail2E" name="ManagerEmail2" value="" style="height: 28px; width: 120px;">
+                                        <select class="form-control-pop" id="ManagerEmailcoE" name="ManagerEmailco" style="width:120px;">
+                                            <option value="">선택</option>
+                                            @{
+                                                if (ViewBag.mailCodeList != null)
+                                                {
+                                                    foreach (CmmnCodeT cmmnCodeT in ViewBag.mailCodeList)
+                                                    {
+                                                        <option value="@cmmnCodeT.cdCode">@cmmnCodeT.cdName</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnEdit">수정</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

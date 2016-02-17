@@ -63,6 +63,7 @@
     <Compile Include="Bbs\BbscttT.cs" />
     <Compile Include="Bbs\BbsT.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Common\CommonCodeT.cs" />
     <Compile Include="ContentsMng\TchnlgyStdrAtchmnflT.cs" />
     <Compile Include="ContentsMng\TchnlgyStdrSearchT.cs" />
     <Compile Include="ContentsMng\TchnlgyStdrT.cs" />
@@ -159,6 +160,7 @@
       <Name>JS.Boots</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
